@@ -1,0 +1,177 @@
+body {
+    margin: 0;
+    font-family: "Tahoma", Arial, sans-serif;
+    background: #efe3c5;
+    color: #2b1708;
+}
+
+/* الهيدر */
+.header {
+    background: linear-gradient(#2b1608, #4a2912);
+    color: #d6ad45;
+    padding: 20px 30px;
+    border-bottom: 3px solid #d6ad45;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 8px;
+    font-size: 16px;
+}
+
+
+/* الصفحة الرئيسية */
+.hero {
+    min-height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    background:
+    linear-gradient(
+    rgba(35,20,5,.75),
+    rgba(35,20,5,.75)
+    ),
+    url("https://images.unsplash.com/photo-1596040033229-a9821ebd058d");
+
+    background-size: cover;
+    background-position: center;
+}
+
+
+.hero h1 {
+    font-size: 60px;
+    color: #d6ad45;
+    text-shadow: 2px 2px 5px black;
+}
+
+.hero h2 {
+    color: #f5deb3;
+    font-size: 30px;
+}
+
+.hero p {
+    color: white;
+    font-size: 20px;
+}
+
+
+/* الأزرار */
+.btn {
+    display: inline-block;
+    background: #d6ad45;
+    color: #2b1608;
+    padding: 14px 30px;
+    border-radius: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-top: 20px;
+    transition: .3s;
+}
+
+.btn:hover {
+    background: #fff;
+}
+
+
+/* الأقسام */
+section {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+section h2 {
+    color: #4a2912;
+    font-size: 35px;
+}
+
+
+/* المنتجات */
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+}
+
+
+.card {
+    background: #fff8e8;
+    width: 230px;
+    padding: 25px;
+    border-radius: 5px;
+    border: 2px solid #d6ad45;
+
+    box-shadow:
+    0 10px 20px rgba(0,0,0,.15);
+}
+
+
+.card h3 {
+    color: #4a2912;
+}
+
+
+
+/* الفوتر */
+footer {
+    background: #2b1608;
+    color: #d6ad45;
+    text-align: center;
+    padding: 20px;
+}
+
+
+
+/* واتساب */
+.whatsapp {
+
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+
+    background: #128c45;
+    color: white;
+
+    padding: 15px 22px;
+
+    border-radius: 50px;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    box-shadow: 0 5px 15px #555;
+}
+
+
+
+/* للموبايل */
+
+@media(max-width:700px){
+
+.header {
+    flex-direction: column;
+}
+
+.hero h1 {
+    font-size: 42px;
+}
+
+.cards {
+    flex-direction: column;
+    align-items: center;
+}
+
+}
