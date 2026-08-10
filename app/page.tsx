@@ -8,7 +8,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 
 export default function Home() {
   return (
-    <>
+    <main>
       <Header />
       <Hero />
       <Categories />
@@ -16,6 +16,6 @@ export default function Home() {
       <Offers />
       <Footer />
       <WhatsAppButton />
-    </>
+    </main>
   );
 }

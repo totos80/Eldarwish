@@ -1,54 +1,51 @@
 import Link from "next/link";
-import { Gift, Truck, Percent } from "lucide-react";
+import { Gift, ArrowLeft, Sparkles } from "lucide-react";
 
 export default function Offers() {
   return (
-    <section className="bg-amber-700 py-20 text-white">
+    <section id="offers" className="offers-section">
       <div className="container">
-        <div className="mb-10 text-center">
-          <h2 className="text-4xl font-extrabold">عروض الافتتاح</h2>
-          <p className="mt-4 text-amber-100">
-            خصومات حصرية وهدايا مع أول طلب لفترة محدودة.
-          </p>
-        </div>
+        <div className="offer-main">
+          <div className="offer-decoration">✦</div>
 
-        <div className="grid gap-6 md:grid-cols-3">
-          <div className="rounded-2xl bg-white/10 p-8">
-            <Gift className="mb-4" size={42} />
-            <h3 className="text-2xl font-bold">هدية مجانية</h3>
-            <p className="mt-3 text-amber-100">
-              هدية مع الطلبات التي تتجاوز الحد الأدنى للعرض.
+          <div className="offer-content">
+            <span className="offer-kicker">
+              <Sparkles size={16} />
+              لفترة محدودة
+            </span>
+
+            <h2>عروض الافتتاح</h2>
+
+            <p>
+              خصومات حصرية وهدايا مع أول طلباتك من عطارة الدرويش.
             </p>
+
+            <Link href="/products" className="offer-btn">
+              اكتشف العروض
+              <ArrowLeft size={18} />
+            </Link>
           </div>
 
-          <div className="rounded-2xl bg-white/10 p-8">
-            <Percent className="mb-4" size={42} />
-            <h3 className="text-2xl font-bold">خصومات أسبوعية</h3>
-            <p className="mt-3 text-amber-100">
-              عروض متجددة على مجموعة مختارة من المنتجات.
-            </p>
-          </div>
-
-          <div className="rounded-2xl bg-white/10 p-8">
-            <Truck className="mb-4" size={42} />
-            <h3 className="text-2xl font-bold">توصيل سريع</h3>
-            <p className="mt-3 text-amber-100">
-              خدمة توصيل داخل السويس بأسرع وقت ممكن.
-            </p>
+          <div className="offer-gift">
+            <Gift size={105} strokeWidth={1.2} />
           </div>
         </div>
 
-        <div className="mt-12 text-center">
-          <Link
-            href="/offers"
-            className="inline-block rounded-xl bg-white px-8 py-4 font-bold text-amber-700 hover:bg-amber-50"
-          >
-            شاهد جميع العروض
-          </Link>
+        <div className="offer-features">
+          <div>
+            <strong>🎁 هدية مجانية</strong>
+            <span>مع الطلبات التي تتجاوز الحد الأدنى للعرض</span>
+          </div>
+          <div>
+            <strong>🚚 توصيل سريع</strong>
+            <span>خدمة توصيل داخل السويس</span>
+          </div>
+          <div>
+            <strong>📱 اطلب بسهولة</strong>
+            <span>تواصل معنا مباشرة عبر واتساب</span>
+          </div>
         </div>
       </div>
     </section>
   );
 }
-
-

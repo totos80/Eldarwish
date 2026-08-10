@@ -1,45 +1,58 @@
 import Link from "next/link";
 import {
   Leaf,
-  Flower2,
+  Sparkles,
   Coffee,
   Wheat,
-  Sparkles,
-  Package
+  Droplets,
+  Gift,
 } from "lucide-react";
 
 const categories = [
-  { title: "الأعشاب", icon: Leaf, href: "/categories/herbs" },
-  { title: "التوابل", icon: Flower2, href: "/categories/spices" },
-  { title: "البن والقهوة", icon: Coffee, href: "/categories/coffee" },
-  { title: "الحبوب والبذور", icon: Wheat, href: "/categories/seeds" },
-  { title: "الزيوت الطبيعية", icon: Sparkles, href: "/categories/oils" },
-  { title: "العروض", icon: Package, href: "/offers" },
+  { name: "الأعشاب", icon: Leaf, text: "أعشاب مختارة بعناية", color: "green" },
+  { name: "التوابل", icon: Sparkles, text: "نكهات غنية وأصيلة", color: "orange" },
+  { name: "البن والقهوة", icon: Coffee, text: "قهوة بطعم مميز", color: "brown" },
+  { name: "الحبوب والبذور", icon: Wheat, text: "اختيارات متنوعة", color: "gold" },
+  { name: "الزيوت الطبيعية", icon: Droplets, text: "منتجات طبيعية", color: "blue" },
+  { name: "العروض", icon: Gift, text: "اختيارات بأسعار مميزة", color: "red" },
 ];
 
 export default function Categories() {
   return (
-    <section className="container py-20">
-      <h2 className="section-title text-center">تسوق حسب التصنيف</h2>
+    <section id="categories" className="section categories-section">
+      <div className="container">
+        <div className="section-heading">
+          <div>
+            <span className="section-kicker">اكتشف تشكيلتنا</span>
+            <h2>تسوّق حسب التصنيف</h2>
+          </div>
+          <Link href="/products" className="section-link">
+            عرض كل المنتجات <span>←</span>
+          </Link>
+        </div>
 
-      <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-6">
-        {categories.map((item) => {
-          const Icon = item.icon;
-
-          return (
-            <Link
-              key={item.title}
-              href={item.href}
-              className="card flex flex-col items-center gap-4 p-8 hover:-translate-y-1"
-            >
-              <Icon size={40} className="text-amber-700" />
-              <span className="font-bold">{item.title}</span>
-            </Link>
-          );
-        })}
+        <div className="categories-grid">
+          {categories.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                href={item.name === "العروض" ? "#offers" : "/products"}
+                className="category-card"
+                key={item.name}
+              >
+                <div className={`category-icon ${item.color}`}>
+                  <Icon size={28} strokeWidth={1.8} />
+                </div>
+                <div>
+                  <h3>{item.name}</h3>
+                  <p>{item.text}</p>
+                </div>
+                <span className="category-arrow">←</span>
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
 }
-
-
