@@ -8,6 +8,7 @@ import {
   Shield,
   Pencil,
   Trash2,
+  Users,
 } from "lucide-react";
 
 const users = [
@@ -196,4 +197,55 @@ export default function UsersPage() {
 
                     <div className="flex justify-center gap-2">
 
-                      <button className="rounded-lg bg-green-100 p-2 text-green-700
+                      <button type="button" className="rounded-lg bg-green-100 p-2 text-green-700 transition hover:bg-green-200">
+                        <Pencil size={18} />
+                      </button>
+
+                      <button
+                        type="button"
+                        className="rounded-lg bg-red-100 p-2 text-red-700 transition hover:bg-red-200"
+                      >
+                        <Trash2 size={18} />
+                      </button>
+
+                    </div>
+
+                  </td>
+
+                </tr>
+
+              ))}
+
+              {users.length === 0 && (
+                <tr>
+                  <td
+                    colSpan={5}
+                    className="py-20 text-center"
+                  >
+                    <Users
+                      size={48}
+                      className="mx-auto mb-4 text-stone-300"
+                    />
+
+                    <h2 className="text-xl font-bold text-stone-700">
+                      لا يوجد مستخدمون
+                    </h2>
+
+                    <p className="mt-2 text-stone-500">
+                      لا توجد بيانات مستخدمين حاليًا.
+                    </p>
+                  </td>
+                </tr>
+              )}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </main>
+  );
+}
