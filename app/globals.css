@@ -5394,3 +5394,78 @@ body{
     gap:7px !important;
   }
 }
+
+/* ELDARWISH FINAL VISUAL OVERRIDE */
+.dw-hero{
+  background:linear-gradient(135deg,#fffdf8 0%,#f2eadc 100%) !important;
+  padding:80px 0 90px !important;
+}
+.dw-hero-inner{
+  max-width:1180px !important;
+  margin:auto !important;
+}
+.dw-hero h1{
+  color:#193c2a !important;
+  font-weight:950 !important;
+}
+.dw-hero h1 span{
+  color:#b88735 !important;
+}
+.dw-hero-copy > p{
+  color:#55534d !important;
+}
+.dw-hero-primary{
+  background:#31583f !important;
+}
+.dw-hero-secondary{
+  border:1px solid #31583f !important;
+  color:#31583f !important;
+}
+.dw-hero-frame{
+  background:#fffdf8 !important;
+  border-color:#c9a85b !important;
+}
+.dw-hero-logo img{
+  max-width:330px !important;
+}
+.site-footer{
+  background:#193c2a !important;
+  color:#fff !important;
+}
+.site-footer-main{
+  padding:70px 0 45px !important;
+}
+.site-footer-grid{
+  grid-template-columns:1.35fr 1fr 1fr 1.15fr !important;
+  gap:45px !important;
+}
+.site-footer-column h3{
+  color:#e4c982 !important;
+}
+.site-footer-column a,
+.site-footer-contact a,
+.footer-contact-item{
+  color:rgba(255,255,255,.75) !important;
+}
+.site-footer-brand p{
+  color:rgba(255,255,255,.68) !important;
+}
+.site-footer-bottom{
+  border-top:1px solid rgba(255,255,255,.12) !important;
+}
+@media(max-width:900px){
+  .dw-hero-inner{
+    grid-template-columns:1fr !important;
+  }
+  .site-footer-grid{
+    grid-template-columns:1fr 1fr !important;
+  }
+}
+@media(max-width:600px){
+  .dw-hero{
+    padding:55px 0 65px !important;
+  }
+  .site-footer-grid{
+    grid-template-columns:1fr !important;
+  }
+}
