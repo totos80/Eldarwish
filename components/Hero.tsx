@@ -1,32 +1,33 @@
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Leaf, ShieldCheck, Truck, Sparkles } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="hero">
-      <div className="hero-pattern" />
+    <section className="dw-hero" dir="rtl">
+      <div className="dw-hero-glow dw-hero-glow-one" />
+      <div className="dw-hero-glow dw-hero-glow-two" />
 
-      <div className="container hero-grid">
-        <div className="hero-content">
-          <span className="eyebrow">
-            <span>✦</span>
-            عطارة الدرويش • السويس
-          </span>
+      <div className="container dw-hero-inner">
+        <div className="dw-hero-copy">
+          <div className="dw-hero-badge">
+            <Leaf size={16} />
+            <span>عطارة الدرويش • السويس</span>
+          </div>
 
           <h1>
-            أصالة تُرى...
+            طعم الأصالة
             <br />
-            <span>وجودة تُذاق</span>
+            <span>يبدأ من هنا.</span>
           </h1>
 
-          <p className="hero-text">
-            عالم من الأعشاب والتوابل والبهارات والبذور والزيوت الطبيعية،
-            مختارة بعناية لتصل إليك كما نحبها نحن.
+          <p>
+            أعشاب وتوابل وبهارات وبذور وقهوة وزيوت طبيعية،
+            مختارة بعناية لتصل إليك بجودة تثق بها.
           </p>
 
-          <div className="hero-buttons">
-            <Link href="/products" className="primary-btn">
-              تصفح المنتجات
+          <div className="dw-hero-actions">
+            <Link href="/products" className="dw-hero-primary">
+              اكتشف المنتجات
               <ArrowLeft size={19} />
             </Link>
 
@@ -34,42 +35,56 @@ export default function Hero() {
               href="https://wa.me/201011193720"
               target="_blank"
               rel="noreferrer"
-              className="outline-btn"
+              className="dw-hero-secondary"
             >
               اطلب عبر واتساب
             </a>
           </div>
 
-          <div className="hero-benefits">
-            <div>✓ منتجات مختارة</div>
-            <div>✓ توصيل داخل السويس</div>
-            <div>✓ جودة نثق بها</div>
+          <div className="dw-hero-trust">
+            <div>
+              <ShieldCheck size={19} />
+              <span>اختيار بعناية</span>
+            </div>
+            <div>
+              <Truck size={19} />
+              <span>توصيل داخل السويس</span>
+            </div>
+            <div>
+              <Sparkles size={19} />
+              <span>جودة نثق بها</span>
+            </div>
           </div>
         </div>
 
-        <div className="hero-visual">
-          <div className="hero-image-card">
-            <img
-              src="/logo.png"
-              alt="عطارة الدرويش"
-            />
-            <div className="hero-image-overlay">
-              <span>مختارات الدرويش</span>
-              <strong>طبيعة • جودة • أصالة</strong>
+        <div className="dw-hero-art">
+          <div className="dw-hero-frame">
+            <div className="dw-hero-frame-top">
+              <span>ELDARWISH</span>
+              <span>EST. 2026</span>
+            </div>
+
+            <div className="dw-hero-logo">
+              <img src="/logo.png" alt="عطارة الدرويش" />
+            </div>
+
+            <div className="dw-hero-frame-bottom">
+              <span>أعشاب • توابل • قهوة</span>
+              <span>🌿</span>
             </div>
           </div>
 
-          <div className="floating-card floating-top">
+          <div className="dw-floating dw-floating-top">
             <span>🌿</span>
             <div>
-              <strong>جودة طبيعية</strong>
-              <small>اختيار بعناية</small>
+              <strong>منتجات طبيعية</strong>
+              <small>مختارة بعناية</small>
             </div>
           </div>
 
-          <div className="floating-card floating-bottom">
+          <div className="dw-floating dw-floating-bottom">
             <strong>200+</strong>
-            <small>منتج متنوع</small>
+            <span>منتج متنوع</span>
           </div>
         </div>
       </div>
