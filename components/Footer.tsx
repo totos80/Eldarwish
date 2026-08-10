@@ -43,9 +43,9 @@ export default function Footer() {
               <Phone size={17} />
               01011193720
             </a>
-            <a href="mailto:info@eldarwish.co">
+            <a href="mailto:contact@eldarwish.co">
               <Mail size={17} />
-              info@eldarwish.co
+              contact@eldarwish.co
             </a>
             <span>
               <MapPin size={17} />

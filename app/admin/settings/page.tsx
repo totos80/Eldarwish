@@ -75,7 +75,7 @@ export default function AdminSettingsPage() {
                 </label>
 
                 <input
-                  defaultValue="info@eldarwish.co"
+                  defaultValue="contact@eldarwish.co"
                   className="w-full rounded-xl border p-4 outline-none"
                 />
 

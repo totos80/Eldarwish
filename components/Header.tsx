@@ -14,8 +14,8 @@ import {
 const links = [
   { label: "الرئيسية", href: "/" },
   { label: "المنتجات", href: "/products" },
-  { label: "التصنيفات", href: "#categories" },
-  { label: "العروض", href: "#offers" },
+  { label: "التصنيفات", href: "/categories" },
+  { label: "العروض", href: "/offers" },
   { label: "من نحن", href: "/about" },
   { label: "تواصل معنا", href: "/contact" },
 ];
@@ -60,34 +60,56 @@ export default function Header() {
           </nav>
 
           <div className="header-actions">
-            <a href="tel:01011193720" className="phone-btn">
+
+            <a
+              href="tel:01011193720"
+              className="phone-btn"
+              aria-label="الاتصال بعطارة الدرويش"
+            >
               <Phone size={18} />
               <span>01011193720</span>
             </a>
 
-            <button className="icon-btn" aria-label="بحث">
+            <Link
+              href="/products"
+              className="icon-btn"
+              aria-label="البحث عن المنتجات"
+            >
               <Search size={21} />
-            </button>
+            </Link>
 
-            <Link href="/cart" className="cart-btn" aria-label="السلة">
+            <Link
+              href="/cart"
+              className="cart-btn"
+              aria-label="السلة"
+            >
               <ShoppingBag size={21} />
             </Link>
+
           </div>
         </div>
       </header>
 
       {open && (
-        <div className="mobile-overlay" onClick={() => setOpen(false)}>
+        <div
+          className="mobile-overlay"
+          onClick={() => setOpen(false)}
+        >
           <aside
             className="mobile-drawer"
             onClick={(e) => e.stopPropagation()}
           >
+
             <div className="drawer-head">
               <div className="drawer-brand">
                 <span>🌿</span>
                 <strong>عطارة الدرويش</strong>
               </div>
-              <button onClick={() => setOpen(false)}>
+
+              <button
+                onClick={() => setOpen(false)}
+                aria-label="إغلاق القائمة"
+              >
                 <X size={25} />
               </button>
             </div>
@@ -105,7 +127,10 @@ export default function Header() {
               ))}
             </div>
 
-            <a href="tel:01011193720" className="drawer-phone">
+            <a
+              href="tel:01011193720"
+              className="drawer-phone"
+            >
               <Phone size={19} />
               اتصل بنا: 01011193720
             </a>
@@ -118,6 +143,7 @@ export default function Header() {
             >
               اطلب عبر واتساب
             </a>
+
           </aside>
         </div>
       )}
