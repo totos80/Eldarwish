@@ -182,3 +182,30 @@ export default function ReportsPage() {
                 "تم إضافة منتج جديد.",
                 "تم استلام طلب جديد.",
                 "تم تحديث الأسعار",
+                "تم إضافة عرض جديد.",
+                "تم تحديث بيانات أحد المنتجات.",
+                "تم استلام طلب جديد عبر واتساب.",
+              ].map((activity, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-4 rounded-xl bg-stone-50 p-4"
+                >
+                  <div className="h-3 w-3 rounded-full bg-amber-600" />
+
+                  <span className="text-stone-700">
+                    {activity}
+                  </span>
+                </div>
+              ))}
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+  );
+}
