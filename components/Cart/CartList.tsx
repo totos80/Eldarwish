@@ -2,7 +2,7 @@
 
 "use client";
 
-import CartItem, { CartItemData } from "components/Cart/CartItem";
+import CartItem, { CartItemData } from "@/components/Cart/CartItem";
 
 interface CartListProps {
   items: CartItemData[];

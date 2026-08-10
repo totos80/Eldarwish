@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { Package, Plus, Pencil, Trash2, Star } from "lucide-react";
