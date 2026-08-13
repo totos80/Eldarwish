@@ -6,7 +6,6 @@ import FreshGrindingSection from "@/components/FreshGrindingSection";
 import Offers from "@/components/Offers";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import BackgroundMusic from "@/components/BackgroundMusic";
 
 export default function Home() {
   return (
@@ -19,7 +18,6 @@ export default function Home() {
       <Offers />
       <Footer />
       <WhatsAppButton />
-      <BackgroundMusic />
     </>
   );
 }

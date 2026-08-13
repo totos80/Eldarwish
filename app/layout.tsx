@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Providers } from "@/components/Providers";
+import BackgroundMusic from "@/components/BackgroundMusic";
 
 export const metadata = {
   title: "عطارة الدرويش",
@@ -15,6 +16,7 @@ export default function RootLayout({
     <html lang="ar" dir="rtl">
       <body className="antialiased">
         <Providers>
+          <BackgroundMusic />
           {children}
         </Providers>
       </body>
