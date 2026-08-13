@@ -1,21 +1,25 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import StoreFeatures from "@/components/StoreFeatures";
 import Categories from "@/components/Categories";
-import FeaturedProducts from "@/components/FeaturedProducts";
+import FreshGrindingSection from "@/components/FreshGrindingSection";
 import Offers from "@/components/Offers";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import BackgroundMusic from "@/components/BackgroundMusic";
 
 export default function Home() {
   return (
-    <main>
+    <>
       <Header />
       <Hero />
+      <StoreFeatures />
       <Categories />
-      <FeaturedProducts />
+      <FreshGrindingSection />
       <Offers />
       <Footer />
       <WhatsAppButton />
-    </main>
+      <BackgroundMusic />
+    </>
   );
 }

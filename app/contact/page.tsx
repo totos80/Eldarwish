@@ -56,7 +56,7 @@ return(
 <Mail className="text-amber-700"/>
 <div>
 <h3 className="font-bold">البريد الإلكتروني</h3>
-<p>contact@eldarwish.co</p>
+<p>info@eldarwish.co</p>
 </div>
 </div>
 </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { CartItem } from "@/context/CartContext";
+import { CartItem } from "@/context/CardContext";
 
 const STORAGE_KEY = "eldarwish-cart";
 

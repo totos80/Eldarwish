@@ -1,5 +1,5 @@
 import "./globals.css";
-import Providers from "./providers";
+import { Providers } from "@/components/Providers";
 
 export const metadata = {
   title: "عطارة الدرويش",
@@ -13,8 +13,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ar" dir="rtl">
-      <body>
-        <Providers>{children}</Providers>
+      <body className="antialiased">
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );

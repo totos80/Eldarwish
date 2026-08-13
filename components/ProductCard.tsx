@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ArrowLeft, MessageCircle, ShoppingBag } from "lucide-react";
 import { Product } from "@/types/product";
 
 type Props = {
@@ -8,67 +7,56 @@ type Props = {
 
 export default function ProductCard({ product }: Props) {
   return (
-    <article className="premium-product-card">
-      <Link
-        href={`/products/${product.slug}`}
-        className="premium-product-image"
-        aria-label={`عرض ${product.name}`}
-      >
-        <img src={product.image} alt={product.name} />
+    <article className="card overflow-hidden transition hover:-translate-y-1">
+      <img
+        src={product.image}
+        alt={product.name}
+        className="h-64 w-full object-cover"
+      />
 
-        <span className="premium-product-badge">
+      <div className="p-5">
+        <span className="rounded-full bg-amber-100 px-3 py-1 text-xs text-amber-700">
           {product.category}
         </span>
 
-        <span className="premium-product-zoom">
-          <ShoppingBag size={18} />
-        </span>
-      </Link>
+        <h3 className="mt-4 text-xl font-bold">
+          {product.name}
+        </h3>
 
-      <div className="premium-product-info">
-        <span className="premium-product-brand">
-          عطارة الدرويش
-        </span>
+        <p className="mt-3 line-clamp-2 text-sm text-stone-600">
+          {product.description}
+        </p>
 
-        <Link href={`/products/${product.slug}`}>
-          <h3>{product.name}</h3>
-        </Link>
+        <div className="mt-5 flex items-center justify-between">
+          <strong className="text-2xl text-amber-700">
+            {product.price} ج.م
+          </strong>
 
-        <p>{product.description}</p>
-
-        <div className="premium-product-meta">
-          <div className="premium-price">
-            <strong>{product.price}</strong>
-            <span>ج.م</span>
-          </div>
-
-          <span className="premium-unit">
+          <span className="text-sm text-stone-500">
             {product.unit}
           </span>
         </div>
 
-        <div className="premium-product-actions">
+        <div className="mt-6 flex gap-3">
           <Link
             href={`/products/${product.slug}`}
-            className="premium-details-btn"
+            className="btn-primary flex-1 text-center"
           >
-            <span>عرض التفاصيل</span>
-            <ArrowLeft size={17} />
+            التفاصيل
           </Link>
 
           <a
-            href={`https://wa.me/201011193720?text=${encodeURIComponent(
-              `مرحبًا، أرغب في طلب ${product.name} من عطارة الدرويش.`
-            )}`}
+            href={`https://wa.me/201011193720?text=أرغب في طلب ${product.name}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="premium-whatsapp-btn"
-            aria-label={`طلب ${product.name} عبر واتساب`}
+            className="btn-secondary"
           >
-            <MessageCircle size={19} />
+            واتساب
           </a>
         </div>
       </div>
     </article>
   );
 }
+
+

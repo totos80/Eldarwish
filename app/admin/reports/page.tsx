@@ -41,171 +41,59 @@ const cards = [
 export default function ReportsPage() {
   return (
     <main className="min-h-screen bg-stone-100 p-8">
-
       <div className="mx-auto max-w-7xl">
-
         <div className="mb-10">
-
-          <h1 className="text-4xl font-extrabold">
-
-            التقارير والإحصائيات
-
-          </h1>
-
-          <p className="mt-2 text-stone-500">
-
-            ملخص أداء المتجر.
-
-          </p>
-
+          <h1 className="text-4xl font-extrabold">التقارير والإحصائيات</h1>
+          <p className="mt-2 text-stone-500">ملخص أداء المتجر.</p>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-
           {cards.map((card) => {
-
             const Icon = card.icon;
-
             return (
-
-              <div
-                key={card.title}
-                className="rounded-3xl bg-white p-8 shadow-sm"
-              >
-
+              <div key={card.title} className="rounded-3xl bg-white p-8 shadow-sm">
                 <div className="mb-6 flex items-center justify-between">
-
-                  <div
-                    className={`flex h-16 w-16 items-center justify-center rounded-2xl ${card.color}`}
-                  >
-
+                  <div className={`flex h-16 w-16 items-center justify-center rounded-2xl ${card.color}`}>
                     <Icon size={30} />
-
                   </div>
-
-                  <div
-                    className={`flex items-center gap-1 rounded-full px-3 py-1 text-sm font-bold ${
-                      card.trend.startsWith("+")
-                        ? "bg-green-100 text-green-700"
-                        : "bg-red-100 text-red-700"
-                    }`}
-                  >
-
-                    {card.trend.startsWith("+") ? (
-                      <TrendingUp size={16} />
-                    ) : (
-                      <TrendingDown size={16} />
-                    )}
-
+                  <div className={`flex items-center gap-1 rounded-full px-3 py-1 text-sm font-bold ${card.trend.startsWith("+") ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
+                    {card.trend.startsWith("+") ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
                     {card.trend}
-
                   </div>
-
                 </div>
-
-                <p className="text-stone-500">
-
-                  {card.title}
-
-                </p>
-
-                <h2 className="mt-3 text-3xl font-extrabold">
-
-                  {card.value}
-
-                </h2>
-
+                <p className="text-stone-500">{card.title}</p>
+                <h2 className="mt-3 text-3xl font-extrabold">{card.value}</h2>
               </div>
-
             );
-
           })}
-
         </div>
 
         <div className="mt-10 grid gap-8 lg:grid-cols-2">
-
           <div className="rounded-3xl bg-white p-8 shadow-sm">
-
-            <h2 className="mb-6 text-2xl font-bold">
-
-              أكثر المنتجات مبيعًا
-
-            </h2>
-
+            <h2 className="mb-6 text-2xl font-bold">أكثر المنتجات مبيعًا</h2>
             <div className="space-y-5">
-
-              {[
-                "قرفة عيدان",
-                "حبة البركة",
-                "كركم",
-                "هيل حب",
-                "عسل سدر",
-              ].map((item, index) => (
-
-                <div
-                  key={item}
-                  className="flex items-center justify-between rounded-xl border p-4"
-                >
-
-                  <span className="font-bold">
-
-                    {index + 1}. {item}
-
-                  </span>
-
-                  <span className="text-amber-700 font-bold">
-
-                    {120 - index * 15} مبيعة
-
-                  </span>
-
+              {["قرفة عيدان", "حبة البركة", "كركم", "هيل حب", "عسل سدر"].map((item, index) => (
+                <div key={item} className="flex items-center justify-between rounded-xl border p-4">
+                  <span className="font-bold">{index + 1}. {item}</span>
+                  <span className="text-amber-700 font-bold">{120 - index * 15} مبيعة</span>
                 </div>
-
               ))}
-
             </div>
-
           </div>
 
           <div className="rounded-3xl bg-white p-8 shadow-sm">
-
-            <h2 className="mb-6 text-2xl font-bold">
-
-              آخر النشاط
-
-            </h2>
-
+            <h2 className="mb-6 text-2xl font-bold">آخر النشاط</h2>
             <div className="space-y-4">
-
-              {[
-                "تم إضافة منتج جديد.",
-                "تم استلام طلب جديد.",
-                "تم تحديث الأسعار",
-                "تم إضافة عرض جديد.",
-                "تم تحديث بيانات أحد المنتجات.",
-                "تم استلام طلب جديد عبر واتساب.",
-              ].map((activity, index) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-4 rounded-xl bg-stone-50 p-4"
-                >
-                  <div className="h-3 w-3 rounded-full bg-amber-600" />
-
-                  <span className="text-stone-700">
-                    {activity}
-                  </span>
+              {["تم إضافة منتج جديد.", "تم استلام طلب جديد.", "تم تحديث الأسعار"].map((activity, index) => (
+                <div key={index} className="flex items-center gap-3 border-b pb-3 last:border-0">
+                  <div className="h-2 w-2 rounded-full bg-amber-500" />
+                  <p className="text-stone-600">{activity}</p>
                 </div>
               ))}
-
             </div>
-
           </div>
-
         </div>
-
       </div>
-
     </main>
   );
 }

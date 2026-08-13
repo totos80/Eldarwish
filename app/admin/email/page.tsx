@@ -86,7 +86,7 @@ export default function EmailSettingsPage() {
                 </label>
 
                 <input
-                  placeholder="contact@eldarwish.co"
+                  placeholder="info@eldarwish.co"
                   className="w-full rounded-xl border p-4 outline-none focus:border-amber-700"
                 />
 
@@ -151,7 +151,7 @@ export default function EmailSettingsPage() {
                 </label>
 
                 <input
-                  defaultValue="contact@eldarwish.co"
+                  defaultValue="info@eldarwish.co"
                   className="w-full rounded-xl border p-4"
                 />
 

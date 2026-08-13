@@ -1,126 +1,30 @@
+"use client";
+
 import Link from "next/link";
-import { MapPin, Phone, Mail, MessageCircle, ArrowLeft, Leaf } from "lucide-react";
+import { Instagram, MapPin, MessageCircle, Phone } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="site-footer" dir="rtl">
-      <div className="site-footer-main">
-        <div className="container site-footer-grid">
-
-          <div className="site-footer-brand">
-            <div className="site-footer-brand-title">
-              <span className="site-footer-leaf">
-                <Leaf size={25} />
-              </span>
-              <div>
-                <h2>عطارة الدرويش</h2>
-                <span>أصالة • جودة • ثقة</span>
-              </div>
-            </div>
-
-            <p>
-              أجود الأعشاب والتوابل والبهارات والبذور والزيوت الطبيعية،
-              مختارة بعناية لتصلك بالجودة التي نثق بها.
-            </p>
-
-            <a
-              href="https://wa.me/201011193720"
-              target="_blank"
-              rel="noreferrer"
-              className="site-footer-whatsapp"
-            >
-              <MessageCircle size={20} />
-              اطلب الآن عبر واتساب
-              <ArrowLeft size={18} />
-            </a>
+    <footer className="site-footer">
+      <div className="footer-grid">
+        <div className="footer-brand">
+          <Link href="/" className="brand footer-logo">
+            <div className="brand-copy"><strong>عطارة الدرويش</strong><span>أصالة • جودة • ثقة</span></div>
+            <div className="brand-mark"><span>🌿</span></div>
+          </Link>
+          <div className="socials">
+            <a href="https://www.instagram.com/" aria-label="Instagram"><Instagram size={17} /></a>
+            <a href="https://wa.me/201011193720" aria-label="WhatsApp"><MessageCircle size={17} /></a>
+            <a href="tel:01011193720" aria-label="Phone"><Phone size={17} /></a>
+            <a href="https://www.tiktok.com/@eldarwishelattar" aria-label="TikTok">♪</a>
           </div>
-
-          <div className="site-footer-column">
-            <h3>روابط سريعة</h3>
-
-            <Link href="/">
-              الرئيسية
-              <ArrowLeft size={16} />
-            </Link>
-
-            <Link href="/products">
-              المنتجات
-              <ArrowLeft size={16} />
-            </Link>
-
-            <Link href="/about">
-              من نحن
-              <ArrowLeft size={16} />
-            </Link>
-
-            <Link href="/contact">
-              تواصل معنا
-              <ArrowLeft size={16} />
-            </Link>
-          </div>
-
-          <div className="site-footer-column">
-            <h3>أقسام المنتجات</h3>
-
-            <Link href="/products">
-              الأعشاب
-              <ArrowLeft size={16} />
-            </Link>
-
-            <Link href="/products">
-              التوابل والبهارات
-              <ArrowLeft size={16} />
-            </Link>
-
-            <Link href="/products">
-              البذور
-              <ArrowLeft size={16} />
-            </Link>
-
-            <Link href="/products">
-              القهوة والمشروبات
-              <ArrowLeft size={16} />
-            </Link>
-          </div>
-
-          <div className="site-footer-column site-footer-contact">
-            <h3>تواصل معنا</h3>
-
-            <a href="tel:01011193720">
-              <span className="footer-contact-icon">
-                <Phone size={18} />
-              </span>
-              <span>01011193720</span>
-            </a>
-
-            <a href="mailto:contact@eldarwish.co">
-              <span className="footer-contact-icon">
-                <Mail size={18} />
-              </span>
-              <span>contact@eldarwish.co</span>
-            </a>
-
-            <div className="footer-contact-item">
-              <span className="footer-contact-icon">
-                <MapPin size={18} />
-              </span>
-              <span>السويس — مصر</span>
-            </div>
-
-            <div className="footer-location-note">
-              🌿 خدمة توصيل داخل السويس
-            </div>
-          </div>
-
         </div>
-      </div>
 
-      <div className="site-footer-bottom">
-        <div className="container">
-          <span>© 2026 عطارة الدرويش — جميع الحقوق محفوظة.</span>
-          <span>صُنع بحب في السويس 🌿</span>
-        </div>
+        <div><h4>خدماتنا</h4><ul><li>توصيل داخل السويس</li><li>جودة مضمونة</li><li>منتجات طبيعية 100%</li><li>دعم العملاء</li></ul></div>
+        <div><h4>روابط سريعة</h4><ul><li><Link href="/products">المنتجات</Link></li><li><Link href="/categories">التصنيفات</Link></li><li><Link href="/offers">العروض</Link></li><li><Link href="/about">من نحن</Link></li></ul></div>
+        <div><h4>تواصل معنا</h4><ul><li><a href="tel:01011193720"><Phone size={16}/> 01011193720</a></li><li><a href="https://wa.me/201011193720"><MessageCircle size={16}/> واتساب</a></li><li><span><MapPin size={16}/> السويس - مصر</span></li></ul></div>
       </div>
+      <div className="copyright">جميع الحقوق محفوظة © 2025 عطارة الدرويش</div>
     </footer>
   );
 }

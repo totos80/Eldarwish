@@ -1,49 +1,20 @@
+"use client";
+
 import Link from "next/link";
-import { Gift, ArrowLeft, Sparkles } from "lucide-react";
 
 export default function Offers() {
   return (
-    <section id="offers" className="offers-section">
-      <div className="container">
-        <div className="offer-main">
-          <div className="offer-decoration">✦</div>
-
-          <div className="offer-content">
-            <span className="offer-kicker">
-              <Sparkles size={16} />
-              لفترة محدودة
-            </span>
-
-            <h2>عروض الافتتاح</h2>
-
-            <p>
-              خصومات حصرية وهدايا مع أول طلباتك من عطارة الدرويش.
-            </p>
-
-            <Link href="/products" className="offer-btn">
-              اكتشف العروض
-              <ArrowLeft size={18} />
-            </Link>
-          </div>
-
-          <div className="offer-gift">
-            <Gift size={105} strokeWidth={1.2} />
-          </div>
+    <section className="offers-section">
+      <div className="offer-card">
+        <div className="offer-pattern" />
+        <div className="offer-copy">
+          <h2>عروض حصرية</h2>
+          <p>استفد من أفضل العروض والخصومات لفترة محدودة</p>
+          <Link href="/offers">اكتشف العروض</Link>
         </div>
-
-        <div className="offer-features">
-          <div>
-            <strong>🎁 هدية مجانية</strong>
-            <span>مع الطلبات التي تتجاوز الحد الأدنى للعرض</span>
-          </div>
-          <div>
-            <strong>🚚 توصيل سريع</strong>
-            <span>خدمة توصيل داخل السويس</span>
-          </div>
-          <div>
-            <strong>📱 اطلب بسهولة</strong>
-            <span>تواصل معنا مباشرة عبر واتساب</span>
-          </div>
+        <div className="offer-art">
+          <div className="gift-box"><span /> <b>🎁</b></div>
+          <div className="offer-bow">⌁</div>
         </div>
       </div>
     </section>

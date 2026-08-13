@@ -1,4 +1,4 @@
-import { CartItem } from "@/context/CartContext";
+import { CartItem } from "@/context/CardContext";
 
 interface CustomerInfo {
   name?: string;
