@@ -1,4 +1,4 @@
-    import { Product } from "@/types/product";
+      import { Product } from "@/types/product";
 import { getProductImage } from "@/lib/productImages";
 
 const makeSlug = (id: number) => `product-${id}`;
@@ -130,4 +130,38 @@ export const products: Product[] = [
   makeProduct(102, "نشا", 40, "الأغذية"),
   makeProduct(103, "كريمة باتسيرى", 240, "الحلويات"),
   makeProduct(104, "دقيق جولد الجمل", 38, "الحبوب"),
-  makeProduct(105, "زيت زيتون ا
+  makeProduct(105, "زيت زيتون ادمز 8 لتر", 480, "الزيوت", "8 لتر"),
+  makeProduct(106, "مكرونة اسباجتى البركة", 26, "الأغذية"),
+  makeProduct(107, "مكرونة قلم البركة", 26, "الأغذية"),
+  makeProduct(108, "مكرونة مرمرية البركة", 26, "الأغذية"),
+  makeProduct(109, "سلامكه قرن", 90, "العطارة"),
+  makeProduct(110, "بن فاتح محوج", 900, "القهوة"),
+  makeProduct(111, "بن فاتح ساده", 800, "القهوة"),
+  makeProduct(112, "ارز بلدي", 25, "الحبوب"),
+  makeProduct(113, "عدس تركي", 60, "الحبوب"),
+  makeProduct(114, "فاصوليا", 70, "الحبوب"),
+  makeProduct(115, "لوبيا", 60, "الحبوب"),
+  makeProduct(116, "فول", 50, "الحبوب"),
+  makeProduct(117, "عدس بجبة", 50, "الحبوب"),
+  makeProduct(118, "فول مدشوش", 40, "الحبوب"),
+  makeProduct(119, "ذرة فشار", 50, "الحبوب"),
+  makeProduct(120, "فريك", 30, "الحبوب"),
+  makeProduct(121, "قمح بليلة", 30, "الحبوب"),
+  makeProduct(122, "حمص وسط", 70, "الحبوب"),
+  makeProduct(123, "ترمس", 70, "الحبوب"),
+  makeProduct(124, "ارز بسمتى عادي", 60, "الحبوب"),
+  makeProduct(125, "ارز بسمتى هندي", 80, "الحبوب"),
+  makeProduct(126, "مكرونة شعرية غالية", 26, "الأغذية"),
+  makeProduct(127, "مكرونة لسان عصفور غالية", 26, "الأغذية"),
+  makeProduct(128, "مكرونة فرن غالية", 26, "الأغذية"),
+  makeProduct(129, "مكرونة مرمرية غالية", 26, "الأغذية"),
+  makeProduct(130, "دقيق حبة كاملة", 30, "الحبوب"),
+  makeProduct(131, "دقيق ابيض المروة", 22, "الحبوب"),
+  makeProduct(132, "دقيق شعير", 30, "الحبوب"),
+];
+
+export const getProductBySlug = (slug: string) =>
+  products.find((product) => product.slug === slug);
+
+export const getProductsByCategory = (category: string) =>
+  products.filter((product) => product.category === category);
