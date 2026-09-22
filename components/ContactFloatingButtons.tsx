@@ -1,76 +1,45 @@
 "use client";
 
-import { Phone, MessageCircle } from "lucide-react";
+import React from "react";
 
 export default function ContactFloatingButtons() {
-
-  const phone = "01011193720";
-
-  const whatsapp =
-    `https://wa.me/2${phone}`;
+  const phone = "01553939342";
+  const whatsapp = "201553939342";
 
   return (
-
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
-
+    <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-3">
       <a
-
-        href={whatsapp}
-
+        href={`https://wa.me/${whatsapp}`}
         target="_blank"
-
         rel="noopener noreferrer"
-
-        aria-label="واتساب"
-
-        className="
-          flex
-          h-16
-          w-16
-          items-center
-          justify-center
-          rounded-full
-          bg-green-600
-          text-white
-          shadow-2xl
-          transition
-          hover:scale-110
-        "
-
+        aria-label="تواصل معنا عبر واتساب"
+        className="flex h-14 w-14 items-center justify-center rounded-full bg-green-600 text-white shadow-lg transition-transform duration-200 hover:scale-110"
       >
-
-        <MessageCircle size={30} />
-
+        <svg
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="h-7 w-7"
+          aria-hidden="true"
+        >
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.075-.149-.669-1.611-.916-2.206-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+          <path d="M20.52 3.449A11.817 11.817 0 0 0 12.09 0C5.495 0 .13 5.364.13 11.96c0 2.107.55 4.164 1.594 5.977L.057 24l6.202-1.626a11.9 11.9 0 0 0 5.831 1.518h.005c6.594 0 11.96-5.365 11.96-11.96a11.85 11.85 0 0 0-3.535-8.483zm-8.43 18.445h-.004a9.88 9.88 0 0 1-5.03-1.377l-.36-.214-3.68.965.982-3.59-.235-.368a9.88 9.88 0 0 1-1.51-5.35c.002-5.45 4.438-9.886 9.892-9.886a9.84 9.84 0 0 1 7.01 2.906 9.84 9.84 0 0 1 2.903 7.014c-.003 5.45-4.44 9.886-9.968 9.886z" />
+        </svg>
       </a>
 
       <a
-
         href={`tel:${phone}`}
-
-        aria-label="اتصال"
-
-        className="
-          flex
-          h-16
-          w-16
-          items-center
-          justify-center
-          rounded-full
-          bg-amber-700
-          text-white
-          shadow-2xl
-          transition
-          hover:scale-110
-        "
-
+        aria-label="اتصل بنا"
+        className="flex h-14 w-14 items-center justify-center rounded-full bg-amber-700 text-white shadow-lg transition-transform duration-200 hover:scale-110"
       >
-
-        <Phone size={28} />
-
+        <svg
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="h-6 w-6"
+          aria-hidden="true"
+        >
+          <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.61 21 3 13.39 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+        </svg>
       </a>
-
     </div>
-
   );
-
 }
