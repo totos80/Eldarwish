@@ -1,100 +1,99 @@
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import React from "react";
 
-export const metadata={
-  title:"تواصل معنا | عطارة الدرويش",
-  description:"تواصل مع عطارة الدرويش."
-};
+export default function ContactPage() {
+  const phone = "01553939342";
+  const whatsapp = "201553939342";
 
-export default function ContactPage(){
-return(
-<>
-<Header/>
-<main>
-<section className="bg-gradient-to-b from-amber-50 to-white">
-<div className="container py-20">
-<h1 className="text-5xl font-extrabold">تواصل معنا</h1>
-<p className="mt-6 max-w-3xl text-lg leading-9 text-stone-600">
-يسعدنا الرد على جميع استفساراتكم واستقبال طلباتكم عبر الهاتف أو واتساب.
-</p>
-</div>
-</section>
+  return (
+    <main className="min-h-screen bg-[#f7f1e6] text-[#2b2118]">
+      <section className="mx-auto max-w-5xl px-6 py-16">
+        <div className="mb-10 text-center">
+          <p className="mb-3 text-sm font-semibold tracking-[0.2em] text-amber-700">
+            الدَرْويش
+          </p>
 
-<section className="container grid gap-10 py-20 lg:grid-cols-2">
+          <h1 className="text-4xl font-bold md:text-5xl">
+            تواصل معنا
+          </h1>
 
-<div className="card p-8">
-<h2 className="mb-8 text-3xl font-bold">أرسل رسالة</h2>
+          <p className="mx-auto mt-4 max-w-2xl leading-8 text-[#6b5845]">
+            عندك استفسار عن منتج أو عايز تعمل طلب؟ تواصل معنا مباشرة،
+            وإحنا هنساعدك.
+          </p>
+        </div>
 
-<form className="space-y-5">
-<input className="w-full rounded-xl border p-4" placeholder="الاسم"/>
-<input className="w-full rounded-xl border p-4" placeholder="رقم الهاتف"/>
-<input className="w-full rounded-xl border p-4" placeholder="البريد الإلكتروني"/>
-<input className="w-full rounded-xl border p-4" placeholder="عنوان الرسالة"/>
-<textarea rows={6} className="w-full rounded-xl border p-4" placeholder="اكتب رسالتك"></textarea>
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className="rounded-3xl border border-amber-900/10 bg-white p-8 shadow-sm">
+            <h2 className="mb-6 text-2xl font-bold">
+              بيانات التواصل
+            </h2>
 
-<button type="submit" className="btn-primary w-full">
-إرسال الرسالة
-</button>
-</form>
-</div>
+            <div className="space-y-5">
+              <div>
+                <p className="mb-1 text-sm text-[#8a7763]">الهاتف</p>
 
-<div className="space-y-6">
+                <a
+                  href={`tel:${phone}`}
+                  className="text-lg font-semibold text-[#5b3a24] hover:underline"
+                >
+                  {phone}
+                </a>
+              </div>
 
-<div className="card p-6">
-<div className="flex items-center gap-4">
-<Phone className="text-amber-700"/>
-<div>
-<h3 className="font-bold">الهاتف</h3>
-<a href="tel:01011193720">01011193720</a>
-</div>
-</div>
-</div>
+              <div>
+                <p className="mb-1 text-sm text-[#8a7763]">واتساب</p>
 
-<div className="card p-6">
-<div className="flex items-center gap-4">
-<Mail className="text-amber-700"/>
-<div>
-<h3 className="font-bold">البريد الإلكتروني</h3>
-<p>info@eldarwish.co</p>
-</div>
-</div>
-</div>
+                <a
+                  href={`https://wa.me/${whatsapp}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-lg font-semibold text-green-700 hover:underline"
+                >
+                  تواصل معنا عبر واتساب
+                </a>
+              </div>
 
-<div className="card p-6">
-<div className="flex items-center gap-4">
-<MapPin className="text-amber-700"/>
-<div>
-<h3 className="font-bold">العنوان</h3>
-<p>فيصل - طريق ناصر - السويس - مصر</p>
-</div>
-</div>
-</div>
+              <div>
+                <p className="mb-1 text-sm text-[#8a7763]">العنوان</p>
 
-<div className="card p-6">
-<div className="flex items-center gap-4">
-<Clock className="text-amber-700"/>
-<div>
-<h3 className="font-bold">ساعات العمل</h3>
-<p>يوميًا من 10 صباحًا حتى 11 مساءً</p>
-</div>
-</div>
-</div>
+                <p className="text-lg font-semibold">
+                  السويس — حي فيصل
+                </p>
+              </div>
+            </div>
+          </div>
 
-<div className="overflow-hidden rounded-2xl border">
-<iframe
-title="map"
-src="https://maps.google.com/maps?q=Suez&t=&z=13&ie=UTF8&iwloc=&output=embed"
-className="h-80 w-full border-0"
-/>
-</div>
+          <div className="rounded-3xl border border-amber-900/10 bg-[#2b2118] p-8 text-[#f5ead7] shadow-sm">
+            <h2 className="mb-4 text-2xl font-bold text-[#e6c27a]">
+              اطلب بسهولة
+            </h2>
 
-</div>
-</section>
-</main>
-<Footer/>
-</>
-);
+            <p className="mb-8 leading-8 text-[#d8c8b2]">
+              شوف المنتجات واختار اللي محتاجه، وبعدها تقدر تتواصل معنا
+              مباشرة على واتساب لإتمام طلبك.
+            </p>
+
+            <div className="flex flex-wrap gap-4">
+              <a
+                href="/products"
+                className="rounded-full bg-[#e6c27a] px-6 py-3 font-bold text-[#2b2118] transition hover:opacity-90"
+              >
+                المنتجات
+              </a>
+
+              <a
+                href={`https://wa.me/${whatsapp}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-[#e6c27a] px-6 py-3 font-bold text-[#e6c27a] transition hover:bg-[#e6c27a] hover:text-[#2b2118]"
+              >
+                واتساب
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
 }
-
 
