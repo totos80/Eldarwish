@@ -1,76 +1,55 @@
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import Link from "next/link";
-import { Award, Leaf, ShieldCheck, Truck, HeartHandshake, Phone } from "lucide-react";
+import React from "react";
 
-const values=[
-{icon:Leaf,title:"منتجات طبيعية",text:"نختار أجود الأعشاب والتوابل بعناية."},
-{icon:Award,title:"جودة مضمونة",text:"فحص مستمر وجودة ثابتة لكل منتج."},
-{icon:Truck,title:"توصيل سريع",text:"خدمة توصيل داخل السويس."},
-{icon:ShieldCheck,title:"ثقة وأمان",text:"شفافية في الأسعار والمنتجات."},
-{icon:HeartHandshake,title:"خدمة عملاء",text:"نساعدك في اختيار المنتج المناسب."},
-];
+export default function AboutPage() {
+  const phone = "01553939342";
 
-export const metadata={
- title:"من نحن | عطارة الدرويش",
- description:"تعرف على عطارة الدرويش ورسالتنا."
-};
+  return (
+    <main className="min-h-screen bg-[#f7f1e6] text-[#2b2118]">
+      <section className="mx-auto max-w-5xl px-6 py-16">
+        <div className="rounded-3xl border border-amber-900/10 bg-white/70 p-8 shadow-sm md:p-12">
+          <p className="mb-3 text-sm font-semibold tracking-[0.2em] text-amber-700">
+            عطار الدرويش
+          </p>
 
-export default function AboutPage(){
- return(
- <>
- <Header/>
- <main>
- <section className="bg-gradient-to-b from-amber-50 to-white">
-  <div className="container py-20">
-   <h1 className="text-5xl font-extrabold">من نحن</h1>
-   <p className="mt-8 max-w-3xl leading-9 text-lg text-stone-600">
-   عطارة الدرويش متجر متخصص في الأعشاب والتوابل والزيوت الطبيعية ومنتجات العطارة،
-   هدفنا تقديم منتجات عالية الجودة مع تجربة شراء بسيطة وسريعة.
-   </p>
-  </div>
- </section>
+          <h1 className="mb-6 text-4xl font-bold md:text-5xl">
+            عن الدَرْويش
+          </h1>
 
- <section className="container py-20">
-  <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-   {values.map((v,i)=>{
-    const Icon=v.icon;
-    return(
-    <article key={i} className="card p-8">
-      <Icon className="text-amber-700" size={42}/>
-      <h2 className="mt-5 text-2xl font-bold">{v.title}</h2>
-      <p className="mt-4 leading-8 text-stone-600">{v.text}</p>
-    </article>);
-   })}
-  </div>
- </section>
+          <div className="space-y-5 text-base leading-8 text-[#5b4a3a]">
+            <p>
+              الدَرْويش اسم يجمع بين روح العطارة الأصيلة واختيار المنتجات
+              بعناية، مع الاهتمام بالجودة والنظافة والسعر المناسب.
+            </p>
 
- <section className="bg-stone-900 text-white py-20">
-  <div className="container text-center">
-   <h2 className="text-4xl font-bold">لماذا يختارنا العملاء؟</h2>
-   <div className="mt-12 grid gap-8 md:grid-cols-4">
-    <div><h3 className="text-5xl font-extrabold text-amber-400">200+</h3><p className="mt-2">منتج</p></div>
-    <div><h3 className="text-5xl font-extrabold text-amber-400">100%</h3><p className="mt-2">جودة مختارة</p></div>
-    <div><h3 className="text-5xl font-extrabold text-amber-400">7</h3><p className="mt-2">أيام دعم</p></div>
-    <div><h3 className="text-5xl font-extrabold text-amber-400">24h</h3><p className="mt-2">استجابة سريعة</p></div>
-   </div>
-  </div>
- </section>
+            <p>
+              نعمل على توفير مجموعة متنوعة من التوابل والأعشاب والبقوليات
+              ومنتجات العطارة وغيرها من الأصناف التي يحتاجها البيت المصري.
+            </p>
 
- <section className="container py-20 text-center">
-   <h2 className="text-4xl font-bold">ابدأ التسوق الآن</h2>
-   <p className="mt-5 text-stone-600">تصفح جميع منتجات عطارة الدرويش أو تواصل معنا مباشرة.</p>
-   <div className="mt-10 flex flex-wrap justify-center gap-4">
-    <Link href="/products" className="btn-primary">المنتجات</Link>
-    <a href="tel:01011193720" className="btn-secondary inline-flex items-center gap-2">
-      <Phone size={18}/>01011193720
-    </a>
-   </div>
- </section>
- </main>
- <Footer/>
- </>
- );
+            <p>
+              هدفنا أن تلاقي الصنف اللي بتدور عليه بسهولة، وتطلبه بسرعة،
+              وتحصل على خدمة محترمة وجودة نحرص عليها في كل طلب.
+            </p>
+          </div>
+
+          <div className="mt-10 flex flex-wrap gap-4">
+            <a
+              href="/products"
+              className="rounded-full bg-[#5b3a24] px-6 py-3 font-semibold text-white transition hover:bg-[#432918]"
+            >
+              تصفح المنتجات
+            </a>
+
+            <a
+              href={`tel:${phone}`}
+              className="rounded-full border border-[#5b3a24] px-6 py-3 font-semibold text-[#5b3a24] transition hover:bg-[#5b3a24] hover:text-white"
+            >
+              اتصل بنا
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
 }
-
 
