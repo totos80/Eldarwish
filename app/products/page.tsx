@@ -1,27 +1,35 @@
+
 "use client";
 
 import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
 import ProductCard from "@/components/ProductCard";
 import { products } from "@/data/products";
 
-type Props = {
-  searchParams: {
-    category?: string;
-  };
-};
+function normalizeArabic(text: string) {
+  return text
+    .trim()
+    .toLowerCase()
+    .replace(/[أإآ]/g, "ا")
+    .replace(/ة/g, "ه")
+    .replace(/ى/g, "ي")
+    .replace(/ؤ/g, "و")
+    .replace(/ئ/g, "ي")
+    .replace(/ـ/g, "")
+    .replace(/\s+/g, " ");
+}
 
-export default function ProductsPage({
-  searchParams,
-}: Props) {
+export default function ProductsPage() {
+  const searchParams = useSearchParams();
+  const selectedCategory = searchParams.get("category") || "";
+
   const [search, setSearch] = useState("");
 
-  const selectedCategory = searchParams?.category || "";
-
   const filteredProducts = useMemo(() => {
-    const query = search.trim().toLowerCase();
+    const query = normalizeArabic(search);
 
     return products
       .filter((product) => {
@@ -36,16 +44,20 @@ export default function ProductsPage({
           return true;
         }
 
-        return product.name.toLowerCase().includes(query);
+        const productName = normalizeArabic(product.name);
+        const productCategory = normalizeArabic(product.category);
+
+        return (
+          productName.includes(query) ||
+          productCategory.includes(query)
+        );
       })
       .sort((a, b) =>
         a.name.localeCompare(b.name, "ar")
       );
   }, [search, selectedCategory]);
 
-  const title = selectedCategory
-    ? selectedCategory
-    : "جميع المنتجات";
+  const title = selectedCategory || "جميع المنتجات";
 
   return (
     <>
@@ -53,26 +65,26 @@ export default function ProductsPage({
 
       <main className="container py-12">
         <div className="mb-10">
-          <div className="mb-6">
-            <h1 className="text-4xl font-bold text-stone-900">
-              {title}
-            </h1>
+          <h1 className="text-4xl font-bold text-stone-900">
+            {title}
+          </h1>
 
-            <p className="mt-2 text-stone-500">
-              {selectedCategory
-                ? `منتجات قسم ${selectedCategory} من عطارة الدَرْويش.`
-                : "تصفح جميع منتجات عطارة الدَرْويش."}
-            </p>
+          <p className="mt-2 text-stone-500">
+            {selectedCategory
+              ? `منتجات قسم ${selectedCategory} من عطارة الدَرْويش.`
+              : "تصفح جميع منتجات عطارة الدَرْويش."}
+          </p>
+
+          <div className="mt-6">
+            <SearchBar
+              value={search}
+              onChange={setSearch}
+            />
           </div>
-
-          <SearchBar
-            value={search}
-            onChange={setSearch}
-          />
         </div>
 
-        {search && (
-          <div className="mb-6 rounded-2xl border border-amber-100 bg-amber-50 px-5 py-4 text-right">
+        {search.trim() && (
+          <div className="mb-6 rounded-2xl border border-amber-100 bg-amber-50 px-5 py-4">
             <p className="font-bold text-stone-800">
               نتائج البحث عن:
               <span className="mr-2 text-amber-700">
@@ -81,7 +93,7 @@ export default function ProductsPage({
             </p>
 
             <p className="mt-1 text-sm text-stone-500">
-              تم العثور على {filteredProducts.length} منتج
+              عدد النتائج: {filteredProducts.length}
             </p>
           </div>
         )}
@@ -93,7 +105,7 @@ export default function ProductsPage({
             </h2>
 
             <p className="mt-3 text-stone-500">
-              جرّب كتابة اسم المنتج بطريقة مختلفة.
+              جرّب كتابة جزء من اسم المنتج.
             </p>
 
             <button
@@ -119,4 +131,4 @@ export default function ProductsPage({
       <Footer />
     </>
   );
-}
+}      
