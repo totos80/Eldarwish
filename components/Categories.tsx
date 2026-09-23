@@ -8,6 +8,8 @@ import {
   Leaf,
   Sparkles,
   Wheat,
+  Package,
+  CupSoda,
 } from "lucide-react";
 
 const categories = [
@@ -58,6 +60,26 @@ const categories = [
     color: "green",
     image:
       "https://images.unsplash.com/photo-1515586000433-45406d8e6662?q=90&w=1200&auto=format&fit=crop",
+  },
+
+  // القسم الجديد: البلح والتمور
+  {
+    title: "البلح والتمور",
+    icon: Package,
+    href: "/products?category=التمور",
+    color: "brown",
+    image:
+      "https://images.unsplash.com/photo-1598532163257-ae3b6c0f6f1c?q=90&w=1200&auto=format&fit=crop",
+  },
+
+  // القسم الجديد: منتجات خليجية وليبية
+  {
+    title: "منتجات خليجية وليبية",
+    icon: CupSoda,
+    href: "/products?category=خليجية",
+    color: "gold",
+    image:
+      "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?q=90&w=1200&auto=format&fit=crop",
   },
 ];
 
