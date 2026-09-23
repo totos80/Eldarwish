@@ -1,7 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { Minus, Plus, Trash2, ShoppingBag, MessageCircle } from "lucide-react";
+import {
+  Minus,
+  Plus,
+  Trash2,
+  ShoppingBag,
+  MessageCircle,
+} from "lucide-react";
 import { useCart } from "@/context/CardContext";
 
 export default function CartSummary() {
@@ -15,11 +21,85 @@ export default function CartSummary() {
 
   const whatsappNumber = "201553939342";
 
+  const getItemTotal = (item: (typeof items)[number]) => {
+    if (item.pricingMode === "piece") {
+      return item.price * item.quantity;
+    }
+
+    return (
+      (item.price * item.quantity) /
+      item.baseQuantity
+    );
+  };
+
+  const getPriceLabel = (
+    item: (typeof items)[number]
+  ) => {
+    if (item.pricingMode === "gram") {
+      return `${item.price.toLocaleString("en-US")} ج.م / كجم`;
+    }
+
+    if (item.pricingMode === "liter") {
+      const pricePerLiter =
+        item.price / item.baseQuantity;
+
+      return `${pricePerLiter.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })} ج.م / لتر`;
+    }
+
+    return `${item.price.toLocaleString("en-US")} ج.م / قطعة`;
+  };
+
+  const formatQuantity = (
+    item: (typeof items)[number]
+  ) => {
+    if (item.pricingMode === "liter") {
+      return item.quantity.toLocaleString("en-US", {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2,
+      });
+    }
+
+    return item.quantity.toLocaleString("en-US");
+  };
+
+  const getQuantityStep = (
+    item: (typeof items)[number]
+  ) => {
+    if (item.pricingMode === "gram") {
+      return 50;
+    }
+
+    if (item.pricingMode === "liter") {
+      return 0.25;
+    }
+
+    return 1;
+  };
+
+  const getMinimumQuantity = (
+    item: (typeof items)[number]
+  ) => {
+    if (item.pricingMode === "gram") {
+      return 50;
+    }
+
+    if (item.pricingMode === "liter") {
+      return 0.25;
+    }
+
+    return 1;
+  };
+
   const createOrderMessage = () => {
     const lines = items.map((item, index) => {
-      const itemTotal = (item.price * item.quantity) / 1000;
+      const itemTotal = getItemTotal(item);
 
-      return `${index + 1}. ${item.name} - ${item.quantity} جم - ${itemTotal.toFixed(2)} ج.م`;
+      return `${index + 1}. ${item.name} - ${formatQuantity(
+        item
+      )} ${item.unit} - ${itemTotal.toFixed(2)} ج.م`;
     });
 
     return [
@@ -35,7 +115,10 @@ export default function CartSummary() {
   };
 
   const sendOrder = () => {
-    const message = encodeURIComponent(createOrderMessage());
+    const message = encodeURIComponent(
+      createOrderMessage()
+    );
+
     window.open(
       `https://wa.me/${whatsappNumber}?text=${message}`,
       "_blank"
@@ -51,7 +134,7 @@ export default function CartSummary() {
         />
 
         <h2 className="mt-5 text-2xl font-bold text-stone-800">
-          السلة فارغة
+          الشنطة فاضية
         </h2>
 
         <p className="mt-3 text-stone-500">
@@ -65,8 +148,9 @@ export default function CartSummary() {
     <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_360px]">
       <div className="space-y-4">
         {items.map((item) => {
-          const itemTotal =
-            (item.price * item.quantity) / 1000;
+          const itemTotal = getItemTotal(item);
+          const step = getQuantityStep(item);
+          const minimum = getMinimumQuantity(item);
 
           return (
             <div
@@ -89,11 +173,15 @@ export default function CartSummary() {
                 </h3>
 
                 <p className="mt-1 text-sm text-stone-500">
-                  {item.price.toLocaleString("en-US")} ج.م / كجم
+                  {getPriceLabel(item)}
                 </p>
 
                 <p className="mt-2 text-lg font-extrabold text-amber-700">
-                  {itemTotal.toFixed(2)} ج.م
+                  {itemTotal.toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}{" "}
+                  ج.م
                 </p>
               </div>
 
@@ -103,22 +191,25 @@ export default function CartSummary() {
                   onClick={() =>
                     updateQuantity(
                       item.id,
-                      Math.max(50, item.quantity - 50)
+                      Math.max(
+                        minimum,
+                        item.quantity - step
+                      )
                     )
                   }
-                  className="rounded-xl bg-amber-50 p-2 text-amber-800 hover:bg-amber-100"
+                  className="rounded-xl bg-amber-50 p-2 text-amber-800 transition hover:bg-amber-100"
                   aria-label="تقليل الكمية"
                 >
                   <Minus size={20} />
                 </button>
 
-                <div className="min-w-[70px] text-center">
+                <div className="min-w-[80px] text-center">
                   <strong className="text-xl text-stone-800">
-                    {item.quantity}
+                    {formatQuantity(item)}
                   </strong>
 
                   <p className="text-xs text-stone-400">
-                    جرام
+                    {item.unit}
                   </p>
                 </div>
 
@@ -127,10 +218,10 @@ export default function CartSummary() {
                   onClick={() =>
                     updateQuantity(
                       item.id,
-                      item.quantity + 50
+                      item.quantity + step
                     )
                   }
-                  className="rounded-xl bg-amber-50 p-2 text-amber-800 hover:bg-amber-100"
+                  className="rounded-xl bg-amber-50 p-2 text-amber-800 transition hover:bg-amber-100"
                   aria-label="زيادة الكمية"
                 >
                   <Plus size={20} />
@@ -171,7 +262,11 @@ export default function CartSummary() {
           </span>
 
           <strong className="text-2xl font-extrabold text-amber-700">
-            {total.toFixed(2)} ج.م
+            {total.toLocaleString("en-US", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}{" "}
+            ج.م
           </strong>
         </div>
 
@@ -189,9 +284,9 @@ export default function CartSummary() {
           onClick={clearCart}
           className="mt-3 w-full rounded-2xl border border-red-200 bg-white px-5 py-3 font-bold text-red-600 transition hover:bg-red-50"
         >
-          تفريغ السلة
+          تفريغ الشنطة
         </button>
       </aside>
     </div>
   );
-}            
+            }                    
