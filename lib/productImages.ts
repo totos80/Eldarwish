@@ -41,15 +41,10 @@ export function getProductImage(name: string): string {
     .replace(/ئ/g, "ي")
     .replace(/ـ/g, "");
 
-  // الزيت
-  if (
-    n.includes("زيت") ||
-    n.includes("زيوت")
-  ) {
+  if (n.includes("زيت") || n.includes("زيوت")) {
     return productImages.oil;
   }
 
-  // القهوة والبن
   if (
     n.includes("بن ") ||
     n.startsWith("بن") ||
@@ -59,15 +54,10 @@ export function getProductImage(name: string): string {
     return productImages.coffee;
   }
 
-  // القرفة
-  if (
-    n.includes("قرفه") ||
-    n.includes("قرفة")
-  ) {
+  if (n.includes("قرفه") || n.includes("قرفة")) {
     return productImages.cinnamon;
   }
 
-  // الفلفل
   if (
     n.includes("فلفل اسود") ||
     n.includes("فلفل ابيض") ||
@@ -76,7 +66,6 @@ export function getProductImage(name: string): string {
     return productImages.pepper;
   }
 
-  // الفواكه المجففة والزبيب وجوز الهند
   if (
     n.includes("زبيب") ||
     n.includes("جوز هند")
@@ -84,7 +73,6 @@ export function getProductImage(name: string): string {
     return productImages.driedFruit;
   }
 
-  // الحلويات ومستلزمات التزيين
   if (
     n.includes("شيكولاته") ||
     n.includes("شيكولاتة") ||
@@ -103,7 +91,6 @@ export function getProductImage(name: string): string {
     return productImages.sweets;
   }
 
-  // الحبوب والدقيق والمكرونة والبقوليات
   if (
     n.includes("ارز") ||
     n.includes("رز ") ||
@@ -127,7 +114,6 @@ export function getProductImage(name: string): string {
     return productImages.grains;
   }
 
-  // البذور
   if (
     n.includes("بذر") ||
     n.includes("بذور") ||
@@ -144,11 +130,56 @@ export function getProductImage(name: string): string {
     return productImages.seeds;
   }
 
-  // الأعشاب
   if (
     n.includes("بردقوش") ||
     n.includes("روز ماري") ||
     n.includes("زعتر") ||
     n.includes("مرمريه") ||
     n.includes("مرمرية") ||
-    n.includes("شيح
+    n.includes("شيح") ||
+    n.includes("ورق") ||
+    n.includes("جوافه") ||
+    n.includes("جوافة") ||
+    n.includes("لورو") ||
+    n.includes("سدر") ||
+    n.includes("شاي")
+  ) {
+    return productImages.herbs;
+  }
+
+  if (
+    n.includes("بابريكا") ||
+    n.includes("كركم") ||
+    n.includes("كمون") ||
+    n.includes("كزبره") ||
+    n.includes("كزبرة") ||
+    n.includes("كاري") ||
+    n.includes("كارى") ||
+    n.includes("سماق") ||
+    n.includes("شطه") ||
+    n.includes("شطة") ||
+    n.includes("حبهان") ||
+    n.includes("جوزه الطيب") ||
+    n.includes("جوزة الطيب") ||
+    n.includes("خردل") ||
+    n.includes("زنجبيل") ||
+    n.includes("جنجبيل") ||
+    n.includes("عصفر") ||
+    n.includes("ليمون اسود") ||
+    n.includes("ليمون أسود") ||
+    n.includes("بهار") ||
+    n.includes("خلطه") ||
+    n.includes("خلطة") ||
+    n.includes("دقه") ||
+    n.includes("دقة") ||
+    n.includes("ملح") ||
+    n.includes("مرقه") ||
+    n.includes("مرقة")
+  ) {
+    return productImages.spices;
+  }
+
+  return productImages.spices;
+}
+
+export default productImages;
