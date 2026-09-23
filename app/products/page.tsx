@@ -1,13 +1,14 @@
-
-"use client";
-
-import { useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
 import ProductCard from "@/components/ProductCard";
 import { products } from "@/data/products";
+
+type Props = {
+  searchParams: Promise<{
+    category?: string;
+  }>;
+};
 
 function normalizeArabic(text: string) {
   return text
@@ -22,40 +23,37 @@ function normalizeArabic(text: string) {
     .replace(/\s+/g, " ");
 }
 
-export default function ProductsPage() {
-  const searchParams = useSearchParams();
-  const selectedCategory = searchParams.get("category") || "";
+export default async function ProductsPage({
+  searchParams,
+}: Props) {
+  const params = await searchParams;
+  const selectedCategory = params?.category || "";
 
-  const [search, setSearch] = useState("");
+  const query = "";
 
-  const filteredProducts = useMemo(() => {
-    const query = normalizeArabic(search);
+  const filteredProducts = products
+    .filter((product) => {
+      if (!selectedCategory) {
+        return true;
+      }
 
-    return products
-      .filter((product) => {
-        if (!selectedCategory) {
-          return true;
-        }
+      return product.category === selectedCategory;
+    })
+    .filter((product) => {
+      if (!query) {
+        return true;
+      }
 
-        return product.category === selectedCategory;
-      })
-      .filter((product) => {
-        if (!query) {
-          return true;
-        }
+      const productName = normalizeArabic(product.name);
+      const productCategory = normalizeArabic(product.category);
+      const normalizedQuery = normalizeArabic(query);
 
-        const productName = normalizeArabic(product.name);
-        const productCategory = normalizeArabic(product.category);
-
-        return (
-          productName.includes(query) ||
-          productCategory.includes(query)
-        );
-      })
-      .sort((a, b) =>
-        a.name.localeCompare(b.name, "ar")
+      return (
+        productName.includes(normalizedQuery) ||
+        productCategory.includes(normalizedQuery)
       );
-  }, [search, selectedCategory]);
+    })
+    .sort((a, b) => a.name.localeCompare(b.name, "ar"));
 
   const title = selectedCategory || "جميع المنتجات";
 
@@ -77,58 +75,24 @@ export default function ProductsPage() {
 
           <div className="mt-6">
             <SearchBar
-              value={search}
-              onChange={setSearch}
+              value=""
+              onChange={() => {}}
             />
           </div>
         </div>
 
-        {search.trim() && (
-          <div className="mb-6 rounded-2xl border border-amber-100 bg-amber-50 px-5 py-4">
-            <p className="font-bold text-stone-800">
-              نتائج البحث عن:
-              <span className="mr-2 text-amber-700">
-                "{search}"
-              </span>
-            </p>
-
-            <p className="mt-1 text-sm text-stone-500">
-              عدد النتائج: {filteredProducts.length}
-            </p>
-          </div>
-        )}
-
-        {filteredProducts.length === 0 ? (
-          <div className="rounded-2xl border border-amber-100 bg-white p-10 text-center shadow-sm">
-            <h2 className="text-2xl font-bold text-stone-800">
-              لا توجد نتائج
-            </h2>
-
-            <p className="mt-3 text-stone-500">
-              جرّب كتابة جزء من اسم المنتج.
-            </p>
-
-            <button
-              type="button"
-              onClick={() => setSearch("")}
-              className="mt-6 rounded-xl bg-amber-700 px-6 py-3 font-bold text-white transition hover:bg-amber-800"
-            >
-              عرض جميع المنتجات
-            </button>
-          </div>
-        ) : (
-          <section className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
-            {filteredProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-              />
-            ))}
-          </section>
-        )}
+        <section className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
+          {filteredProducts.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+            />
+          ))}
+        </section>
       </main>
 
       <Footer />
     </>
   );
-}      
+}
+            
