@@ -8,6 +8,9 @@ export type CartItem = {
   price: number;
   quantity: number;
   image: string;
+  unit: string;
+  pricingMode: "gram" | "liter" | "piece";
+  baseQuantity: number;
 };
 
 type CartContextType = {
@@ -60,11 +63,6 @@ export function CartProvider({
     id: number,
     quantity: number
   ) => {
-    if (quantity < 50) {
-      removeItem(id);
-      return;
-    }
-
     setItems((currentItems) =>
       currentItems.map((item) =>
         item.id === id
@@ -74,17 +72,31 @@ export function CartProvider({
     );
   };
 
-  const clearCart = () => setItems([]);
+  const clearCart = () => {
+    setItems([]);
+  };
 
-  const total = useMemo(
-    () =>
-      items.reduce(
-        (sum, item) =>
-          sum + (item.price * item.quantity) / 1000,
-        0
-      ),
-    [items]
-  );
+  const total = useMemo(() => {
+    return items.reduce((sum, item) => {
+      if (item.pricingMode === "gram") {
+        return (
+          sum +
+          (item.price * item.quantity) /
+            item.baseQuantity
+        );
+      }
+
+      if (item.pricingMode === "liter") {
+        return (
+          sum +
+          (item.price * item.quantity) /
+            item.baseQuantity
+        );
+      }
+
+      return sum + item.price * item.quantity;
+    }, 0);
+  }, [items]);
 
   return (
     <CartContext.Provider
@@ -107,9 +119,10 @@ export const useCart = () => {
 
   if (!context) {
     throw new Error(
-      "useCart must be used inside CartProvider"
+      "useCart must be used inside CardContext"
     );
   }
 
   return context;
 };
+        
