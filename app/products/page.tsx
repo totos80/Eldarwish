@@ -16,7 +16,15 @@ export default async function ProductsPage({
   const params = await searchParams;
   const selectedCategory = params.category || "";
 
-  const filteredProducts = selectedCategory
+  const filteredProducts = (
+  selectedCategory
+    ? products.filter(
+        (product) => product.category === selectedCategory
+      )
+    : products
+).sort((a, b) =>
+  a.name.localeCompare(b.name, "ar")
+);
     ? products.filter(
         (product) => product.category === selectedCategory
       )
