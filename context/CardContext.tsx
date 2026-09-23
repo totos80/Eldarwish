@@ -1,11 +1,6 @@
-"use client";
+    "use client";
 
-import {
-  createContext,
-  useContext,
-  useMemo,
-  useState,
-} from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 
 export type CartItem = {
   id: number;
@@ -65,7 +60,7 @@ export function CartProvider({
     id: number,
     quantity: number
   ) => {
-    if (quantity <= 0) {
+    if (quantity < 50) {
       removeItem(id);
       return;
     }
@@ -79,15 +74,13 @@ export function CartProvider({
     );
   };
 
-  const clearCart = () => {
-    setItems([]);
-  };
+  const clearCart = () => setItems([]);
 
   const total = useMemo(
     () =>
       items.reduce(
         (sum, item) =>
-          sum + item.price * item.quantity,
+          sum + (item.price * item.quantity) / 1000,
         0
       ),
     [items]
