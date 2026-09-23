@@ -12,8 +12,9 @@ export type SaleRule = {
 };
 
 export function getSaleRule(product: Product): SaleRule {
-  // زيت زيتون ادمز: العبوة الأصلية 8 لتر
-  // البيع للعميل باللتر، وأقل كمية ربع لتر
+  // زيت زيتون ادمز:
+  // السعر المسجل هو سعر اللتر
+  // البيع يبدأ من ربع لتر ويزيد بمقدار ربع لتر
   if (
     product.id === 105 ||
     product.name.includes("زيت زيتون ادمز")
@@ -22,7 +23,7 @@ export function getSaleRule(product: Product): SaleRule {
       mode: "liter",
       min: 0.25,
       step: 0.25,
-      baseQuantity: 8,
+      baseQuantity: 1,
       unit: "لتر",
       priceLabel: "سعر اللتر",
     };
