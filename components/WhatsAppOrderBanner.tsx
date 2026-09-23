@@ -7,7 +7,7 @@ interface WhatsAppOrderBannerProps {
 }
 
 export default function WhatsAppOrderBanner({
-  phone = "201011193720",
+  phone = "201553939342",
 }: WhatsAppOrderBannerProps) {
   const message = encodeURIComponent(
     "مرحباً، أريد الاستفسار عن منتجات عطارة الدرويش."
@@ -17,37 +17,24 @@ export default function WhatsAppOrderBanner({
 
   return (
     <section className="my-16">
-
       <div className="overflow-hidden rounded-3xl bg-green-600 text-white shadow-xl">
-
         <div className="flex flex-col items-center justify-between gap-8 px-8 py-10 lg:flex-row">
-
           <div className="flex items-center gap-5">
-
             <div className="rounded-full bg-white/20 p-5">
-
               <MessageCircle size={42} />
-
             </div>
 
             <div>
-
               <h2 className="text-3xl font-extrabold">
-
                 اطلب مباشرة عبر واتساب
-
               </h2>
 
-              <p className="mt-3 max-w-2xl text-green-100 leading-8">
-
+              <p className="mt-3 max-w-2xl leading-8 text-green-100">
                 إذا لم تجد المنتج الذي تبحث عنه أو تريد طلب كمية
                 كبيرة، تواصل معنا مباشرة عبر واتساب وسنقوم بالرد
                 عليك في أسرع وقت.
-
               </p>
-
             </div>
-
           </div>
 
           <a
@@ -58,11 +45,8 @@ export default function WhatsAppOrderBanner({
           >
             مراسلة واتساب
           </a>
-
         </div>
-
       </div>
-
     </section>
   );
 }
