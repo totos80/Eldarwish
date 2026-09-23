@@ -9,10 +9,29 @@ export default function Header() {
   const { items, total } = useCart();
   const [cartOpen, setCartOpen] = useState(false);
 
-  const totalQuantity = items.reduce(
-    (sum, item) => sum + item.quantity,
-    0
-  );
+  const getItemTotal = (item: (typeof items)[number]) => {
+    if (item.pricingMode === "piece") {
+      return item.price * item.quantity;
+    }
+
+    return (
+      (item.price * item.quantity) /
+      item.baseQuantity
+    );
+  };
+
+  const formatQuantity = (
+    item: (typeof items)[number]
+  ) => {
+    if (item.pricingMode === "liter") {
+      return item.quantity.toLocaleString("en-US", {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2,
+      });
+    }
+
+    return item.quantity.toLocaleString("en-US");
+  };
 
   return (
     <header className="site-header">
@@ -30,7 +49,6 @@ export default function Header() {
 
       <div className="main-nav-wrap">
         <div className="main-nav">
-
           <Link
             href="/"
             className="brand-new"
@@ -70,7 +88,6 @@ export default function Header() {
           </nav>
 
           <div className="nav-actions">
-
             <button
               className="icon-button"
               aria-label="بحث"
@@ -82,7 +99,9 @@ export default function Header() {
             <div className="relative">
               <button
                 type="button"
-                onClick={() => setCartOpen((open) => !open)}
+                onClick={() =>
+                  setCartOpen((open) => !open)
+                }
                 className="icon-button cart-button"
                 aria-label="شنطة المشتريات"
                 aria-expanded={cartOpen}
@@ -149,16 +168,22 @@ export default function Header() {
                               </p>
 
                               <p className="mt-1 text-xs text-stone-500">
-                                {item.quantity} جرام
+                                {formatQuantity(item)}{" "}
+                                {item.unit}
                               </p>
                             </div>
 
                             <div className="shrink-0 text-left">
                               <p className="font-extrabold text-amber-700">
-                                {(
-                                  (item.price * item.quantity) /
-                                  1000
-                                ).toFixed(2)}{" "}
+                                {getItemTotal(
+                                  item
+                                ).toLocaleString(
+                                  "en-US",
+                                  {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                  }
+                                )}{" "}
                                 ج.م
                               </p>
                             </div>
@@ -173,16 +198,26 @@ export default function Header() {
                           </span>
 
                           <strong className="text-xl font-extrabold text-amber-700">
-                            {total.toFixed(2)} ج.م
+                            {total.toLocaleString(
+                              "en-US",
+                              {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              }
+                            )}{" "}
+                            ج.م
                           </strong>
                         </div>
 
                         <Link
                           href="/cart"
-                          onClick={() => setCartOpen(false)}
+                          onClick={() =>
+                            setCartOpen(false)
+                          }
                           className="flex w-full items-center justify-center gap-2 rounded-2xl bg-amber-700 px-5 py-3 font-bold text-white transition hover:bg-amber-800"
                         >
                           عرض الشنطة كاملة
+
                           <ChevronDown
                             size={18}
                             className="rotate-90"
@@ -194,10 +229,10 @@ export default function Header() {
                 </div>
               )}
             </div>
-
           </div>
         </div>
       </div>
     </header>
   );
 }
+                                        
