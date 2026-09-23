@@ -194,4 +194,4 @@ export default function CartSummary() {
       </aside>
     </div>
   );
-}
+}            
