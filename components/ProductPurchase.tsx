@@ -4,17 +4,40 @@ import { useState } from "react";
 import { Minus, Plus, ShoppingBag } from "lucide-react";
 import { useCart } from "@/context/CardContext";
 import { Product } from "@/types/product";
+import {
+  calculateItemTotal,
+  getSaleRule,
+} from "@/lib/SaleRules";
 
 type Props = {
   product: Product;
 };
 
-const GRAM_STEP = 50;
-
-export default function ProductPurchase({ product }: Props) {
+export default function ProductPurchase({
+  product,
+}: Props) {
   const { addItem } = useCart();
-  const [quantity, setQuantity] = useState(50);
+
+  const rule = getSaleRule(product);
+
+  const [quantity, setQuantity] = useState(rule.min);
   const [added, setAdded] = useState(false);
+
+  const currentPrice = calculateItemTotal(
+    product.price,
+    quantity,
+    rule
+  );
+
+  const increaseQuantity = () => {
+    setQuantity((current) => current + rule.step);
+  };
+
+  const decreaseQuantity = () => {
+    setQuantity((current) =>
+      Math.max(rule.min, current - rule.step)
+    );
+  };
 
   const addToCart = () => {
     addItem({
@@ -23,6 +46,9 @@ export default function ProductPurchase({ product }: Props) {
       price: product.price,
       quantity,
       image: product.image,
+      unit: rule.unit,
+      pricingMode: rule.mode,
+      baseQuantity: rule.baseQuantity,
     });
 
     setAdded(true);
@@ -32,23 +58,62 @@ export default function ProductPurchase({ product }: Props) {
     }, 1800);
   };
 
-  const unitPrice = product.price;
-  const currentPrice = (unitPrice * quantity) / 1000;
+  const formattedQuantity =
+    rule.mode === "liter"
+      ? quantity.toLocaleString("en-US", {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 2,
+        })
+      : quantity.toLocaleString("en-US");
+
+  const priceLabel =
+    rule.mode === "gram"
+      ? `${product.price.toLocaleString("en-US")} ج.م / كجم`
+      : rule.mode === "liter"
+        ? `${(
+            product.price / rule.baseQuantity
+          ).toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })} ج.م / لتر`
+        : `${product.price.toLocaleString("en-US")} ج.م / قطعة`;
 
   return (
     <div className="mt-8 rounded-3xl border border-amber-100 bg-amber-50/50 p-6">
       <div>
         <p className="text-sm text-stone-500">
-          سعر الكيلو
+          {rule.priceLabel}
         </p>
 
         <strong className="text-4xl font-extrabold text-amber-700">
-          {unitPrice.toLocaleString("en-US")}
+          {rule.mode === "liter"
+            ? (product.price / rule.baseQuantity).toLocaleString(
+                "en-US",
+                {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }
+              )
+            : product.price.toLocaleString("en-US")}
         </strong>
 
         <span className="mr-2 text-lg text-stone-600">
-          ج.م / كجم
+          {rule.mode === "gram"
+            ? "ج.م / كجم"
+            : rule.mode === "liter"
+              ? "ج.م / لتر"
+              : "ج.م / قطعة"}
         </span>
+
+        {rule.mode === "liter" && (
+          <p className="mt-2 text-xs text-stone-400">
+            العبوة الأصلية: {rule.baseQuantity} لتر
+          </p>
+        )}
+
+        {rule.mode !== "liter" && (
+          <p className="sr-only">{priceLabel}</p>
+        )}
       </div>
 
       <div className="mt-6 rounded-2xl bg-white p-4 text-center">
@@ -67,15 +132,17 @@ export default function ProductPurchase({ product }: Props) {
 
       <div className="mt-5">
         <p className="mb-2 text-center text-sm font-bold text-stone-600">
-          الكمية بالجرام
+          {rule.mode === "gram"
+            ? "الكمية بالجرام"
+            : rule.mode === "liter"
+              ? "الكمية باللتر"
+              : "الكمية"}
         </p>
 
         <div className="flex items-center justify-between rounded-2xl border border-amber-200 bg-white p-2">
           <button
             type="button"
-            onClick={() =>
-              setQuantity((q) => Math.max(GRAM_STEP, q - GRAM_STEP))
-            }
+            onClick={decreaseQuantity}
             className="rounded-xl bg-amber-50 p-3 text-amber-800 transition hover:bg-amber-100"
             aria-label="تقليل الكمية"
           >
@@ -84,19 +151,17 @@ export default function ProductPurchase({ product }: Props) {
 
           <div className="text-center">
             <p className="text-3xl font-extrabold text-stone-800">
-              {quantity}
+              {formattedQuantity}
             </p>
 
             <p className="text-sm text-stone-400">
-              جرام
+              {rule.unit}
             </p>
           </div>
 
           <button
             type="button"
-            onClick={() =>
-              setQuantity((q) => q + GRAM_STEP)
-            }
+            onClick={increaseQuantity}
             className="rounded-xl bg-amber-50 p-3 text-amber-800 transition hover:bg-amber-100"
             aria-label="زيادة الكمية"
           >
@@ -105,7 +170,8 @@ export default function ProductPurchase({ product }: Props) {
         </div>
 
         <p className="mt-2 text-center text-xs text-stone-400">
-          أقل كمية 50 جرام — الزيادة بمقدار 50 جرام
+          أقل كمية {rule.min} {rule.unit} — الزيادة بمقدار{" "}
+          {rule.step} {rule.unit}
         </p>
       </div>
 
@@ -117,9 +183,9 @@ export default function ProductPurchase({ product }: Props) {
         <ShoppingBag size={23} />
 
         {added
-          ? "تمت الإضافة إلى السلة ✓"
+          ? "تمت الإضافة إلى الشنطة ✓"
           : "أضف إلى شنطة المشتريات"}
       </button>
     </div>
   );
-}
+} 
