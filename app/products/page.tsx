@@ -1,3 +1,6 @@
+"use client";
+
+import { useMemo, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
@@ -5,30 +8,40 @@ import ProductCard from "@/components/ProductCard";
 import { products } from "@/data/products";
 
 type Props = {
-  searchParams: Promise<{
+  searchParams: {
     category?: string;
-  }>;
+  };
 };
 
-export default async function ProductsPage({
+export default function ProductsPage({
   searchParams,
 }: Props) {
-  const params = await searchParams;
-  const selectedCategory = params.category || "";
+  const [search, setSearch] = useState("");
 
-  const filteredProducts = (
-  selectedCategory
-    ? products.filter(
-        (product) => product.category === selectedCategory
-      )
-    : products
-).sort((a, b) =>
-  a.name.localeCompare(b.name, "ar")
-);
-    ? products.filter(
-        (product) => product.category === selectedCategory
-      )
-    : products;
+  const selectedCategory = searchParams?.category || "";
+
+  const filteredProducts = useMemo(() => {
+    const query = search.trim().toLowerCase();
+
+    return products
+      .filter((product) => {
+        if (!selectedCategory) {
+          return true;
+        }
+
+        return product.category === selectedCategory;
+      })
+      .filter((product) => {
+        if (!query) {
+          return true;
+        }
+
+        return product.name.toLowerCase().includes(query);
+      })
+      .sort((a, b) =>
+        a.name.localeCompare(b.name, "ar")
+      );
+  }, [search, selectedCategory]);
 
   const title = selectedCategory
     ? selectedCategory
@@ -39,9 +52,9 @@ export default async function ProductsPage({
       <Header />
 
       <main className="container py-12">
-        <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h1 className="text-4xl font-bold">
+        <div className="mb-10">
+          <div className="mb-6">
+            <h1 className="text-4xl font-bold text-stone-900">
               {title}
             </h1>
 
@@ -52,21 +65,47 @@ export default async function ProductsPage({
             </p>
           </div>
 
-          <SearchBar />
+          <SearchBar
+            value={search}
+            onChange={setSearch}
+          />
         </div>
+
+        {search && (
+          <div className="mb-6 rounded-2xl border border-amber-100 bg-amber-50 px-5 py-4 text-right">
+            <p className="font-bold text-stone-800">
+              نتائج البحث عن:
+              <span className="mr-2 text-amber-700">
+                "{search}"
+              </span>
+            </p>
+
+            <p className="mt-1 text-sm text-stone-500">
+              تم العثور على {filteredProducts.length} منتج
+            </p>
+          </div>
+        )}
 
         {filteredProducts.length === 0 ? (
           <div className="rounded-2xl border border-amber-100 bg-white p-10 text-center shadow-sm">
             <h2 className="text-2xl font-bold text-stone-800">
-              لا توجد منتجات في هذا التصنيف حاليًا
+              لا توجد نتائج
             </h2>
 
             <p className="mt-3 text-stone-500">
-              جرّب اختيار تصنيف آخر.
+              جرّب كتابة اسم المنتج بطريقة مختلفة.
             </p>
+
+            <button
+              type="button"
+              onClick={() => setSearch("")}
+              className="mt-6 rounded-xl bg-amber-700 px-6 py-3 font-bold text-white transition hover:bg-amber-800"
+            >
+              عرض جميع المنتجات
+            </button>
           </div>
         ) : (
-          <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <section className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
             {filteredProducts.map((product) => (
               <ProductCard
                 key={product.id}
