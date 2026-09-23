@@ -17,7 +17,7 @@ const categories = [
     href: "/offers",
     color: "red",
     image:
-      "https://images.unsplash.com/photo-1532336414038-cf19250c5757?q=85&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1607082349566-187342175e2f?q=90&w=1200&auto=format&fit=crop",
   },
   {
     title: "الزيوت الطبيعية",
@@ -25,7 +25,7 @@ const categories = [
     href: "/products?category=الزيوت",
     color: "blue",
     image:
-      "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?q=85&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?q=90&w=1200&auto=format&fit=crop",
   },
   {
     title: "الحبوب والبذور",
@@ -33,7 +33,7 @@ const categories = [
     href: "/products?category=الحبوب",
     color: "gold",
     image:
-      "https://images.unsplash.com/photo-1511067007398-7e4b90cfa4bc?q=85&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1586201375761-83865001e31c?q=90&w=1200&auto=format&fit=crop",
   },
   {
     title: "البن والقهوة",
@@ -41,7 +41,7 @@ const categories = [
     href: "/products?category=القهوة",
     color: "brown",
     image:
-      "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=85&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=90&w=1200&auto=format&fit=crop",
   },
   {
     title: "التوابل والبهارات",
@@ -49,7 +49,7 @@ const categories = [
     href: "/products?category=التوابل",
     color: "amber",
     image:
-      "https://images.unsplash.com/photo-1532336414038-cf19250c5757?q=85&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=90&w=1200&auto=format&fit=crop",
   },
   {
     title: "الأعشاب",
@@ -57,7 +57,7 @@ const categories = [
     href: "/products?category=الأعشاب",
     color: "green",
     image:
-      "https://images.unsplash.com/photo-1515586838455-8f8f940d6853?q=85&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1515586000433-45406d8e6662?q=90&w=1200&auto=format&fit=crop",
   },
 ];
 
@@ -71,26 +71,32 @@ export default function Categories() {
       </div>
 
       <div className="category-grid">
-        {categories.map(({ title, icon: Icon, href, color, image }) => (
-          <Link
-            href={href}
-            key={title}
-            className="category-card"
-          >
-            <img src={image} alt={title} />
+        {categories.map(
+          ({ title, icon: Icon, href, color, image }) => (
+            <Link
+              href={href}
+              key={title}
+              className="category-card"
+            >
+              <img
+                src={image}
+                alt={title}
+                loading="lazy"
+              />
 
-            <div className="category-shade" />
+              <div className="category-shade" />
 
-            <div className={`category-icon ${color}`}>
-              <Icon size={23} />
-            </div>
+              <div className={`category-icon ${color}`}>
+                <Icon size={23} />
+              </div>
 
-            <div className="category-content">
-              <h3>{title}</h3>
-              <span>استكشف</span>
-            </div>
-          </Link>
-        ))}
+              <div className="category-content">
+                <h3>{title}</h3>
+                <span>استكشف</span>
+              </div>
+            </Link>
+          )
+        )}
       </div>
     </section>
   );
