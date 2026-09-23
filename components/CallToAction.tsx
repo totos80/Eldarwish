@@ -41,7 +41,7 @@ export default function CallToAction() {
           </Link>
 
           <a
-            href="tel:01011193720"
+            href="tel:01553939342"
             className="flex items-center gap-2 rounded-2xl border border-white px-8 py-4 font-bold transition hover:bg-white hover:text-amber-800"
           >
 
