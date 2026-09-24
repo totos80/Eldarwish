@@ -6,14 +6,8 @@ import { useState } from "react";
 import { useCart } from "@/context/CardContext";
 
 const directProducts = [
-  {
-    id: 1001,
-    name: "طحينة خام",
-  },
-  {
-    id: 1002,
-    name: "زبدة فول سوداني",
-  },
+  { id: 1001, name: "طحينة خام" },
+  { id: 1002, name: "زبدة فول سوداني" },
 ];
 
 const PRICE_PER_KG = 160;
@@ -48,7 +42,7 @@ export default function FreshGrindingSection() {
       name,
       price: PRICE_PER_KG,
       quantity,
-      image: "/tahina-peanut-fresh.png",
+      image: "/semsem.jpg",
       unit: "جرام",
       pricingMode: "gram",
       baseQuantity: 1000,
@@ -71,8 +65,8 @@ export default function FreshGrindingSection() {
       <div className="fresh-grinding-card">
         <div className="fresh-grinding-image-wrap">
           <Image
-            src="/tahina-peanut-fresh.png"
-            alt="طحن الطحينة وزبدة الفول السوداني الطازجة أمام العميل في عطارة الدرويش"
+            src="/semsem.jpg"
+            alt="الطحينة وزبدة الفول السوداني الطازجة في عطارة الدرويش"
             fill
             sizes="(max-width: 760px) 100vw, 50vw"
             className="fresh-grinding-image"
