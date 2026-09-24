@@ -55,11 +55,11 @@ export default function Header() {
                 <img
                   src="/store.jpg"
                   alt="واجهة عطارة الدرويش"
-                  className="brand-shop-photo"
+                  className="h-[58px] w-[105px] rounded-lg object-cover shadow-sm sm:h-[68px] sm:w-[125px]"
                 />
 
                 <span
-                  className="mt-2 block whitespace-nowrap text-center text-[26px] font-black leading-tight text-amber-800 sm:text-[31px]"
+                  className="mt-1 block whitespace-nowrap text-center text-[17px] font-black leading-tight text-amber-800 sm:text-[20px]"
                   style={{
                     fontFamily:
                       '"Andalus", "Noto Kufi Arabic", "Amiri", serif',
