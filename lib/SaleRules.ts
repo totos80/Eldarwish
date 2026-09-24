@@ -12,9 +12,6 @@ export type SaleRule = {
 };
 
 export function getSaleRule(product: Product): SaleRule {
-  // زيت زيتون ادمز:
-  // السعر المسجل هو سعر اللتر
-  // البيع يبدأ من ربع لتر ويزيد بمقدار ربع لتر
   if (
     product.id === 105 ||
     product.name.includes("زيت زيتون ادمز")
@@ -29,16 +26,18 @@ export function getSaleRule(product: Product): SaleRule {
     };
   }
 
-  // المنتجات التي تباع بالوزن
   if (
     product.category === "العطارة" ||
     product.category === "التوابل" ||
     product.category === "البذور" ||
-    product.category === "الأعشاب"
+    product.category === "الأعشاب" ||
+    product.category === "القهوة"
   ) {
+    const isCoffee = product.category === "القهوة";
+
     return {
       mode: "gram",
-      min: 50,
+      min: isCoffee ? 200 : 50,
       step: 50,
       baseQuantity: 1000,
       unit: "جرام",
@@ -46,7 +45,6 @@ export function getSaleRule(product: Product): SaleRule {
     };
   }
 
-  // باقي المنتجات: بالوحدة / القطعة / العبوة
   return {
     mode: "piece",
     min: 1,
