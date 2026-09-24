@@ -3,85 +3,90 @@
 import Link from "next/link";
 
 const categories = [
-{
-title: "العروض",
-href: "/offers",
-image:
-"https://images.unsplash.com/photo-1607082349566-187342175e2f?q=90&w=900&auto=format&fit=crop",
-},
-{
-title: "الزيوت الطبيعية",
-href: "/products?category=الزيوت",
-image:
-"https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?q=90&w=900&auto=format&fit=crop",
-},
-{
-title: "الحبوب والبذور",
-href: "/products?category=الحبوب",
-image:
-"https://images.unsplash.com/photo-1586201375761-83865001e31c?q=90&w=900&auto=format&fit=crop",
-},
-{
-title: "البن والقهوة",
-href: "/products?category=القهوة",
-image:
-"https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=90&w=900&auto=format&fit=crop",
-},
-{
-title: "التوابل والبهارات",
-href: "/products?category=التوابل",
-image:
-"https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=90&w=900&auto=format&fit=crop",
-},
-{
-title: "الأعشاب",
-href: "/products?category=الأعشاب",
-image:
-"https://images.unsplash.com/photo-1515586000433-45406d8e6662?q=90&w=900&auto=format&fit=crop",
-},
-{
-title: "البلح والتمور",
-href: "/products?category=التمور",
-image:
-"https://images.unsplash.com/photo-1598532163257-ae3b6c0f6f1c?q=90&w=900&auto=format&fit=crop",
-},
-{
-title: "منتجات خليجية وليبية",
-href: "/products?category=خليجية",
-image:
-"https://images.unsplash.com/photo-1571934811356-5cc061b6821f?q=90&w=900&auto=format&fit=crop",
-},
+  {
+    title: "العروض",
+    href: "/offers",
+    image: "https://share.google/wsWc8m9qrZrvp4LZK",
+  },
+  {
+    title: "الزيوت",
+    href: "/products?category=الزيوت",
+    image: "https://share.google/8yYoCgF9jG2IKCJAG",
+  },
+  {
+    title: "منتجات غذائية",
+    href: "/products?category=الأغذية",
+    image: "https://share.google/kM5HXV1eOiPWQGJiD",
+  },
+  {
+    title: "حبوب البن و القهوة العربية",
+    href: "/products?category=القهوة",
+    image: "https://share.google/XBI2zGe2DHZ8YGqPS",
+  },
+  {
+    title: "توابل و بهارات",
+    href: "/products?category=التوابل",
+    image: "https://share.google/HToQbUvNCHZPk5bc3",
+  },
+  {
+    title: "أعشاب و عطارة",
+    href: "/products?category=الأعشاب",
+    image: "https://share.google/B46DSdiPn5SpcMv99",
+  },
+  {
+    title: "تمر خليجي و بلح",
+    href: "/products?category=التمور",
+    image: "https://share.google/snQRpTimlarHdZB7d",
+  },
+  {
+    title: "منتجات ليبية و خليجية",
+    href: "/products?category=خليجية",
+    image: "https://share.google/iaKlKYhjuYTXspfJX",
+  },
 ];
 
 export default function Categories() {
-return (
-<section className="categories-section">
-<div className="section-heading">
-<span>تسوق حسب التصنيف</span>
+  return (
+    <section
+      dir="rtl"
+      className="mx-auto w-full max-w-[1400px] px-4 py-12 sm:px-6 lg:px-10 lg:py-16"
+    >
+      {/* عنوان القسم */}
+      <div className="mb-8 text-center">
+        <span className="mb-2 block text-sm font-extrabold tracking-wide text-amber-700">
+          تسوق حسب التصنيف
+        </span>
 
-    <h2>اكتشف تشكيلتنا</h2>
-  </div>
+        <h2 className="text-3xl font-black text-stone-800 sm:text-4xl">
+          اكتشف تشكيلتنا
+        </h2>
+      </div>
 
-  <div className="category-grid">
-    {categories.map(({ title, href, image }) => (
-      <Link
-        href={href}
-        key={title}
-        className="category-card"
-      >
-        <div className="category-image-wrap">
-          <img
-            src={image}
-            alt={title}
-            loading="lazy"
-          />
-        </div>
+      {/* القوائم الرئيسية */}
+      <div className="grid grid-cols-2 gap-x-3 gap-y-7 sm:grid-cols-3 sm:gap-x-5 sm:gap-y-9 lg:grid-cols-4 lg:gap-x-7 lg:gap-y-10">
+        {categories.map((category) => (
+          <Link
+            key={category.title}
+            href={category.href}
+            className="group block text-center"
+          >
+            {/* الصورة فقط */}
+            <div className="relative aspect-square w-full overflow-hidden rounded-2xl bg-stone-100 shadow-md ring-1 ring-black/5 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl">
+              <img
+                src={category.image}
+                alt={category.title}
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+            </div>
 
-        <h3>{title}</h3>
-      </Link>
-    ))}
-  </div>
-</section>
-
-);
+            {/* اسم القائمة تحت الصورة */}
+            <h3 className="mt-4 px-1 text-lg font-black leading-7 text-stone-800 transition-colors duration-300 group-hover:text-amber-700 sm:text-xl lg:text-[22px]">
+              {category.title}
+            </h3>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
 }
