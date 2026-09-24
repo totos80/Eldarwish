@@ -48,24 +48,26 @@ export default function Header() {
           <div className="main-nav">
             <Link
               href="/"
-              className="brand-new"
               aria-label="الدَرْوِيش - الأقرب إليك"
+              className="brand-new !h-auto !overflow-visible"
             >
-              <img
-                src="/store.jpg"
-                alt="واجهة عطارة الدرويش"
-                className="brand-shop-photo"
-              />
+              <div className="flex flex-col items-center">
+                <img
+                  src="/store.jpg"
+                  alt="واجهة عطارة الدرويش"
+                  className="brand-shop-photo"
+                />
 
-              <span
-                className="mt-2 block text-center text-[28px] font-black leading-tight text-amber-800 sm:text-[32px]"
-                style={{
-                  fontFamily:
-                    '"Andalus", "Noto Kufi Arabic", "Amiri", serif',
-                }}
-              >
-                الأقرب إليك
-              </span>
+                <span
+                  className="mt-2 block whitespace-nowrap text-center text-[26px] font-black leading-tight text-amber-800 sm:text-[31px]"
+                  style={{
+                    fontFamily:
+                      '"Andalus", "Noto Kufi Arabic", "Amiri", serif',
+                  }}
+                >
+                  الأقرب إليك
+                </span>
+              </div>
             </Link>
 
             <nav className="desktop-nav">
