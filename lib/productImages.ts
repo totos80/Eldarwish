@@ -1,331 +1,228 @@
-      const image = (id: string) =>
-"https://images.unsplash.com/${id}?q=90&w=1200&auto=format&fit=crop";
+     const images = {
+  spices:
+    "https://images.pexels.com/photos/4199060/pexels-photo-4199060.jpeg?auto=compress&cs=tinysrgb&w=1200",
 
-const images = {
-spices: image("photo-1596040033229-a9821ebd058d"),
-spices2: image("photo-1601312378427-822b2b41da35"),
-spices3: image("photo-1599909533730-f9d9d3c8a0f4"),
-seeds: image("photo-1586201375761-83865001e31c"),
-seeds2: image("photo-1612257999756-8f9b6f6d8e5d"),
-herbs: image("photo-1515586000433-45406d8e6662"),
-herbs2: image("photo-1515377905703-c4788e51af15"),
-coffee: image("photo-1495474472287-4d71bcdd2085"),
-coffee2: image("photo-1447933601403-0c6688de566e"),
-grains: image("photo-1586201375761-83865001e31c"),
-grains2: image("photo-1515543904379-3d757afe72e4"),
-chocolate: image("photo-1575377427642-087cf684f29d"),
-driedFruit: image("photo-1595577051483-3a8c5d8d9b9a"),
-oil: image("photo-1474979266404-7eaacbcd87c5"),
-food: image("photo-1547592180-85f173990554"),
-pasta: image("photo-1551462147-ff29053bfc14"),
-rice: image("photo-1586201375761-83865001e31c"),
-dates: image("photo-1598532163257-ae3b6c0f6f1c"),
-garlic: image("photo-1615485290382-441e4d049cb5"),
-cinnamon: image("photo-1600326145552-327f74c4d5f4"),
-pepper: image("photo-1599909533730-f9d9d3c8a0f4"),
-paprika: image("photo-1596040033229-a9821ebd058d"),
-salt: image("photo-1518110925495-5e9c2b7f5b98"),
-coconut: image("photo-1590080875515-8a3a8dc5735e"),
-cocoa: image("photo-1578985545062-69928b1d9587"),
+  seeds:
+    "https://images.pexels.com/photos/4871307/pexels-photo-4871307.jpeg?auto=compress&cs=tinysrgb&w=1200",
+
+  herbs:
+    "https://images.pexels.com/photos/13075384/pexels-photo-13075384.jpeg?auto=compress&cs=tinysrgb&w=1200",
+
+  coffee:
+    "https://images.pexels.com/photos/942809/pexels-photo-942809.jpeg?auto=compress&cs=tinysrgb&w=1200",
+
+  grains:
+    "https://images.pexels.com/photos/18328392/pexels-photo-18328392.jpeg?auto=compress&cs=tinysrgb&w=1200",
+
+  pasta:
+    "https://images.pexels.com/photos/11391663/pexels-photo-11391663.jpeg?auto=compress&cs=tinysrgb&w=1200",
+
+  chocolate:
+    "https://images.pexels.com/photos/4113344/pexels-photo-4113344.jpeg?auto=compress&cs=tinysrgb&w=1200",
+
+  dried:
+    "https://images.pexels.com/photos/8995296/pexels-photo-8995296.jpeg?auto=compress&cs=tinysrgb&w=1200",
+
+  oil:
+    "https://images.pexels.com/photos/9814620/pexels-photo-9814620.jpeg?auto=compress&cs=tinysrgb&w=1200",
+
+  general:
+    "https://images.pexels.com/photos/4871307/pexels-photo-4871307.jpeg?auto=compress&cs=tinysrgb&w=1200",
 };
 
-const fallback = images.spices;
-
 export function getProductImage(name: string): string {
-const n = String(name || "").trim().toLowerCase();
+  const n = String(name || "").trim().toLowerCase();
 
-/* =========================
-القهوة والبن
-========================= */
+  /* القهوة */
+  if (
+    n.includes("بن ") ||
+    n.includes("بن فاتح") ||
+    n.includes("قهوة") ||
+    n.includes("قهوه")
+  ) {
+    return images.coffee;
+  }
 
-if (
-n.includes("بن ") ||
-n.includes("بن فاتح") ||
-n.includes("قهوه") ||
-n.includes("قهوة")
-) {
-return images.coffee;
-}
+  /* الزيوت */
+  if (
+    n.includes("زيت") ||
+    n.includes("زيوت")
+  ) {
+    return images.oil;
+  }
 
-/* =========================
-التوابل الحمراء
-========================= */
+  /* المكرونة */
+  if (n.includes("مكرونة")) {
+    return images.pasta;
+  }
 
-if (
-n.includes("بابريكا") ||
-n.includes("شطة") ||
-n.includes("شطة") ||
-n.includes("فلفل") ||
-n.includes("كركم") ||
-n.includes("كارى") ||
-n.includes("كاري") ||
-n.includes("سماق") ||
-n.includes("عصفر")
-) {
-return images.spices2;
-}
+  /* الشوكولاتة والكاكاو */
+  if (
+    n.includes("شيكولاتة") ||
+    n.includes("شيكولاته") ||
+    n.includes("كاكاو") ||
+    n.includes("فارمسيل")
+  ) {
+    return images.chocolate;
+  }
 
-/* =========================
-القرفة
-========================= */
+  /* الحلويات */
+  if (
+    n.includes("كورن فلكس") ||
+    n.includes("فنكوش") ||
+    n.includes("جيلاتين") ||
+    n.includes("كريمة") ||
+    n.includes("راسبيري") ||
+    n.includes("كامينا") ||
+    n.includes("جوز هند") ||
+    n.includes("زبيب")
+  ) {
+    return images.dried;
+  }
 
-if (
-n.includes("قرفه") ||
-n.includes("قرفة")
-) {
-return images.cinnamon;
-}
+  /* الحبوب والبقوليات */
+  if (
+    n.includes("ارز") ||
+    n.includes("أرز") ||
+    n.includes("عدس") ||
+    n.includes("فاصوليا") ||
+    n.includes("لوبيا") ||
+    n.includes("فول") ||
+    n.includes("ذرة") ||
+    n.includes("ذره") ||
+    n.includes("فريك") ||
+    n.includes("قمح") ||
+    n.includes("حمص") ||
+    n.includes("ترمس") ||
+    n.includes("برغل") ||
+    n.includes("شوفان") ||
+    n.includes("دقيق")
+  ) {
+    return images.grains;
+  }
 
-/* =========================
-الثوم والبصل
-========================= */
+  /* البذور */
+  if (
+    n.includes("بذر") ||
+    n.includes("سمسم") ||
+    n.includes("شمر") ||
+    n.includes("كراوية") ||
+    n.includes("كراويه") ||
+    n.includes("ينسون") ||
+    n.includes("حبة البركه") ||
+    n.includes("حبه البركه") ||
+    n.includes("لب يقطين") ||
+    n.includes("خردل")
+  ) {
+    return images.seeds;
+  }
 
-if (
-n.includes("ثوم") ||
-n.includes("بصل")
-) {
-return images.garlic;
-}
+  /* الأعشاب */
+  if (
+    n.includes("بردقوش") ||
+    n.includes("روز ماري") ||
+    n.includes("ورد شامي") ||
+    n.includes("زعتر") ||
+    n.includes("شاي اخضر") ||
+    n.includes("شاي أخضر") ||
+    n.includes("شيح") ||
+    n.includes("مرمرية") ||
+    n.includes("مرمريه") ||
+    n.includes("ورق جوافة") ||
+    n.includes("ورق جوافه") ||
+    n.includes("ورق لورو") ||
+    n.includes("ورق سدر")
+  ) {
+    return images.herbs;
+  }
 
-/* =========================
-البذور
-========================= */
+  /* الثوم والبصل */
+  if (
+    n.includes("ثوم") ||
+    n.includes("بصل")
+  ) {
+    return images.spices;
+  }
 
-if (
-n.includes("بذر") ||
-n.includes("سمسم") ||
-n.includes("شمر") ||
-n.includes("كراوية") ||
-n.includes("كراويه") ||
-n.includes("ينسون") ||
-n.includes("حبة البركه") ||
-n.includes("حبه البركه") ||
-n.includes("لب يقطين") ||
-n.includes("خردل")
-) {
-return images.seeds;
-}
+  /* القرفة */
+  if (
+    n.includes("قرفه") ||
+    n.includes("قرفة")
+  ) {
+    return images.spices;
+  }
 
-/* =========================
-الأعشاب
-========================= */
+  /* الفلفل والبهارات */
+  if (
+    n.includes("بابريكا") ||
+    n.includes("شطة") ||
+    n.includes("شطه") ||
+    n.includes("فلفل") ||
+    n.includes("كركم") ||
+    n.includes("كارى") ||
+    n.includes("كاري") ||
+    n.includes("سماق") ||
+    n.includes("عصفر") ||
+    n.includes("كمون") ||
+    n.includes("كزبره") ||
+    n.includes("كزبرة") ||
+    n.includes("حبهان") ||
+    n.includes("جوزه الطيب") ||
+    n.includes("جوزة الطيب") ||
+    n.includes("بهار") ||
+    n.includes("فيجيتار") ||
+    n.includes("ملح")
+  ) {
+    return images.spices;
+  }
 
-if (
-n.includes("بردقوش") ||
-n.includes("روز ماري") ||
-n.includes("ورد شامي") ||
-n.includes("زعتر") ||
-n.includes("شاي اخضر") ||
-n.includes("شاي أخضر") ||
-n.includes("شيح") ||
-n.includes("مرمرية") ||
-n.includes("مرمريه") ||
-n.includes("ورق جوافة") ||
-n.includes("ورق جوافه") ||
-n.includes("ورق لورو") ||
-n.includes("ورق سدر")
-) {
-return images.herbs;
-}
+  /* خلطات W والتتبيلات */
+  if (
+    n.includes(" w") ||
+    n.endsWith("w") ||
+    n.includes("فراخ مشوية") ||
+    n.includes("لحمه مشوية") ||
+    n.includes("لحمة مشوية") ||
+    n.includes("سمك") ||
+    n.includes("شرق أقصي") ||
+    n.includes("شرق اقصى") ||
+    n.includes("محشي") ||
+    n.includes("شاورما") ||
+    n.includes("كبسه") ||
+    n.includes("كفتة") ||
+    n.includes("كفته") ||
+    n.includes("بانيه")
+  ) {
+    return images.spices;
+  }
 
-/* =========================
-الحبوب والبقوليات
-========================= */
+  /* العطارة */
+  if (
+    n.includes("شبه") ||
+    n.includes("صمغ") ||
+    n.includes("لبان") ||
+    n.includes("نشادر") ||
+    n.includes("مغات") ||
+    n.includes("سلامكه") ||
+    n.includes("كبايه")
+  ) {
+    return images.herbs;
+  }
 
-if (
-n.includes("برغل") ||
-n.includes("شوفان") ||
-n.includes("ارز") ||
-n.includes("أرز") ||
-n.includes("عدس") ||
-n.includes("فاصوليا") ||
-n.includes("لوبيا") ||
-n.includes("فول") ||
-n.includes("ذرة") ||
-n.includes("ذره") ||
-n.includes("فريك") ||
-n.includes("قمح") ||
-n.includes("حمص") ||
-n.includes("ترمس") ||
-n.includes("دقيق")
-) {
-return images.grains;
-}
+  /* الأغذية */
+  if (
+    n.includes("مرقة") ||
+    n.includes("عسل") ||
+    n.includes("نشا") ||
+    n.includes("لبن بدرة") ||
+    n.includes("لبن بودرة") ||
+    n.includes("جولد الجمل") ||
+    n.includes("البركة") ||
+    n.includes("المروة") ||
+    n.includes("سعده")
+  ) {
+    return images.general;
+  }
 
-/* =========================
-النشويات والمواد الغذائية
-========================= */
-
-if (
-n.includes("نشا") ||
-n.includes("كربوناتو") ||
-n.includes("لبن بدرة") ||
-n.includes("لبن بودرة") ||
-n.includes("مرقة") ||
-n.includes("عسل")
-) {
-return images.food;
-}
-
-/* =========================
-المكرونة
-========================= */
-
-if (n.includes("مكرونة")) {
-return images.pasta;
-}
-
-/* =========================
-الشوكولاتة والكاكاو
-========================= */
-
-if (
-n.includes("شيكولاتة") ||
-n.includes("شيكولاته") ||
-n.includes("كاكاو") ||
-n.includes("فارمسيل")
-) {
-return images.chocolate;
-}
-
-/* =========================
-الحلويات
-========================= */
-
-if (
-n.includes("كورن فلكس") ||
-n.includes("فنكوش") ||
-n.includes("جيلاتين") ||
-n.includes("كريمة") ||
-n.includes("راسبيري") ||
-n.includes("تارتارازين") ||
-n.includes("طارتارازين") ||
-n.includes("اخضر زرعى") ||
-n.includes("أخضر زراعي") ||
-n.includes("ورد كامينا") ||
-n.includes("زهر كامينا") ||
-n.includes("جوز هند") ||
-n.includes("زبيب")
-) {
-return images.driedFruit;
-}
-
-/* =========================
-الزيوت
-========================= */
-
-if (
-n.includes("زيت") ||
-n.includes("زيوت")
-) {
-return images.oil;
-}
-
-/* =========================
-التمر والفاكهة المجففة
-========================= */
-
-if (
-n.includes("تمر") ||
-n.includes("بلح") ||
-n.includes("زبيب")
-) {
-return images.dates;
-}
-
-/* =========================
-الكاكاو
-========================= */
-
-if (n.includes("كاكاو")) {
-return images.cocoa;
-}
-
-/* =========================
-الملح
-========================= */
-
-if (
-n.includes("ملح") ||
-n.includes("ملح ليمون")
-) {
-return images.salt;
-}
-
-/* =========================
-جوز الهند
-========================= */
-
-if (n.includes("جوز هند")) {
-return images.coconut;
-}
-
-/* =========================
-القهوة العربية والمنتجات المرتبطة
-========================= */
-
-if (
-n.includes("حبهان") ||
-n.includes("حبهان هندي") ||
-n.includes("جوزه الطيب") ||
-n.includes("جوزة الطيب")
-) {
-return images.spices3;
-}
-
-/* =========================
-منتجات العطارة العامة
-========================= */
-
-if (
-n.includes("شبه") ||
-n.includes("صمغ") ||
-n.includes("لبان") ||
-n.includes("نشادر") ||
-n.includes("مغات") ||
-n.includes("سلامكه") ||
-n.includes("كبايه")
-) {
-return images.herbs2;
-}
-
-/* =========================
-خلطات W والتتبيلات
-========================= */
-
-if (
-n.endsWith(" w") ||
-n.includes(" w") ||
-n.includes("بهار") ||
-n.includes("فراخ مشوية") ||
-n.includes("لحمه مشوية") ||
-n.includes("لحمة مشوية") ||
-n.includes("سمك") ||
-n.includes("شرق أقصي") ||
-n.includes("شرق اقصى") ||
-n.includes("محشي") ||
-n.includes("شاورما") ||
-n.includes("كبسه") ||
-n.includes("كفتة") ||
-n.includes("كفته") ||
-n.includes("بانيه") ||
-n.includes("فيجيتار")
-) {
-return images.spices;
-}
-
-/* =========================
-المنتجات الغذائية العامة
-========================= */
-
-if (
-n.includes("جولد الجمل") ||
-n.includes("البركة") ||
-n.includes("المروة") ||
-n.includes("سعده")
-) {
-return images.food;
-}
-
-return fallback;
-}
+  return images.general;
+} 
