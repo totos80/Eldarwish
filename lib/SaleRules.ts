@@ -45,6 +45,17 @@ export function getSaleRule(product: Product): SaleRule {
     };
   }
 
+  if (product.category === "الأغذية") {
+    return {
+      mode: "gram",
+      min: 250,
+      step: 50,
+      baseQuantity: 1000,
+      unit: "جرام",
+      priceLabel: "سعر الكيلو",
+    };
+  }
+
   return {
     mode: "piece",
     min: 1,
