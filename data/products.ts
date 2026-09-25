@@ -1,4 +1,4 @@
-      import { Product } from "@/types/product";
+import { Product } from "@/types/product";
 import { getProductImage } from "@/lib/productImages";
 
 const makeSlug = (id: number) => `product-${id}`;
@@ -15,7 +15,7 @@ const makeProduct = (
   name,
   category,
   description: `${name} من منتجات عطارة الدَرْويش.`,
-  image: getProductImage(name),
+  image: getProductImage(id),
   price,
   unit,
   inStock: true,
@@ -55,7 +55,7 @@ export const products: Product[] = [
   makeProduct(27, "شاي اخضر سايب", 200, "الأعشاب"),
   makeProduct(28, "شبه معطره", 160, "العطارة"),
   makeProduct(29, "شبه ص", 100, "العطارة"),
-  makeProduct(30, "شطه مقطفة ص 1", 160, "التوابل"),
+  makeProduct(30, "شته مقطفة ص 1", 160, "التوابل"),
   makeProduct(31, "شمر", 120, "البذور"),
   makeProduct(32, "شوفان سايب", 60, "الحبوب"),
   makeProduct(33, "شيح بلدى", 160, "الأعشاب"),
