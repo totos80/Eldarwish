@@ -31,7 +31,8 @@ export function getSaleRule(product: Product): SaleRule {
     product.category === "التوابل" ||
     product.category === "البذور" ||
     product.category === "الأعشاب" ||
-    product.category === "القهوة"
+    product.category === "القهوة" ||
+    product.category === "الحبوب"
   ) {
     const isCoffee = product.category === "القهوة";
 
