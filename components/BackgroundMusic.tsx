@@ -18,8 +18,8 @@ pathname.startsWith("/categories/") ||
 pathname.startsWith("/offers/");
 
 const musicSrc = isMenuPage
-? "/music/eldarwishsong.mp3"
-: "/music/background.mp3";
+  ? "/music/eldarwishsong.mp3"
+  : "/music/monamore.mp3";
 
 useEffect(() => {
 const audio = audioRef.current;
