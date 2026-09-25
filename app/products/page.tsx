@@ -18,7 +18,7 @@ export default async function ProductsPage({
   const categoryGroups: Record<string, string[]> = {
     "الأعشاب": ["الأعشاب", "العطارة"],
     "العطارة": ["العطارة", "الحبوب", "البذور"],
-    "الأغذية": ["الأغذية", "الحلويات"],
+    "الأغذية": ["الأغذية", "الحلويات", "الحبوب"],
   };
 
   const allowedCategories =
@@ -40,7 +40,7 @@ export default async function ProductsPage({
       : selectedCategory === "العطارة"
         ? "العطارة والحبوب والبذور"
         : selectedCategory === "الأغذية"
-          ? "المواد الغذائية والحلويات"
+          ? "المواد الغذائية والحلويات والحبوب"
           : selectedCategory || "جميع المنتجات";
 
   const pageDescription =
@@ -49,7 +49,7 @@ export default async function ProductsPage({
       : selectedCategory === "العطارة"
         ? "تصفح العطارة والحبوب والبذور من عطارة الدَرْويش."
         : selectedCategory === "الأغذية"
-          ? "تصفح المواد الغذائية والحلويات من عطارة الدَرْويش."
+          ? "تصفح المواد الغذائية والحلويات والحبوب من عطارة الدَرْويش."
           : selectedCategory
             ? `تصفح منتجات قسم ${pageTitle} من عطارة الدَرْويش.`
             : "تصفح جميع منتجات عطارة الدَرْويش.";
