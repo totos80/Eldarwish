@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 const features = [
   {
     title: "جودة مضمونة",
@@ -59,7 +61,15 @@ export default function StoreFeatures() {
               <div className={`feature-photo feature-photo-${tone}`}>
                 <div className="photo-glow" />
 
-                <img src={image} alt={title} />
+                <div className="photo-img-wrapper">
+                  <Image
+                    src={image}
+                    alt={title}
+                    fill
+                    sizes="(max-width: 640px) 105px, 145px"
+                    className="feature-img"
+                  />
+                </div>
 
                 <div className="photo-ring" />
               </div>
@@ -256,24 +266,26 @@ export default function StoreFeatures() {
           margin: 0 auto 24px;
         }
 
-        .feature-photo img {
+        .photo-img-wrapper {
           position: absolute;
           inset: 10px;
           z-index: 3;
-          width: calc(100% - 20px);
-          height: calc(100% - 20px);
-          object-fit: cover;
           border-radius: 50%;
           border: 5px solid rgba(255, 250, 240, 0.96);
           box-shadow:
             0 10px 25px rgba(0, 0, 0, 0.38),
             0 0 0 2px rgba(242, 198, 109, 0.5);
+          overflow: hidden;
           transition:
             transform 0.5s ease,
             box-shadow 0.5s ease;
         }
 
-        .feature-item:hover .feature-photo img {
+        :global(.feature-img) {
+          object-fit: cover;
+        }
+
+        .feature-item:hover .photo-img-wrapper {
           transform: scale(1.08);
           box-shadow:
             0 15px 35px rgba(0, 0, 0, 0.45),
@@ -416,10 +428,8 @@ export default function StoreFeatures() {
             margin-bottom: 17px;
           }
 
-          .feature-photo img {
+          .photo-img-wrapper {
             inset: 7px;
-            width: calc(100% - 14px);
-            height: calc(100% - 14px);
             border-width: 4px;
           }
 
