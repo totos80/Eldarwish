@@ -12,8 +12,8 @@ export default function Home() {
     <>
       <Header />
       <Hero />
-      <StoreFeatures />
-      <Categories />
+<Categories />
+<StoreFeatures />
       <FreshGrindingSection />
       <Offers />
       <Footer />
