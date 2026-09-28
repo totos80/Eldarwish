@@ -11,12 +11,19 @@ export default function Home() {
   return (
     <>
       <Header />
+
       <Hero />
-<Categories />
-<StoreFeatures />
+
+      <Categories />
+
+      <StoreFeatures />
+
       <FreshGrindingSection />
+
       <Offers />
+
       <Footer />
+
       <WhatsAppButton />
     </>
   );
