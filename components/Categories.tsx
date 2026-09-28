@@ -49,16 +49,18 @@ export default function Categories() {
   return (
     <section
       dir="rtl"
-      className="mx-auto w-full max-w-[1400px] px-4 py-12 sm:px-6 lg:px-10 lg:py-16"
+      className="mx-auto w-full max-w-[1400px] overflow-hidden rounded-[2rem] bg-gradient-to-b from-green-950 via-emerald-950 to-[#061711] px-4 py-12 shadow-2xl sm:px-6 lg:px-10 lg:py-16"
     >
       <div className="mb-8 text-center">
-        <span className="mb-2 block text-sm font-extrabold tracking-wide text-amber-700">
+        <span className="mb-2 block text-sm font-extrabold tracking-wide text-amber-300">
           تسوق حسب التصنيف
         </span>
 
-        <h2 className="text-3xl font-black text-stone-800 sm:text-4xl">
+        <h2 className="text-3xl font-black text-stone-100 sm:text-4xl">
           اكتشف تشكيلتنا
         </h2>
+
+        <div className="mx-auto mt-4 h-1 w-20 rounded-full bg-amber-500/80" />
       </div>
 
       <div className="grid grid-cols-2 gap-x-3 gap-y-8 sm:grid-cols-3 sm:gap-x-5 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-7 lg:gap-y-12">
@@ -74,15 +76,16 @@ export default function Categories() {
               }`}
             >
               <div
-                className={`relative aspect-square w-full overflow-hidden rounded-2xl bg-stone-100 shadow-md ring-1 ring-black/5 transition-all duration-300 ${
+                className={`relative aspect-square w-full overflow-hidden rounded-2xl bg-stone-900 shadow-lg ring-1 ring-amber-100/10 transition-all duration-300 ${
                   isOffers
                     ? "offers-image-box"
-                    : "group-hover:-translate-y-1 group-hover:shadow-xl"
+                    : "group-hover:-translate-y-1 group-hover:shadow-2xl group-hover:ring-amber-400/30"
                 }`}
               >
                 {isOffers && (
                   <>
                     <div className="offers-glow" />
+
                     <div className="offers-badge">
                       🔥 خصومات
                     </div>
@@ -107,7 +110,7 @@ export default function Categories() {
                 className={`mt-4 px-1 font-black leading-7 ${
                   isOffers
                     ? "offers-title text-xl sm:text-2xl lg:text-[26px]"
-                    : "text-lg text-stone-800 transition-colors duration-300 group-hover:text-amber-700 sm:text-xl lg:text-[22px]"
+                    : "text-lg text-amber-100 transition-colors duration-300 group-hover:text-amber-300 sm:text-xl lg:text-[22px]"
                 }`}
               >
                 {category.title}
@@ -134,7 +137,7 @@ export default function Categories() {
           box-shadow:
             0 0 0 3px rgba(239, 68, 68, 0.12),
             0 0 18px rgba(245, 158, 11, 0.45),
-            0 10px 30px rgba(0, 0, 0, 0.18);
+            0 10px 30px rgba(0, 0, 0, 0.4);
           animation: offersBox 2.4s ease-in-out infinite;
         }
 
@@ -186,7 +189,7 @@ export default function Categories() {
           );
           background-size: 300% 100%;
           box-shadow:
-            0 4px 12px rgba(0, 0, 0, 0.25),
+            0 4px 12px rgba(0, 0, 0, 0.35),
             0 0 16px rgba(239, 68, 68, 0.55);
           animation:
             offersBadge 1.15s ease-in-out infinite,
@@ -226,7 +229,7 @@ export default function Categories() {
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
-          filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.18));
+          filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
           animation:
             offersText 3.5s linear infinite,
             offersTextPop 1.8s ease-in-out infinite;
