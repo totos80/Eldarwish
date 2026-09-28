@@ -26,6 +26,17 @@ export function getSaleRule(product: Product): SaleRule {
     };
   }
 
+  if (product.category === "خليجية") {
+    return {
+      mode: "piece",
+      min: 1,
+      step: 1,
+      baseQuantity: 1,
+      unit: "قطعة",
+      priceLabel: "سعر القطعة",
+    };
+  }
+
   if (
     product.category === "العطارة" ||
     product.category === "التوابل" ||
