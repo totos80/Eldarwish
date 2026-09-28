@@ -58,7 +58,7 @@ export default async function ProductsPage({
     <>
       <Header />
 
-      <main className="min-h-screen bg-gradient-to-b from-stone-800 via-stone-900 to-stone-950 py-12">
+      <main className="min-h-screen bg-gradient-to-b from-emerald-950 via-green-950 to-[#071a14] py-12">
         <div className="container">
           <div className="mb-10 rounded-3xl border border-amber-700/30 bg-stone-800/70 p-6 text-center shadow-2xl backdrop-blur-sm">
             <h1 className="text-3xl font-bold text-amber-200 sm:text-4xl">
