@@ -1,3 +1,4 @@
+import LuckyWheel from "@/components/LuckyWheel";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import StoreFeatures from "@/components/StoreFeatures";
@@ -16,6 +17,8 @@ export default function Home() {
 
       <Categories />
 
+      <LuckyWheel />
+      
       <StoreFeatures />
 
       <FreshGrindingSection />
