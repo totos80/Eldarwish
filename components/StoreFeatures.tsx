@@ -66,7 +66,7 @@ export default function StoreFeatures() {
                     src={image}
                     alt={title}
                     fill
-                    sizes="(max-width: 640px) 105px, 145px"
+                    sizes="(max-width: 640px) 90px, 145px"
                     className="feature-img"
                   />
                 </div>
@@ -394,9 +394,10 @@ export default function StoreFeatures() {
           }
         }
 
+        /* تعديلات الموبايل لإصلاح المشكلة بالكامل */
         @media (max-width: 640px) {
           .features-section {
-            padding: 55px 12px;
+            padding: 40px 16px;
           }
 
           .features-heading {
@@ -404,47 +405,50 @@ export default function StoreFeatures() {
           }
 
           .features-heading h2 {
-            font-size: 27px;
+            font-size: 24px;
           }
 
           .features-heading p {
             font-size: 14px;
           }
 
+          /* عرض بطاقة واحدة في كل صف لإتاحة المساحة للنصوص والصور */
           .features-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            max-width: 380px;
+            margin: 0 auto;
           }
 
           .feature-item {
-            min-height: 245px;
-            padding: 20px 8px 18px;
-            border-radius: 23px;
+            min-height: auto;
+            padding: 24px 16px 20px;
+            border-radius: 20px;
           }
 
           .feature-photo {
-            width: 105px;
-            height: 105px;
-            margin-bottom: 17px;
+            width: 110px;
+            height: 110px;
+            margin-bottom: 16px;
           }
 
           .photo-img-wrapper {
-            inset: 7px;
-            border-width: 4px;
+            inset: 6px;
+            border-width: 3px;
           }
 
           .feature-copy h3 {
-            font-size: 17px;
+            font-size: 19px;
           }
 
           .feature-copy p {
-            font-size: 12px;
+            font-size: 14px;
           }
 
           .feature-number {
-            left: 10px;
+            left: 12px;
             bottom: 8px;
-            font-size: 30px;
+            font-size: 28px;
           }
         }
 
