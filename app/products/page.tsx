@@ -58,18 +58,20 @@ export default async function ProductsPage({
     <>
       <Header />
 
-      <main className="container py-12">
-        <div className="mb-10">
-          <h1 className="text-4xl font-bold text-stone-900">
-            {pageTitle}
-          </h1>
+      <main className="min-h-screen bg-gradient-to-b from-stone-800 via-stone-900 to-stone-950 py-12">
+        <div className="container">
+          <div className="mb-10 rounded-3xl border border-amber-700/30 bg-stone-800/70 p-6 text-center shadow-2xl backdrop-blur-sm">
+            <h1 className="text-3xl font-bold text-amber-200 sm:text-4xl">
+              {pageTitle}
+            </h1>
 
-          <p className="mt-2 text-stone-500">
-            {pageDescription}
-          </p>
+            <p className="mt-3 text-stone-300">
+              {pageDescription}
+            </p>
+          </div>
+
+          <ProductsClient products={filteredProducts} />
         </div>
-
-        <ProductsClient products={filteredProducts} />
       </main>
 
       <Footer />
