@@ -10,28 +10,25 @@ import { ShoppingBag, Star, ShieldCheck, Truck, Clock } from "lucide-react";
 export default function HomePage() {
   const { addItem } = useCart();
 
-  const featuredProducts = Array.isArray(products) ? products.slice(0, 8) : [];
+  const featuredProducts = Array.isArray(products) ? products : [];
 
   return (
     <main className="min-h-screen bg-[#f8f1df]">
-      {/* 1. الهيدر الرئيسي */}
       <Header />
 
-      {/* 2. بنر الترحيب والعلامة التجارية */}
+      {/* البنر الرئيسي */}
       <section className="mx-auto max-w-7xl px-4 pt-6 pb-2">
-        <div className="relative overflow-hidden rounded-3xl border border-[#183b2a]/15 bg-white/70 p-6 text-center shadow-lg backdrop-blur-md">
-          <div className="relative z-10">
-            <h1 className="text-3xl font-black text-[#183b2a] sm:text-5xl font-['Traditional_Arabic','Andalus','Amiri',serif] drop-shadow-sm">
-              عطارة الدرويش
-            </h1>
-            <p className="mt-2 text-sm font-semibold text-[#183b2a]/80 sm:text-lg">
-              أجود أنواع العطارة والبهارات المطحونة طازجاً والأقرب إليك دائماً
-            </p>
-          </div>
+        <div className="rounded-3xl border border-[#183b2a]/15 bg-white/70 p-6 text-center shadow-lg backdrop-blur-md">
+          <h1 className="text-3xl font-black text-[#183b2a] sm:text-5xl font-['Traditional_Arabic','Andalus','Amiri',serif]">
+            عطارة الدرويش
+          </h1>
+          <p className="mt-2 text-sm font-semibold text-[#183b2a]/80 sm:text-lg">
+            أجود أنواع العطارة والبهارات المطحونة طازجاً والأقرب إليك دائماً
+          </p>
         </div>
       </section>
 
-      {/* 3. شريط مميزات المتجر */}
+      {/* المميزات */}
       <section className="my-6 border-y border-[#183b2a]/10 bg-[#efe4cc] py-3.5 shadow-inner">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-around gap-4 px-4 text-center text-xs font-bold text-[#183b2a] sm:text-sm">
           <div className="flex items-center gap-2">
@@ -49,15 +46,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. شبكة عرض المنتجات */}
+      {/* شبكة جميع المنتجات الكاملة */}
       <section className="mx-auto max-w-7xl px-4 py-6">
         <div className="mb-6 flex items-center justify-between border-b border-[#183b2a]/15 pb-3">
-          <div>
-            <h2 className="text-2xl font-black text-[#183b2a] sm:text-3xl font-['Traditional_Arabic','Andalus','Amiri',serif]">
-              أحدث المنتجات
-            </h2>
-          </div>
-
+          <h2 className="text-2xl font-black text-[#183b2a] sm:text-3xl font-['Traditional_Arabic','Andalus','Amiri',serif]">
+            أحدث المنتجات
+          </h2>
           <Link
             href="/products"
             className="rounded-xl border border-[#183b2a] bg-[#183b2a] px-4 py-2 text-xs font-bold text-amber-100 shadow transition hover:bg-[#24543c] sm:text-sm"
@@ -66,7 +60,6 @@ export default function HomePage() {
           </Link>
         </div>
 
-        {/* عرض شبكة المنتجات */}
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 sm:gap-6">
           {featuredProducts.map((product) => (
             <div
