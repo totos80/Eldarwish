@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Search, ShoppingBag, ChevronDown, X } from "lucide-react";
+import { Search, ShoppingBag, ChevronDown, X, Sparkles } from "lucide-react";
 import { useCart } from "@/context/CardContext";
 import { useState, useEffect } from "react";
 import FloatingCartButton from "@/components/FloatingCartButton";
@@ -65,7 +65,7 @@ export default function Header() {
       <header className="sticky top-0 z-[9998] border-b border-amber-200/20 bg-[#183b2a]/95 shadow-xl backdrop-blur-md">
         <div className="mx-auto flex min-h-[72px] max-w-7xl items-center justify-between gap-3 px-3 sm:px-5 lg:px-8">
 
-          {/* Banner Image Link: يمتد بكامل العرض ويُعيدك للصفحة الرئيسية عند الضغط */}
+          {/* Banner & 3D Interactive Logo Link */}
           <Link
             href="/"
             aria-label="الرئيسية - عطارة الدرويش"
@@ -75,29 +75,40 @@ export default function Header() {
               setCartOpen(false);
             }}
           >
-            <div className="relative h-14 w-full overflow-hidden rounded-xl border border-amber-200/30 shadow-lg transition duration-300 group-hover:border-amber-300/60">
+            <div className="relative flex h-16 w-full items-center justify-center overflow-hidden rounded-xl border border-amber-300/40 bg-gradient-to-r from-[#0d2218] via-[#183b2a] to-[#0d2218] shadow-[0_0_25px_rgba(217,119,6,0.3)] transition duration-500 hover:border-amber-400 hover:shadow-[0_0_35px_rgba(245,158,11,0.5)]">
               
-              {/* صورة البرطمانات من مجلد public */}
+              {/* صورة خلفية الرفوف والبرطمانات */}
               <Image
                 src="/banner-jars.jpg"
-                alt="عطارة الدرويش - الأقرب إليك"
+                alt="عطارة الدرويش"
                 fill
                 priority
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                className="object-cover opacity-30 transition-transform duration-700 group-hover:scale-110"
               />
 
-              {/* طبقة تظليل مخصصة لإبراز التصميم الإبداعي للنص */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#183b2a]/80 via-black/40 to-[#183b2a]/80" />
+              {/* هالة ذهبية مشعة خلف النص */}
+              <div className="absolute h-10 w-2/3 rounded-full bg-amber-400/20 blur-xl transition-all duration-500 group-hover:bg-amber-300/40 group-hover:blur-2xl" />
 
-              {/* الكتابة الإبداعية لـ ( الأقرب إليك ) بأسلوب مذهب زجاجي ممتد */}
-              <div className="absolute inset-0 flex items-center justify-center px-4">
-                <div className="w-full text-center">
-                  <span className="relative inline-block w-full text-lg font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-100 sm:text-2xl font-[#039912] font-['Traditional_Arabic','Andalus','Amiri',serif] drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
-                    الأقرب إليك
-                    <span className="absolute -bottom-1 left-1/2 h-[2px] w-2/3 -translate-x-1/2 bg-gradient-to-r from-transparent via-amber-300/80 to-transparent" />
+              {/* النص المجسم الـ 3D مع النجوم المتلألئة */}
+              <div className="relative z-10 flex items-center justify-center">
+                <span className="relative inline-block text-2xl font-black tracking-widest text-amber-200 sm:text-3xl font-['Traditional_Arabic','Andalus','Amiri',serif] [text-shadow:_0_1px_0_#b45309,_0_2px_0_#92400e,_0_3px_0_#78350f,_0_4px_8px_rgba(0,0,0,0.9)] transition-all duration-300 group-hover:[text-shadow:_0_2px_0_#f59e0b,_0_4px_0_#b45309,_0_6px_0_#78350f,_0_10px_15px_rgba(0,0,0,0.95)]">
+                  الأقرب إليك
+                  
+                  {/* نجمة 1: تنبض وتضوي أعلى اليمين */}
+                  <span className="absolute -top-2 -right-4 flex h-3 w-3 items-center justify-center text-amber-200">
+                    <Sparkles className="h-4 w-4 animate-bounce text-amber-200 drop-shadow-[0_0_8px_rgba(253,230,138,1)]" />
                   </span>
-                </div>
+                  
+                  {/* نجمة 2: وميض ناعم أسفل اليسار */}
+                  <span className="absolute -bottom-1 -left-4 flex h-3 w-3 items-center justify-center text-amber-300">
+                    <span className="absolute h-2 w-2 animate-ping rounded-full bg-amber-300 opacity-75" />
+                    <Sparkles className="h-3 w-3 text-amber-300 drop-shadow-[0_0_6px_rgba(252,211,77,1)]" />
+                  </span>
+                </span>
               </div>
+
+              {/* شعاع إضاءة مذهب متألق يمر بشكل دوري وعند الوقوف بالماوس */}
+              <div className="absolute -inset-full top-0 block h-full w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-amber-100/25 to-transparent transition-all duration-1000 group-hover:left-full" />
 
             </div>
           </Link>
@@ -173,7 +184,7 @@ export default function Header() {
                 </button>
               </div>
 
-              {/* Results */}
+              {/* Search Results */}
               {normalizedSearch.length > 0 && (
                 <div className="mt-2 overflow-hidden rounded-xl border border-amber-200/10 bg-[#f8f1df] shadow-2xl">
                   {searchResults.length > 0 ? (
