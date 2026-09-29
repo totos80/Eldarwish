@@ -237,7 +237,7 @@ export default function Header() {
                 />
 
                 <p className="font-semibold text-[#183b2a]/70">
-                  السلة فاضية
+                  السلةفاضية
                 </p>
               </div>
             ) : (
@@ -284,4 +284,4 @@ export default function Header() {
       {isMounted && <FloatingCartButton />}
     </>
   );
-      }
+}
