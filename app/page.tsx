@@ -8,7 +8,7 @@ import { useCart } from "@/context/CardContext";
 import { ShoppingBag, Star, ShieldCheck, Truck, Clock } from "lucide-react";
 
 export default function HomePage() {
-  const { addToCart } = useCart();
+  const { addItem } = useCart();
 
   const featuredProducts = Array.isArray(products) ? products.slice(0, 8) : [];
 
@@ -112,7 +112,7 @@ export default function HomePage() {
 
                 <button
                   type="button"
-                  onClick={() => addToCart(product)}
+                  onClick={() => addItem(product)}
                   className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#183b2a] text-amber-100 transition hover:bg-amber-700 active:scale-95"
                   aria-label="إضافة للسلة"
                 >
