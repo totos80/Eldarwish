@@ -116,8 +116,8 @@ export default function HomePage() {
                     addItem({
                       ...product,
                       quantity: 1,
-                      pricingMode: "weight",
-                      baseQuantity: 1,
+                      pricingMode: (product as any).pricingMode || "gram",
+                      baseQuantity: (product as any).baseQuantity || 1,
                     })
                   }
                   className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#183b2a] text-amber-100 transition hover:bg-amber-700 active:scale-95"
