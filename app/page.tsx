@@ -4,21 +4,22 @@ import Header from "@/components/Header";
 import Link from "next/link";
 import Image from "next/image";
 import { products } from "@/data/products";
-import { useCart } from "@/context/CardContext";
+// تعديل المسار لضمان التوافق مع CartContext
+import { useCart } from "@/context/CartContext"; 
 import { ShoppingBag, Star, ShieldCheck, Truck, Clock } from "lucide-react";
 
 export default function HomePage() {
   const { addToCart } = useCart();
 
-  // عرض أول 8 منتجات في الصفحة الرئيسية
-  const featuredProducts = products.slice(0, 8);
+  // جلب أول 8 منتجات بشكل آمن
+  const featuredProducts = Array.isArray(products) ? products.slice(0, 8) : [];
 
   return (
     <main className="min-h-screen bg-[#f8f1df]">
       {/* 1. الهيدر */}
       <Header />
 
-      {/* 2. بنر الترحيب والمميزات */}
+      {/* 2. بنر الترحيب */}
       <section className="mx-auto max-w-7xl px-4 pt-6 pb-2">
         <div className="rounded-3xl border border-[#183b2a]/15 bg-white/60 p-6 text-center shadow-sm backdrop-blur-sm">
           <h1 className="text-2xl font-black text-[#183b2a] sm:text-4xl font-['Traditional_Arabic','Andalus','Amiri',serif]">
@@ -30,7 +31,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3. شريط مميزات المتجر */}
+      {/* 3. مميزات المتجر */}
       <section className="my-4 border-y border-[#183b2a]/10 bg-[#efe4cc] py-3">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-around gap-3 px-4 text-center text-xs font-bold text-[#183b2a]">
           <div className="flex items-center gap-1.5">
@@ -48,7 +49,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. شبكة عرض المنتجات (Product Grid) */}
+      {/* 4. شبكة عرض المنتجات */}
       <section className="mx-auto max-w-7xl px-4 py-6">
         <div className="mb-6 flex items-center justify-between border-b border-[#183b2a]/15 pb-3">
           <div>
@@ -73,7 +74,6 @@ export default function HomePage() {
               className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-[#183b2a]/10 bg-white p-2.5 shadow-sm transition duration-300 hover:shadow-md"
             >
               <div>
-                {/* صورة المنتج */}
                 <Link
                   href={`/products/${product.slug}`}
                   className="relative block aspect-square w-full overflow-hidden rounded-xl bg-[#f8f1df]"
@@ -87,7 +87,6 @@ export default function HomePage() {
                   />
                 </Link>
 
-                {/* معلومات المنتج */}
                 <div className="mt-2 text-right">
                   <span className="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.5 rounded">
                     {product.category}
@@ -106,7 +105,6 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* السعر وزر السلة */}
               <div className="mt-3 flex items-center justify-between border-t border-[#183b2a]/10 pt-2">
                 <div className="text-right">
                   <div className="text-xs font-black text-amber-800 sm:text-sm">
