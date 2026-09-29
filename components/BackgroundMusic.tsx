@@ -11,22 +11,30 @@ export default function BackgroundMusic() {
   const playingRef = useRef(false);
 
   const [playing, setPlaying] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // التأكد من أن المكون تم تحميله في جانب العميل (Client-Side) فقط
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const isMenuPage =
-    pathname === "/products" ||
-    pathname === "/categories" ||
-    pathname === "/offers" ||
-    pathname.startsWith("/products/") ||
-    pathname.startsWith("/categories/") ||
-    pathname.startsWith("/offers/");
+    pathname ? (
+      pathname === "/products" ||
+      pathname === "/categories" ||
+      pathname === "/offers" ||
+      pathname.startsWith("/products/") ||
+      pathname.startsWith("/categories/") ||
+      pathname.startsWith("/offers/")
+    ) : false;
 
   const musicSrc = isMenuPage
     ? "/music/eldarwishsong.mp3"
     : "/music/monamore.mp3";
 
   useEffect(() => {
+    if (!isMounted) return;
     const audio = audioRef.current;
-
     if (!audio) return;
 
     const wasPlaying = playingRef.current;
@@ -48,17 +56,15 @@ export default function BackgroundMusic() {
           setPlaying(false);
         });
     }
-  }, [musicSrc]);
+  }, [musicSrc, isMounted]);
 
   const toggleMusic = async () => {
     const audio = audioRef.current;
-
     if (!audio) return;
 
     if (audio.paused) {
       try {
         await audio.play();
-
         playingRef.current = true;
         setPlaying(true);
       } catch {
@@ -67,11 +73,15 @@ export default function BackgroundMusic() {
       }
     } else {
       audio.pause();
-
       playingRef.current = false;
       setPlaying(false);
     }
   };
+
+  // حماية من العرض أثناء الـ Build / SSR
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <>
