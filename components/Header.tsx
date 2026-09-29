@@ -1,239 +1,130 @@
 "use client";
 
 import Link from "next/link";
-import { Search, ShoppingBag, ChevronDown } from "lucide-react";
+import { Search, ShoppingBag, ChevronDown, X } from "lucide-react";
 import { useCart } from "@/context/CardContext";
 import { useState } from "react";
 import FloatingCartButton from "@/components/FloatingCartButton";
+import { products } from "@/data/products";
+
+function normalizeArabic(text: string) {
+  return text
+    .toLowerCase()
+    .replace(/[أإآ]/g, "ا")
+    .replace(/ة/g, "ه")
+    .replace(/ى/g, "ي")
+    .replace(/ؤ/g, "و")
+    .replace(/ئ/g, "ي")
+    .replace(/ـ/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
 export default function Header() {
   const { items, total } = useCart();
+
   const [cartOpen, setCartOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [search, setSearch] = useState("");
 
-  const getItemTotal = (item: (typeof items)[number]) => {
-    if (item.pricingMode === "piece") {
-      return item.price * item.quantity;
-    }
+  const normalizedSearch = normalizeArabic(search);
 
-    return (item.price * item.quantity) / item.baseQuantity;
+  const searchResults =
+    normalizedSearch.length > 0
+      ? products
+          .filter((product) => {
+            const name = normalizeArabic(product.name);
+            const category = normalizeArabic(product.category);
+
+            return (
+              name.includes(normalizedSearch) ||
+              category.includes(normalizedSearch)
+            );
+          })
+          .slice(0, 8)
+      : [];
+
+  const openSearch = () => {
+    setSearchOpen(true);
+    setCartOpen(false);
   };
 
-  const formatQuantity = (item: (typeof items)[number]) => {
-    if (item.pricingMode === "liter") {
-      return item.quantity.toLocaleString("en-US", {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 2,
-      });
-    }
-
-    return item.quantity.toLocaleString("en-US");
+  const openCart = () => {
+    setCartOpen(true);
+    setSearchOpen(false);
   };
 
   return (
     <>
-      <header className="site-header">
-        <div className="promo-strip">
-          <div className="promo-track">
-            <span>
-              عروض خاصة جدًا للطلبات من الموقع، شوف التخفيضات في صفحة العروض
-            </span>
+      <header className="sticky top-0 z-[9998] border-b border-amber-200/20 bg-[#183b2a]/95 shadow-xl backdrop-blur-md">
+        <div className="mx-auto flex min-h-[72px] max-w-7xl items-center justify-between gap-3 px-3 sm:px-5 lg:px-8">
 
-            <span aria-hidden="true">
-              عروض خاصة جدًا للطلبات من الموقع، شوف التخفيضات في صفحة العروض
-            </span>
-          </div>
-        </div>
-
-        <div className="main-nav-wrap">
-          <div className="main-nav">
-            <Link
-              href="/"
-              aria-label="الدَرْوِيش - الأقرب إليك"
-              className="brand-new !h-auto !overflow-visible"
-            >
-              <div className="flex flex-col items-center">
-                <img
-                  src="/store.jpg"
-                  alt="واجهة عطارة الدرويش"
-                  className="h-[58px] w-[105px] rounded-lg object-cover shadow-sm sm:h-[68px] sm:w-[125px]"
-                />
-
-                <span
-                  className="mt-1 block whitespace-nowrap text-center text-[17px] font-black leading-tight text-amber-800 sm:text-[20px]"
-                  style={{
-                    fontFamily:
-                      '"Andalus", "Noto Kufi Arabic", "Amiri", serif',
-                  }}
-                >
-                  الأقرب إليك
-                </span>
+          {/* Logo / Brand */}
+          <Link
+            href="/"
+            className="flex min-w-0 items-center gap-2"
+            onClick={() => {
+              setSearchOpen(false);
+              setCartOpen(false);
+            }}
+          >
+            <div className="min-w-0">
+              <div className="truncate text-xl font-bold tracking-wide text-amber-100 sm:text-2xl">
+                الدَرْوِيش
               </div>
-            </Link>
 
-            <nav className="desktop-nav">
-              <Link className="active" href="/">
-                الرئيسية
-              </Link>
-
-              <Link href="/products">
-                المنتجات
-              </Link>
-
-              <Link href="/categories">
-                التصنيفات
-              </Link>
-
-              <Link href="/offers">
-                العروض
-              </Link>
-
-              <Link href="/about">
-                من نحن
-              </Link>
-
-              <Link href="/contact">
-                تواصل معنا
-              </Link>
-            </nav>
-
-            <div className="nav-actions">
-              <button
-                className="icon-button"
-                aria-label="بحث"
-                type="button"
-              >
-                <Search size={21} />
-              </button>
-
-              <div className="relative">
-                <button
-                  type="button"
-                  onClick={() => setCartOpen((open) => !open)}
-                  className="icon-button cart-button"
-                  aria-label="شنطة المشتريات"
-                  aria-expanded={cartOpen}
-                >
-                  <ShoppingBag size={21} />
-
-                  <span className="cart-count">
-                    {items.length}
-                  </span>
-                </button>
-
-                {cartOpen && (
-                  <div
-                    dir="rtl"
-                    className="absolute left-0 top-[calc(100%+14px)] z-[100] w-[330px] max-w-[90vw] overflow-hidden rounded-3xl border border-amber-100 bg-white shadow-2xl"
-                  >
-                    <div className="border-b border-amber-100 bg-amber-50 px-5 py-4">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h3 className="text-lg font-extrabold text-stone-800">
-                            شنطة المشتريات
-                          </h3>
-
-                          <p className="mt-1 text-xs text-stone-500">
-                            {items.length === 0
-                              ? "لا توجد منتجات"
-                              : `${items.length} صنف`}
-                          </p>
-                        </div>
-
-                        <ShoppingBag
-                          size={22}
-                          className="text-amber-700"
-                        />
-                      </div>
-                    </div>
-
-                    {items.length === 0 ? (
-                      <div className="px-5 py-8 text-center">
-                        <ShoppingBag
-                          size={38}
-                          className="mx-auto text-stone-300"
-                        />
-
-                        <p className="mt-3 font-bold text-stone-600">
-                          الشنطة فاضية
-                        </p>
-
-                        <p className="mt-1 text-sm text-stone-400">
-                          أضف المنتجات اللي عايزها وهتظهر هنا.
-                        </p>
-                      </div>
-                    ) : (
-                      <>
-                        <div className="max-h-[320px] overflow-y-auto px-4 py-3">
-                          {items.map((item) => (
-                            <div
-                              key={item.id}
-                              className="flex items-center justify-between gap-3 border-b border-stone-100 py-3 last:border-b-0"
-                            >
-                              <div className="min-w-0 flex-1">
-                                <p className="truncate font-bold text-stone-800">
-                                  {item.name}
-                                </p>
-
-                                <p className="mt-1 text-xs text-stone-500">
-                                  {formatQuantity(item)} {item.unit}
-                                </p>
-                              </div>
-
-                              <div className="shrink-0 text-left">
-                                <p className="font-extrabold text-amber-700">
-                                  {getItemTotal(item).toLocaleString(
-                                    "en-US",
-                                    {
-                                      minimumFractionDigits: 2,
-                                      maximumFractionDigits: 2,
-                                    }
-                                  )}{" "}
-                                  ج.م
-                                </p>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-
-                        <div className="border-t border-amber-100 bg-stone-50 px-5 py-4">
-                          <div className="mb-3 flex items-center justify-between">
-                            <span className="font-bold text-stone-600">
-                              الإجمالي
-                            </span>
-
-                            <strong className="text-xl font-extrabold text-amber-700">
-                              {total.toLocaleString("en-US", {
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2,
-                              })}{" "}
-                              ج.م
-                            </strong>
-                          </div>
-
-                          <Link
-                            href="/cart"
-                            onClick={() => setCartOpen(false)}
-                            className="flex w-full items-center justify-center gap-2 rounded-2xl bg-amber-700 px-5 py-3 font-bold text-white transition hover:bg-amber-800"
-                          >
-                            عرض الشنطة كاملة
-
-                            <ChevronDown
-                              size={18}
-                              className="rotate-90"
-                            />
-                          </Link>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                )}
+              <div className="hidden text-[10px] tracking-[0.18em] text-amber-200/70 sm:block">
+                عطارة الدرويش
               </div>
             </div>
-          </div>
-        </div>
-      </header>
+          </Link>
 
-      <FloatingCartButton />
-    </>
-  );
-}
+          {/* Navigation */}
+          <nav className="hidden items-center gap-5 md:flex">
+            <Link
+              href="/"
+              className="text-sm font-semibold text-amber-50 transition hover:text-amber-300"
+            >
+              الرئيسية
+            </Link>
+
+            <Link
+              href="/products"
+              className="text-sm font-semibold text-amber-50 transition hover:text-amber-300"
+            >
+              المنتجات
+            </Link>
+
+            <Link
+              href="/offers"
+              className="text-sm font-semibold text-amber-50 transition hover:text-amber-300"
+            >
+              العروض
+            </Link>
+
+            <Link
+              href="/about"
+              className="text-sm font-semibold text-amber-50 transition hover:text-amber-300"
+            >
+              عن الدرويش
+            </Link>
+          </nav>
+
+          {/* Actions */}
+          <div className="flex shrink-0 items-center gap-2">
+
+            {/* Search */}
+            <button
+              className="icon-button flex h-10 w-10 items-center justify-center rounded-full border border-amber-200/20 text-amber-100 transition hover:bg-amber-100/10"
+              aria-label="بحث"
+              type="button"
+              onClick={openSearch}
+            >
+              <Search size={21} />
+            </button>
+
+            {/* Cart */}
+            <button
+              className="relative flex h-10 w-10 items-center justify-center rounded-full border border-amber-200/20 text-amber-100 transition hover:bg-amber-100/10"
+              aria-label="سلة المشتريات"
+              type="button"
