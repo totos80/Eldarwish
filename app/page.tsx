@@ -16,7 +16,6 @@ export default function HomePage() {
     <main className="min-h-screen bg-[#f8f1df]">
       <Header />
 
-      {/* البنر الرئيسي */}
       <section className="mx-auto max-w-7xl px-4 pt-6 pb-2">
         <div className="rounded-3xl border border-[#183b2a]/15 bg-white/70 p-6 text-center shadow-lg backdrop-blur-md">
           <h1 className="text-3xl font-black text-[#183b2a] sm:text-5xl font-['Traditional_Arabic','Andalus','Amiri',serif]">
@@ -28,7 +27,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* المميزات */}
       <section className="my-6 border-y border-[#183b2a]/10 bg-[#efe4cc] py-3.5 shadow-inner">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-around gap-4 px-4 text-center text-xs font-bold text-[#183b2a] sm:text-sm">
           <div className="flex items-center gap-2">
@@ -46,7 +44,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* شبكة جميع المنتجات الكاملة */}
       <section className="mx-auto max-w-7xl px-4 py-6">
         <div className="mb-6 flex items-center justify-between border-b border-[#183b2a]/15 pb-3">
           <h2 className="text-2xl font-black text-[#183b2a] sm:text-3xl font-['Traditional_Arabic','Andalus','Amiri',serif]">
