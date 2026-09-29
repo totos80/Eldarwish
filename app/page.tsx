@@ -1,5 +1,6 @@
 "use client";
 
+import LuckyWheel from "@/components/LuckyWheel";
 import Header from "@/components/Header";
 import Link from "next/link";
 import Image from "next/image";
