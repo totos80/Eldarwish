@@ -65,27 +65,42 @@ export default function Header() {
       <header className="sticky top-0 z-[9998] border-b border-amber-200/20 bg-[#183b2a]/95 shadow-xl backdrop-blur-md">
         <div className="mx-auto flex min-h-[72px] max-w-7xl items-center justify-between gap-3 px-3 sm:px-5 lg:px-8">
 
-          {/* Banner Image Area: تمتد من أقصى اليمين حتى زر البحث */}
-          <div className="relative flex flex-1 items-center justify-start overflow-hidden py-1">
-            <div className="relative h-14 w-full overflow-hidden rounded-xl border border-amber-200/20 shadow-md">
-              {/* صورة البرطمانات والرفوف - ضع ملف الصورة داخل مجلد public باسم banner-jars.jpg */}
+          {/* Banner Image Link: يمتد بكامل العرض ويُعيدك للصفحة الرئيسية عند الضغط */}
+          <Link
+            href="/"
+            aria-label="الرئيسية - عطارة الدرويش"
+            className="group relative flex flex-1 items-center justify-center overflow-hidden py-1"
+            onClick={() => {
+              setSearchOpen(false);
+              setCartOpen(false);
+            }}
+          >
+            <div className="relative h-14 w-full overflow-hidden rounded-xl border border-amber-200/30 shadow-lg transition duration-300 group-hover:border-amber-300/60">
+              
+              {/* صورة البرطمانات من مجلد public */}
               <Image
                 src="/banner-jars.jpg"
-                alt="برطمانات العطارة"
+                alt="عطارة الدرويش - الأقرب إليك"
                 fill
                 priority
-                className="object-cover"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
 
-              {/* طبقة تظليل خفيفة لإبراز النص */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              {/* طبقة تظليل مخصصة لإبراز التصميم الإبداعي للنص */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#183b2a]/80 via-black/40 to-[#183b2a]/80" />
 
-              {/* نص (الأقرب إليك) مكتوب أسفل/داخل الشريط بخط أندلسي عريض */}
-              <div className="absolute bottom-1 right-3 text-sm font-black text-amber-100 drop-shadow-md font-['Traditional_Arabic','Andalus','Amiri',serif]">
-                الأقرب إليك
+              {/* الكتابة الإبداعية لـ ( الأقرب إليك ) بأسلوب مذهب زجاجي ممتد */}
+              <div className="absolute inset-0 flex items-center justify-center px-4">
+                <div className="w-full text-center">
+                  <span className="relative inline-block w-full text-lg font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-100 sm:text-2xl font-[#039912] font-['Traditional_Arabic','Andalus','Amiri',serif] drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+                    الأقرب إليك
+                    <span className="absolute -bottom-1 left-1/2 h-[2px] w-2/3 -translate-x-1/2 bg-gradient-to-r from-transparent via-amber-300/80 to-transparent" />
+                  </span>
+                </div>
               </div>
+
             </div>
-          </div>
+          </Link>
 
           {/* Actions: أزرار البحث والسلة */}
           <div className="flex shrink-0 items-center gap-2">
