@@ -65,58 +65,44 @@ export default function Header() {
       <header className="sticky top-0 z-[9998] border-b border-amber-200/20 bg-[#183b2a]/95 shadow-xl backdrop-blur-md">
         <div className="mx-auto flex min-h-[72px] max-w-7xl items-center justify-between gap-3 px-3 sm:px-5 lg:px-8">
 
-          {/* Logo / Brand */}
+          {/* Banner Image Link: يمتد بكامل العرض ويُعيدك للصفحة الرئيسية عند الضغط */}
           <Link
             href="/"
-            className="flex min-w-0 items-center gap-2"
+            aria-label="الرئيسية - عطارة الدرويش"
+            className="group relative flex flex-1 items-center justify-center overflow-hidden py-1"
             onClick={() => {
               setSearchOpen(false);
               setCartOpen(false);
             }}
           >
-            <div className="min-w-0">
-              <div className="truncate text-xl font-bold tracking-wide text-amber-100 sm:text-2xl">
-                الدَرْوِيش
+            <div className="relative h-14 w-full overflow-hidden rounded-xl border border-amber-200/30 shadow-lg transition duration-300 group-hover:border-amber-300/60">
+              
+              {/* صورة البرطمانات من مجلد public */}
+              <Image
+                src="/banner-jars.jpg"
+                alt="عطارة الدرويش - الأقرب إليك"
+                fill
+                priority
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+
+              {/* طبقة تظليل مخصصة لإبراز التصميم الإبداعي للنص */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#183b2a]/80 via-black/40 to-[#183b2a]/80" />
+
+              {/* الكتابة الإبداعية لـ ( الأقرب إليك ) بأسلوب مذهب زجاجي ممتد */}
+              <div className="absolute inset-0 flex items-center justify-center px-4">
+                <div className="w-full text-center">
+                  <span className="relative inline-block w-full text-lg font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-100 sm:text-2xl font-[#039912] font-['Traditional_Arabic','Andalus','Amiri',serif] drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+                    الأقرب إليك
+                    <span className="absolute -bottom-1 left-1/2 h-[2px] w-2/3 -translate-x-1/2 bg-gradient-to-r from-transparent via-amber-300/80 to-transparent" />
+                  </span>
+                </div>
               </div>
 
-              <div className="hidden text-[10px] tracking-[0.18em] text-amber-200/70 sm:block">
-                عطارة الدرويش
-              </div>
             </div>
           </Link>
 
-          {/* Navigation */}
-          <nav className="hidden items-center gap-5 md:flex">
-            <Link
-              href="/"
-              className="text-sm font-semibold text-amber-50 transition hover:text-amber-300"
-            >
-              الرئيسية
-            </Link>
-
-            <Link
-              href="/products"
-              className="text-sm font-semibold text-amber-50 transition hover:text-amber-300"
-            >
-              المنتجات
-            </Link>
-
-            <Link
-              href="/offers"
-              className="text-sm font-semibold text-amber-50 transition hover:text-amber-300"
-            >
-              العروض
-            </Link>
-
-            <Link
-              href="/about"
-              className="text-sm font-semibold text-amber-50 transition hover:text-amber-300"
-            >
-              عن الدرويش
-            </Link>
-          </nav>
-
-          {/* Actions */}
+          {/* Actions: أزرار البحث والسلة */}
           <div className="flex shrink-0 items-center gap-2">
 
             {/* Search Button */}
@@ -322,4 +308,3 @@ export default function Header() {
     </>
   );
 }
-
