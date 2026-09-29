@@ -21,7 +21,7 @@ function normalizeArabic(text: string) {
 }
 
 export default function Header() {
-  const { items, total } = useCart();
+  const { items } = useCart();
 
   const [cartOpen, setCartOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -55,7 +55,7 @@ export default function Header() {
       <header className="sticky top-0 z-[9998] border-b border-amber-200/20 bg-[#183b2a] shadow-xl">
         <div className="mx-auto flex min-h-[72px] max-w-7xl items-center justify-between gap-3 px-3 sm:px-5 lg:px-8">
 
-          {/* اللوجو العودة للصفحة الرئيسية بالضغط على البنر/اللوجو */}
+          {/* اللوجو والعودة للرئيسية */}
           <Link href="/" className="relative flex items-center gap-2 overflow-hidden py-1 group">
             <div className="relative h-12 w-36 sm:w-48 overflow-hidden rounded-xl border border-amber-200/20 shadow-md transition group-hover:scale-105">
               <Image
@@ -72,7 +72,7 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* القوائم الرئيسية (Navigation Links) */}
+          {/* القوائم الرئيسية */}
           <nav className="hidden md:flex items-center gap-6 text-sm font-bold text-amber-100">
             <Link href="/" className="transition hover:text-amber-300">
               الرئيسية
@@ -80,13 +80,8 @@ export default function Header() {
             <Link href="/products" className="transition hover:text-amber-300">
               جميع المنتجات
             </Link>
-            <Link href="/categories" className="transition hover:text-amber-300">
-              الأقسام
-            </Link>
-
-            {/* رابط الواتساب المباشر في الهيدر */}
             <a
-              href="https://wa.me/201000000000" // استبدل برقم الواتساب الخاص بك
+              href="https://wa.me/201000000000"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 rounded-xl bg-emerald-600 px-3 py-1.5 text-xs text-white transition hover:bg-emerald-500 shadow"
@@ -95,7 +90,7 @@ export default function Header() {
             </a>
           </nav>
 
-          {/* أزرار التحكم (البحث - السلة - الموبايل) */}
+          {/* أزرار التحكم */}
           <div className="flex shrink-0 items-center gap-2">
             <button
               className="flex h-10 w-10 items-center justify-center rounded-full border border-amber-200/20 text-amber-100 transition hover:bg-amber-100/10"
@@ -120,7 +115,6 @@ export default function Header() {
               )}
             </button>
 
-            {/* قائمة الموبايل */}
             <button
               type="button"
               className="flex h-10 w-10 items-center justify-center rounded-full border border-amber-200/20 text-amber-100 md:hidden"
@@ -131,7 +125,7 @@ export default function Header() {
           </div>
         </div>
 
-        {/* القائمة المنسدلة للموبايل */}
+        {/* قائمة الموبايل */}
         {menuOpen && (
           <div className="border-t border-amber-100/10 bg-[#123021] p-4 md:hidden">
             <div className="flex flex-col gap-3 font-bold text-amber-100">
@@ -171,9 +165,9 @@ export default function Header() {
         )}
       </header>
 
-      {/* زر الواتساب العائم الأسفل (WhatsApp Floating Button) */}
+      {/* زر الواتساب العائم الأسفل */}
       <a
-        href="https://wa.me/201000000000" // ضع رقمك هنا
+        href="https://wa.me/201000000000"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-5 left-5 z-[9999] flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500 text-white shadow-2xl transition hover:scale-110 active:scale-95"
