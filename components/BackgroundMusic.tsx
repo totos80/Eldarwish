@@ -5,81 +5,104 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
 export default function BackgroundMusic() {
-const pathname = usePathname();
-const audioRef = useRef<HTMLAudioElement | null>(null);
-const [playing, setPlaying] = useState(false);
+  const pathname = usePathname();
 
-const isMenuPage =
-pathname === "/products" ||
-pathname === "/categories" ||
-pathname === "/offers" ||
-pathname.startsWith("/products/") ||
-pathname.startsWith("/categories/") ||
-pathname.startsWith("/offers/");
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const playingRef = useRef(false);
 
-const musicSrc = isMenuPage
-  ? "/music/eldarwishsong.mp3"
-  : "/music/monamore.mp3";
+  const [playing, setPlaying] = useState(false);
 
-useEffect(() => {
-const audio = audioRef.current;
-if (!audio) return;
+  const isMenuPage =
+    pathname === "/products" ||
+    pathname === "/categories" ||
+    pathname === "/offers" ||
+    pathname.startsWith("/products/") ||
+    pathname.startsWith("/categories/") ||
+    pathname.startsWith("/offers/");
 
-audio.pause();
-audio.currentTime = 0;
-audio.src = musicSrc;
+  const musicSrc = isMenuPage
+    ? "/music/eldarwishsong.mp3"
+    : "/music/monamore.mp3";
 
-audio.play().then(() => {
-  setPlaying(true);
-}).catch(() => {
-  setPlaying(false);
-});
+  useEffect(() => {
+    const audio = audioRef.current;
 
-}, [musicSrc]);
+    if (!audio) return;
 
-const toggleMusic = async () => {
-const audio = audioRef.current;
-if (!audio) return;
+    const wasPlaying = playingRef.current;
 
-try {
-  if (audio.paused) {
-    await audio.play();
-    setPlaying(true);
-  } else {
     audio.pause();
-    setPlaying(false);
-  }
-} catch {
-  setPlaying(false);
-}
+    audio.currentTime = 0;
+    audio.src = musicSrc;
+    audio.load();
 
-};
+    if (wasPlaying) {
+      audio
+        .play()
+        .then(() => {
+          playingRef.current = true;
+          setPlaying(true);
+        })
+        .catch(() => {
+          playingRef.current = false;
+          setPlaying(false);
+        });
+    }
+  }, [musicSrc]);
 
-return (
-<>
-<audio
-ref={audioRef}
-src={musicSrc}
-loop
-preload="auto"
-onPlay={() => setPlaying(true)}
-onPause={() => setPlaying(false)}
-/>
+  const toggleMusic = async () => {
+    const audio = audioRef.current;
 
-  <button
-    type="button"
-    onClick={toggleMusic}
-    aria-label={playing ? "إيقاف الموسيقى" : "تشغيل الموسيقى"}
-    title={playing ? "إيقاف الموسيقى" : "تشغيل الموسيقى"}
-    className="fixed bottom-[88px] left-5 z-[9999] flex h-14 w-14 items-center justify-center rounded-full border-2 border-amber-200 bg-stone-800 text-amber-100 shadow-2xl transition duration-200 hover:scale-110 hover:bg-stone-900 active:scale-95"
-  >
-    {playing ? (
-      <Volume2 size={27} strokeWidth={2.1} />
-    ) : (
-      <Music2 size={27} strokeWidth={2.1} />
-    )}
-  </button>
-</>
+    if (!audio) return;
 
-);
+    if (audio.paused) {
+      try {
+        await audio.play();
+
+        playingRef.current = true;
+        setPlaying(true);
+      } catch {
+        playingRef.current = false;
+        setPlaying(false);
+      }
+    } else {
+      audio.pause();
+
+      playingRef.current = false;
+      setPlaying(false);
+    }
+  };
+
+  return (
+    <>
+      <audio
+        ref={audioRef}
+        src={musicSrc}
+        loop
+        preload="auto"
+        onPlay={() => {
+          playingRef.current = true;
+          setPlaying(true);
+        }}
+        onPause={() => {
+          playingRef.current = false;
+          setPlaying(false);
+        }}
+      />
+
+      <button
+        type="button"
+        onClick={toggleMusic}
+        aria-label={playing ? "إيقاف الموسيقى" : "تشغيل الموسيقى"}
+        title={playing ? "إيقاف الموسيقى" : "تشغيل الموسيقى"}
+        className="fixed bottom-[88px] left-5 z-[9999] flex h-14 w-14 items-center justify-center rounded-full border-2 border-amber-200 bg-stone-800 text-amber-100 shadow-2xl transition duration-200 hover:scale-110 hover:bg-stone-900 active:scale-95"
+      >
+        {playing ? (
+          <Volume2 size={27} strokeWidth={2.1} />
+        ) : (
+          <Music2 size={27} strokeWidth={2.1} />
+        )}
+      </button>
+    </>
+  );
 }
