@@ -65,75 +65,30 @@ export default function Header() {
       <header className="sticky top-0 z-[9998] border-b border-amber-200/20 bg-[#183b2a]/95 shadow-xl backdrop-blur-md">
         <div className="mx-auto flex min-h-[72px] max-w-7xl items-center justify-between gap-3 px-3 sm:px-5 lg:px-8">
 
-          {/* Logo & Brand */}
-          <Link
-            href="/"
-            className="flex min-w-0 items-center gap-2"
-            onClick={() => {
-              setSearchOpen(false);
-              setCartOpen(false);
-            }}
-          >
-            <div className="min-w-0">
-              <div className="truncate text-xl font-bold tracking-wide text-amber-100 sm:text-2xl">
-                الدَرْوِيش
-              </div>
+          {/* Banner Image Area: تمتد من أقصى اليمين حتى زر البحث */}
+          <div className="relative flex flex-1 items-center justify-start overflow-hidden py-1">
+            <div className="relative h-14 w-full overflow-hidden rounded-xl border border-amber-200/20 shadow-md">
+              {/* صورة البرطمانات والرفوف - ضع ملف الصورة داخل مجلد public باسم banner-jars.jpg */}
+              <Image
+                src="/banner-jars.jpg"
+                alt="برطمانات العطارة"
+                fill
+                priority
+                className="object-cover"
+              />
 
-              <div className="hidden text-[10px] tracking-[0.18em] text-amber-200/70 sm:block">
-                عطارة الدرويش
-              </div>
-            </div>
-          </Link>
+              {/* طبقة تظليل خفيفة لإبراز النص */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
-          {/* Navigation Links */}
-          <nav className="hidden items-center gap-5 md:flex">
-            <Link
-              href="/"
-              className="text-sm font-semibold text-amber-50 transition hover:text-amber-300"
-            >
-              الرئيسية
-            </Link>
-
-            <Link
-              href="/products"
-              className="text-sm font-semibold text-amber-50 transition hover:text-amber-300"
-            >
-              المنتجات
-            </Link>
-
-            <Link
-              href="/offers"
-              className="text-sm font-semibold text-amber-50 transition hover:text-amber-300"
-            >
-              العروض
-            </Link>
-
-            <Link
-              href="/about"
-              className="text-sm font-semibold text-amber-50 transition hover:text-amber-300"
-            >
-              عن الدرويش
-            </Link>
-          </nav>
-
-          {/* Actions & Herb Jars Banner */}
-          <div className="flex shrink-0 items-center gap-3">
-
-            {/* صورة البرطمانات الزجاجية على رفوف العطارة مع النص الأندلسي */}
-            <div className="flex flex-col items-center justify-center">
-              <div className="relative h-11 w-24 overflow-hidden rounded-lg border border-amber-200/30 shadow-inner sm:w-32">
-                <Image
-                  src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=400&auto=format&fit=crop"
-                  alt="برطمانات عطارة زجاجية"
-                  fill
-                  sizes="(max-width: 640px) 96px, 128px"
-                  className="object-cover brightness-95"
-                />
-              </div>
-              <span className="mt-0.5 text-[11px] font-black text-amber-200 tracking-wide font-['Traditional_Arabic','Andalus','Amiri',serif]">
+              {/* نص (الأقرب إليك) مكتوب أسفل/داخل الشريط بخط أندلسي عريض */}
+              <div className="absolute bottom-1 right-3 text-sm font-black text-amber-100 drop-shadow-md font-['Traditional_Arabic','Andalus','Amiri',serif]">
                 الأقرب إليك
-              </span>
+              </div>
             </div>
+          </div>
+
+          {/* Actions: أزرار البحث والسلة */}
+          <div className="flex shrink-0 items-center gap-2">
 
             {/* Search Button */}
             <button
@@ -203,7 +158,7 @@ export default function Header() {
                 </button>
               </div>
 
-              {/* Search Results */}
+              {/* Results */}
               {normalizedSearch.length > 0 && (
                 <div className="mt-2 overflow-hidden rounded-xl border border-amber-200/10 bg-[#f8f1df] shadow-2xl">
                   {searchResults.length > 0 ? (
