@@ -65,7 +65,7 @@ export default function Header() {
       <header className="sticky top-0 z-[9998] border-b border-amber-200/20 bg-[#183b2a]/95 shadow-xl backdrop-blur-md">
         <div className="mx-auto flex min-h-[72px] max-w-7xl items-center justify-between gap-3 px-3 sm:px-5 lg:px-8">
 
-          {/* Logo / Brand */}
+          {/* Logo & Brand */}
           <Link
             href="/"
             className="flex min-w-0 items-center gap-2"
@@ -85,7 +85,7 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* Navigation */}
+          {/* Navigation Links */}
           <nav className="hidden items-center gap-5 md:flex">
             <Link
               href="/"
@@ -116,8 +116,24 @@ export default function Header() {
             </Link>
           </nav>
 
-          {/* Actions */}
-          <div className="flex shrink-0 items-center gap-2">
+          {/* Actions & Herb Jars Banner */}
+          <div className="flex shrink-0 items-center gap-3">
+
+            {/* صورة البرطمانات الزجاجية على رفوف العطارة مع النص الأندلسي */}
+            <div className="flex flex-col items-center justify-center">
+              <div className="relative h-11 w-24 overflow-hidden rounded-lg border border-amber-200/30 shadow-inner sm:w-32">
+                <Image
+                  src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=400&auto=format&fit=crop"
+                  alt="برطمانات عطارة زجاجية"
+                  fill
+                  sizes="(max-width: 640px) 96px, 128px"
+                  className="object-cover brightness-95"
+                />
+              </div>
+              <span className="mt-0.5 text-[11px] font-black text-amber-200 tracking-wide font-['Traditional_Arabic','Andalus','Amiri',serif]">
+                الأقرب إليك
+              </span>
+            </div>
 
             {/* Search Button */}
             <button
@@ -187,7 +203,7 @@ export default function Header() {
                 </button>
               </div>
 
-              {/* Results */}
+              {/* Search Results */}
               {normalizedSearch.length > 0 && (
                 <div className="mt-2 overflow-hidden rounded-xl border border-amber-200/10 bg-[#f8f1df] shadow-2xl">
                   {searchResults.length > 0 ? (
