@@ -3,7 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Search, ShoppingBag, ChevronDown, X } from "lucide-react";
-import { useCart } from "@/context/CardContext";
+// تعديل المسار لضمان التوافق مع CartContext
+import { useCart } from "@/context/CartContext"; 
 import { useState, useEffect } from "react";
 import FloatingCartButton from "@/components/FloatingCartButton";
 import { products } from "@/data/products";
@@ -65,34 +66,18 @@ export default function Header() {
       <header className="sticky top-0 z-[9998] border-b border-amber-200/20 bg-[#183b2a]/95 shadow-xl backdrop-blur-md">
         <div className="mx-auto flex min-h-[72px] max-w-7xl items-center justify-between gap-3 px-3 sm:px-5 lg:px-8">
 
-          {/* Banner Image Area: تمتد من أقصى اليمين حتى زر البحث */}
-          <div className="relative flex flex-1 items-center justify-start overflow-hidden py-1">
-            <div className="relative h-14 w-full overflow-hidden rounded-xl border border-amber-200/20 shadow-md">
-              {/* صورة البرطمانات والرفوف - ضع ملف الصورة داخل مجلد public باسم banner-jars.jpg */}
-              <Image
-                src="/banner-jars.jpg"
-                alt="برطمانات العطارة"
-                fill
-                priority
-                className="object-cover"
-              />
+          {/* اسم المتجر وشعاره */}
+          <Link
+            href="/"
+            className="flex items-center gap-2 text-xl font-black text-amber-100 font-['Traditional_Arabic','Andalus','Amiri',serif]"
+          >
+            عطارة الدرويش
+          </Link>
 
-              {/* طبقة تظليل خفيفة لإبراز النص */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
-              {/* نص (الأقرب إليك) مكتوب أسفل/داخل الشريط بخط أندلسي عريض */}
-              <div className="absolute bottom-1 right-3 text-sm font-black text-amber-100 drop-shadow-md font-['Traditional_Arabic','Andalus','Amiri',serif]">
-                الأقرب إليك
-              </div>
-            </div>
-          </div>
-
-          {/* Actions: أزرار البحث والسلة */}
+          {/* أزرار البحث والسلة */}
           <div className="flex shrink-0 items-center gap-2">
-
-            {/* Search Button */}
             <button
-              className="icon-button flex h-10 w-10 items-center justify-center rounded-full border border-amber-200/20 text-amber-100 transition hover:bg-amber-100/10"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-amber-200/20 text-amber-100 transition hover:bg-amber-100/10"
               aria-label="بحث"
               type="button"
               onClick={openSearch}
@@ -100,7 +85,6 @@ export default function Header() {
               <Search size={21} />
             </button>
 
-            {/* Cart Button */}
             <button
               className="relative flex h-10 w-10 items-center justify-center rounded-full border border-amber-200/20 text-amber-100 transition hover:bg-amber-100/10"
               aria-label="سلة المشتريات"
@@ -108,8 +92,7 @@ export default function Header() {
               onClick={openCart}
             >
               <ShoppingBag size={21} />
-
-              {isMounted && items.length > 0 && (
+              {isMounted && items && items.length > 0 && (
                 <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-amber-500 px-1 text-[10px] font-bold text-[#183b2a]">
                   {items.length}
                 </span>
@@ -126,7 +109,7 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Search Box */}
+        {/* صندوق البحث */}
         {searchOpen && (
           <div className="border-t border-amber-100/10 bg-[#123021] px-3 py-3 shadow-2xl">
             <div className="mx-auto max-w-3xl">
@@ -135,7 +118,6 @@ export default function Header() {
                   size={20}
                   className="absolute right-4 top-1/2 -translate-y-1/2 text-amber-200/60"
                 />
-
                 <input
                   autoFocus
                   type="text"
@@ -144,7 +126,6 @@ export default function Header() {
                   placeholder="ابحث عن صنف..."
                   className="w-full rounded-xl border border-amber-200/20 bg-white/10 py-3 pl-12 pr-12 text-right text-sm text-white outline-none placeholder:text-amber-100/50 focus:border-amber-300/60"
                 />
-
                 <button
                   type="button"
                   onClick={() => {
@@ -158,7 +139,7 @@ export default function Header() {
                 </button>
               </div>
 
-              {/* Results */}
+              {/* نتائج البحث */}
               {normalizedSearch.length > 0 && (
                 <div className="mt-2 overflow-hidden rounded-xl border border-amber-200/10 bg-[#f8f1df] shadow-2xl">
                   {searchResults.length > 0 ? (
@@ -182,16 +163,13 @@ export default function Header() {
                               className="object-cover"
                             />
                           </div>
-
                           <div className="min-w-0 flex-1">
                             <div className="truncate text-sm font-bold text-[#183b2a]">
                               {product.name}
                             </div>
-
                             <div className="mt-1 text-xs text-[#183b2a]/60">
                               {product.category}
                             </div>
-
                             <div className="mt-1 text-sm font-bold text-amber-700">
                               {product.price} جنيه
                             </div>
@@ -211,7 +189,7 @@ export default function Header() {
         )}
       </header>
 
-      {/* Cart Drawer */}
+      {/* درج السلة الجانبي */}
       {cartOpen && (
         <div className="fixed inset-0 z-[10000]">
           <button
@@ -220,13 +198,11 @@ export default function Header() {
             className="absolute inset-0 bg-black/50"
             onClick={() => setCartOpen(false)}
           />
-
           <div className="absolute right-0 top-0 h-full w-full max-w-md overflow-y-auto bg-[#f8f1df] p-5 shadow-2xl">
             <div className="mb-5 flex items-center justify-between border-b border-[#183b2a]/15 pb-4">
               <h2 className="text-xl font-bold text-[#183b2a]">
                 سلة المشتريات
               </h2>
-
               <button
                 type="button"
                 onClick={() => setCartOpen(false)}
@@ -237,13 +213,12 @@ export default function Header() {
               </button>
             </div>
 
-            {!isMounted || items.length === 0 ? (
+            {!isMounted || !items || items.length === 0 ? (
               <div className="py-16 text-center">
                 <ShoppingBag
                   size={42}
                   className="mx-auto mb-4 text-[#183b2a]/40"
                 />
-
                 <p className="font-semibold text-[#183b2a]/70">
                   السلة فاضية
                 </p>
@@ -258,11 +233,9 @@ export default function Header() {
                     <div className="font-bold text-[#183b2a]">
                       {item.name}
                     </div>
-
                     <div className="mt-1 text-sm text-[#183b2a]/60">
                       الكمية: {item.quantity}
                     </div>
-
                     <div className="mt-1 font-bold text-amber-700">
                       {item.price} جنيه
                     </div>
@@ -274,7 +247,6 @@ export default function Header() {
                     <span>الإجمالي</span>
                     <span>{total} جنيه</span>
                   </div>
-
                   <Link
                     href="/cart"
                     onClick={() => setCartOpen(false)}
@@ -292,4 +264,4 @@ export default function Header() {
       {isMounted && <FloatingCartButton />}
     </>
   );
-}
+      }
