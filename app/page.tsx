@@ -1,33 +1,19 @@
-import LuckyWheel from "@/components/LuckyWheel";
 import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import StoreFeatures from "@/components/StoreFeatures";
-import Categories from "@/components/Categories";
-import FreshGrindingSection from "@/components/FreshGrindingSection";
-import Offers from "@/components/Offers";
-import Footer from "@/components/Footer";
-import WhatsAppButton from "@/components/WhatsAppButton";
+import HeaderLuckyWheel from "@/components/HeaderLuckyWheel";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <>
+    <main className="min-h-screen bg-[#f8f1df]">
+      {/* 1. الهيدر الذي يحتوي على اللوجو وأزرار البحث والسلة */}
       <Header />
 
-      <Hero />
+      {/* 2. عجلة الحظ أسفل الهيدر مباشرة */}
+      <HeaderLuckyWheel />
 
-      <Categories />
-
-      <LuckyWheel />
-      
-      <StoreFeatures />
-
-      <FreshGrindingSection />
-
-      <Offers />
-
-      <Footer />
-
-      <WhatsAppButton />
-    </>
+      {/* باقي محتوى الصفحة الرئيسية (يمكنك إضافة باقي الأقسام والمنتجات هنا) */}
+      <section className="mx-auto max-w-7xl px-4 py-8">
+        {/* محتوى المنتجات والأقسام... */}
+      </section>
+    </main>
   );
 }
