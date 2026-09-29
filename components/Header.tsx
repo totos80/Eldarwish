@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Search, ShoppingBag, ChevronDown, X, Menu } from "lucide-react";
+import { Search, ShoppingBag, ChevronDown, X } from "lucide-react";
 import { useCart } from "@/context/CardContext";
 import { useState, useEffect } from "react";
+import FloatingCartButton from "@/components/FloatingCartButton";
 import { products } from "@/data/products";
 
 function normalizeArabic(text: string) {
@@ -21,11 +22,10 @@ function normalizeArabic(text: string) {
 }
 
 export default function Header() {
-  const { items } = useCart();
+  const { items, total } = useCart();
 
   const [cartOpen, setCartOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [isMounted, setIsMounted] = useState(false);
 
@@ -50,133 +50,276 @@ export default function Header() {
           .slice(0, 8)
       : [];
 
+  const openSearch = () => {
+    setSearchOpen(true);
+    setCartOpen(false);
+  };
+
+  const openCart = () => {
+    setCartOpen(true);
+    setSearchOpen(false);
+  };
+
   return (
     <>
-      <header className="sticky top-0 z-[9998] border-b border-amber-200/20 bg-[#183b2a] shadow-xl">
+      <header className="sticky top-0 z-[9998] border-b border-amber-200/20 bg-[#183b2a]/95 shadow-xl backdrop-blur-md">
         <div className="mx-auto flex min-h-[72px] max-w-7xl items-center justify-between gap-3 px-3 sm:px-5 lg:px-8">
 
-          {/* اللوجو والعودة للرئيسية */}
-          <Link href="/" className="relative flex items-center gap-2 overflow-hidden py-1 group">
-            <div className="relative h-12 w-36 sm:w-48 overflow-hidden rounded-xl border border-amber-200/20 shadow-md transition group-hover:scale-105">
-              <Image
-                src="/banner-jars.jpg"
-                alt="عطارة الدرويش"
-                fill
-                priority
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-              <div className="absolute bottom-1 right-2 text-xs sm:text-sm font-black text-amber-100 drop-shadow-md font-['Traditional_Arabic','Andalus','Amiri',serif]">
+          {/* Logo / Brand */}
+          <Link
+            href="/"
+            className="flex min-w-0 items-center gap-2"
+            onClick={() => {
+              setSearchOpen(false);
+              setCartOpen(false);
+            }}
+          >
+            <div className="min-w-0">
+              <div className="truncate text-xl font-bold tracking-wide text-amber-100 sm:text-2xl">
+                الدَرْوِيش
+              </div>
+
+              <div className="hidden text-[10px] tracking-[0.18em] text-amber-200/70 sm:block">
                 عطارة الدرويش
               </div>
             </div>
           </Link>
 
-          {/* القوائم الرئيسية */}
-          <nav className="hidden md:flex items-center gap-6 text-sm font-bold text-amber-100">
-            <Link href="/" className="transition hover:text-amber-300">
+          {/* Navigation */}
+          <nav className="hidden items-center gap-5 md:flex">
+            <Link
+              href="/"
+              className="text-sm font-semibold text-amber-50 transition hover:text-amber-300"
+            >
               الرئيسية
             </Link>
-            <Link href="/products" className="transition hover:text-amber-300">
-              جميع المنتجات
-            </Link>
-            <a
-              href="https://wa.me/201000000000"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 rounded-xl bg-emerald-600 px-3 py-1.5 text-xs text-white transition hover:bg-emerald-500 shadow"
+
+            <Link
+              href="/products"
+              className="text-sm font-semibold text-amber-50 transition hover:text-amber-300"
             >
-              تواصل واتساب
-            </a>
+              المنتجات
+            </Link>
+
+            <Link
+              href="/offers"
+              className="text-sm font-semibold text-amber-50 transition hover:text-amber-300"
+            >
+              العروض
+            </Link>
+
+            <Link
+              href="/about"
+              className="text-sm font-semibold text-amber-50 transition hover:text-amber-300"
+            >
+              عن الدرويش
+            </Link>
           </nav>
 
-          {/* أزرار التحكم */}
+          {/* Actions */}
           <div className="flex shrink-0 items-center gap-2">
+
+            {/* Search Button */}
             <button
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-amber-200/20 text-amber-100 transition hover:bg-amber-100/10"
+              className="icon-button flex h-10 w-10 items-center justify-center rounded-full border border-amber-200/20 text-amber-100 transition hover:bg-amber-100/10"
               aria-label="بحث"
               type="button"
-              onClick={() => setSearchOpen(!searchOpen)}
+              onClick={openSearch}
             >
-              <Search size={20} />
+              <Search size={21} />
             </button>
 
+            {/* Cart Button */}
             <button
               className="relative flex h-10 w-10 items-center justify-center rounded-full border border-amber-200/20 text-amber-100 transition hover:bg-amber-100/10"
               aria-label="سلة المشتريات"
               type="button"
-              onClick={() => setCartOpen(true)}
+              onClick={openCart}
             >
-              <ShoppingBag size={20} />
-              {isMounted && items && items.length > 0 && (
+              <ShoppingBag size={21} />
+
+              {isMounted && items.length > 0 && (
                 <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-amber-500 px-1 text-[10px] font-bold text-[#183b2a]">
                   {items.length}
                 </span>
               )}
             </button>
 
-            <button
-              type="button"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-amber-200/20 text-amber-100 md:hidden"
-              onClick={() => setMenuOpen(!menuOpen)}
+            <Link
+              href="/products"
+              className="hidden items-center gap-1 text-sm font-semibold text-amber-100 md:flex"
             >
-              <Menu size={20} />
-            </button>
+              تصفح المنتجات
+              <ChevronDown size={16} />
+            </Link>
           </div>
         </div>
 
-        {/* قائمة الموبايل */}
-        {menuOpen && (
-          <div className="border-t border-amber-100/10 bg-[#123021] p-4 md:hidden">
-            <div className="flex flex-col gap-3 font-bold text-amber-100">
-              <Link href="/" onClick={() => setMenuOpen(false)}>الرئيسية</Link>
-              <Link href="/products" onClick={() => setMenuOpen(false)}>جميع المنتجات</Link>
-              <a
-                href="https://wa.me/201000000000"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-2 text-center rounded-xl bg-emerald-600 py-2 text-white"
-              >
-                تواصل عبر الواتساب
-              </a>
-            </div>
-          </div>
-        )}
-
-        {/* مربع البحث */}
+        {/* Search Box */}
         {searchOpen && (
-          <div className="border-t border-amber-100/10 bg-[#123021] px-3 py-3">
-            <div className="mx-auto max-w-3xl relative">
-              <input
-                autoFocus
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="ابحث عن صنف..."
-                className="w-full rounded-xl border border-amber-200/20 bg-white/10 py-2.5 pl-10 pr-10 text-right text-sm text-white outline-none focus:border-amber-300"
-              />
-              <X
-                size={18}
-                className="absolute left-3 top-1/2 -translate-y-1/2 cursor-pointer text-amber-100/70"
-                onClick={() => setSearchOpen(false)}
-              />
+          <div className="border-t border-amber-100/10 bg-[#123021] px-3 py-3 shadow-2xl">
+            <div className="mx-auto max-w-3xl">
+              <div className="relative">
+                <Search
+                  size={20}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-amber-200/60"
+                />
+
+                <input
+                  autoFocus
+                  type="text"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="ابحث عن صنف..."
+                  className="w-full rounded-xl border border-amber-200/20 bg-white/10 py-3 pl-12 pr-12 text-right text-sm text-white outline-none placeholder:text-amber-100/50 focus:border-amber-300/60"
+                />
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearch("");
+                    setSearchOpen(false);
+                  }}
+                  className="absolute left-3 top-1/2 flex -translate-y-1/2 items-center justify-center text-amber-100/70 transition hover:text-white"
+                  aria-label="إغلاق البحث"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              {/* Results */}
+              {normalizedSearch.length > 0 && (
+                <div className="mt-2 overflow-hidden rounded-xl border border-amber-200/10 bg-[#f8f1df] shadow-2xl">
+                  {searchResults.length > 0 ? (
+                    <div className="max-h-[420px] overflow-y-auto">
+                      {searchResults.map((product) => (
+                        <Link
+                          key={product.id}
+                          href={`/products/${product.slug}`}
+                          onClick={() => {
+                            setSearchOpen(false);
+                            setSearch("");
+                          }}
+                          className="flex items-center gap-3 border-b border-[#183b2a]/10 p-3 text-right transition last:border-b-0 hover:bg-[#efe4cc]"
+                        >
+                          <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-white">
+                            <Image
+                              src={product.image}
+                              alt={product.name}
+                              fill
+                              sizes="56px"
+                              className="object-cover"
+                            />
+                          </div>
+
+                          <div className="min-w-0 flex-1">
+                            <div className="truncate text-sm font-bold text-[#183b2a]">
+                              {product.name}
+                            </div>
+
+                            <div className="mt-1 text-xs text-[#183b2a]/60">
+                              {product.category}
+                            </div>
+
+                            <div className="mt-1 text-sm font-bold text-amber-700">
+                              {product.price} جنيه
+                            </div>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="p-5 text-center text-sm font-semibold text-[#183b2a]/70">
+                      مفيش أصناف مطابقة للبحث
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         )}
       </header>
 
-      {/* زر الواتساب العائم الأسفل */}
-      <a
-        href="https://wa.me/201000000000"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-5 left-5 z-[9999] flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500 text-white shadow-2xl transition hover:scale-110 active:scale-95"
-        aria-label="تواصل معنا عبر واتساب"
-      >
-        <svg className="h-7 w-7 fill-current" viewBox="0 0 24 24">
-          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
-        </svg>
-      </a>
+      {/* Cart Drawer */}
+      {cartOpen && (
+        <div className="fixed inset-0 z-[10000]">
+          <button
+            type="button"
+            aria-label="إغلاق السلة"
+            className="absolute inset-0 bg-black/50"
+            onClick={() => setCartOpen(false)}
+          />
+
+          <div className="absolute right-0 top-0 h-full w-full max-w-md overflow-y-auto bg-[#f8f1df] p-5 shadow-2xl">
+            <div className="mb-5 flex items-center justify-between border-b border-[#183b2a]/15 pb-4">
+              <h2 className="text-xl font-bold text-[#183b2a]">
+                سلة المشتريات
+              </h2>
+
+              <button
+                type="button"
+                onClick={() => setCartOpen(false)}
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-[#183b2a] text-white"
+                aria-label="إغلاق"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {!isMounted || items.length === 0 ? (
+              <div className="py-16 text-center">
+                <ShoppingBag
+                  size={42}
+                  className="mx-auto mb-4 text-[#183b2a]/40"
+                />
+
+                <p className="font-semibold text-[#183b2a]/70">
+                  السلة فاضية
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {items.map((item) => (
+                  <div
+                    key={item.id}
+                    className="rounded-xl border border-[#183b2a]/10 bg-white p-3"
+                  >
+                    <div className="font-bold text-[#183b2a]">
+                      {item.name}
+                    </div>
+
+                    <div className="mt-1 text-sm text-[#183b2a]/60">
+                      الكمية: {item.quantity}
+                    </div>
+
+                    <div className="mt-1 font-bold text-amber-700">
+                      {item.price} جنيه
+                    </div>
+                  </div>
+                ))}
+
+                <div className="mt-5 border-t border-[#183b2a]/15 pt-4">
+                  <div className="flex items-center justify-between text-lg font-bold text-[#183b2a]">
+                    <span>الإجمالي</span>
+                    <span>{total} جنيه</span>
+                  </div>
+
+                  <Link
+                    href="/cart"
+                    onClick={() => setCartOpen(false)}
+                    className="mt-4 block rounded-xl bg-[#183b2a] px-4 py-3 text-center font-bold text-amber-100 transition hover:bg-[#24543c]"
+                  >
+                    عرض السلة وإتمام الطلب
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {isMounted && <FloatingCartButton />}
     </>
   );
 }
+
