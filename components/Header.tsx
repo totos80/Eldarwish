@@ -119,7 +119,7 @@ export default function Header() {
           {/* Actions */}
           <div className="flex shrink-0 items-center gap-2">
 
-            {/* Search */}
+            {/* Search Button */}
             <button
               className="icon-button flex h-10 w-10 items-center justify-center rounded-full border border-amber-200/20 text-amber-100 transition hover:bg-amber-100/10"
               aria-label="بحث"
@@ -129,7 +129,7 @@ export default function Header() {
               <Search size={21} />
             </button>
 
-            {/* Cart */}
+            {/* Cart Button */}
             <button
               className="relative flex h-10 w-10 items-center justify-center rounded-full border border-amber-200/20 text-amber-100 transition hover:bg-amber-100/10"
               aria-label="سلة المشتريات"
