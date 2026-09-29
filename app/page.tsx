@@ -4,14 +4,12 @@ import Header from "@/components/Header";
 import Link from "next/link";
 import Image from "next/image";
 import { products } from "@/data/products";
-// تعديل المسار لضمان التوافق مع CartContext
-import { useCart } from "@/context/CartContext"; 
+import { useCart } from "@/context/CardContext";
 import { ShoppingBag, Star, ShieldCheck, Truck, Clock } from "lucide-react";
 
 export default function HomePage() {
   const { addToCart } = useCart();
 
-  // جلب أول 8 منتجات بشكل آمن
   const featuredProducts = Array.isArray(products) ? products.slice(0, 8) : [];
 
   return (
@@ -19,7 +17,7 @@ export default function HomePage() {
       {/* 1. الهيدر */}
       <Header />
 
-      {/* 2. بنر الترحيب */}
+      {/* 2. بنر الترحيب والمميزات */}
       <section className="mx-auto max-w-7xl px-4 pt-6 pb-2">
         <div className="rounded-3xl border border-[#183b2a]/15 bg-white/60 p-6 text-center shadow-sm backdrop-blur-sm">
           <h1 className="text-2xl font-black text-[#183b2a] sm:text-4xl font-['Traditional_Arabic','Andalus','Amiri',serif]">
@@ -31,7 +29,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3. مميزات المتجر */}
+      {/* 3. شريط مميزات المتجر */}
       <section className="my-4 border-y border-[#183b2a]/10 bg-[#efe4cc] py-3">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-around gap-3 px-4 text-center text-xs font-bold text-[#183b2a]">
           <div className="flex items-center gap-1.5">
