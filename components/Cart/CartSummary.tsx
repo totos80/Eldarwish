@@ -26,22 +26,16 @@ export default function CartSummary() {
       return item.price * item.quantity;
     }
 
-    return (
-      (item.price * item.quantity) /
-      item.baseQuantity
-    );
+    return (item.price * item.quantity) / item.baseQuantity;
   };
 
-  const getPriceLabel = (
-    item: (typeof items)[number]
-  ) => {
+  const getPriceLabel = (item: (typeof items)[number]) => {
     if (item.pricingMode === "gram") {
       return `${item.price.toLocaleString("en-US")} ج.م / كجم`;
     }
 
     if (item.pricingMode === "liter") {
-      const pricePerLiter =
-        item.price / item.baseQuantity;
+      const pricePerLiter = item.price / item.baseQuantity;
 
       return `${pricePerLiter.toLocaleString("en-US", {
         minimumFractionDigits: 2,
@@ -52,9 +46,7 @@ export default function CartSummary() {
     return `${item.price.toLocaleString("en-US")} ج.م / قطعة`;
   };
 
-  const formatQuantity = (
-    item: (typeof items)[number]
-  ) => {
+  const formatQuantity = (item: (typeof items)[number]) => {
     if (item.pricingMode === "liter") {
       return item.quantity.toLocaleString("en-US", {
         minimumFractionDigits: 0,
@@ -65,9 +57,7 @@ export default function CartSummary() {
     return item.quantity.toLocaleString("en-US");
   };
 
-  const getQuantityStep = (
-    item: (typeof items)[number]
-  ) => {
+  const getQuantityStep = (item: (typeof items)[number]) => {
     if (item.pricingMode === "gram") {
       return 50;
     }
@@ -79,9 +69,7 @@ export default function CartSummary() {
     return 1;
   };
 
-  const getMinimumQuantity = (
-    item: (typeof items)[number]
-  ) => {
+  const getMinimumQuantity = (item: (typeof items)[number]) => {
     if (item.pricingMode === "gram") {
       return 50;
     }
@@ -105,19 +93,19 @@ export default function CartSummary() {
     return [
       "السلام عليكم، أريد عمل طلب من عطارة الدَرْويش.",
       "",
-      "الأصناف:",
+      "تفاصيل الطلب:",
       ...lines,
       "",
-      `الإجمالي: ${total.toFixed(2)} ج.م`,
+      `إجمالي الطلب: ${total.toFixed(2)} ج.م`,
       "",
-      "برجاء التواصل معي لتأكيد الطلب وبيانات التوصيل.",
+      `لتأكيد طلبك بقيمة ${total.toFixed(
+        2
+      )} ج.م، يرجى التكرم بتوضيح الاسم ورقم التليفون والعنوان بالتفصيل.`,
     ].join("\n");
   };
 
   const sendOrder = () => {
-    const message = encodeURIComponent(
-      createOrderMessage()
-    );
+    const message = encodeURIComponent(createOrderMessage());
 
     window.open(
       `https://wa.me/${whatsappNumber}?text=${message}`,
@@ -289,4 +277,4 @@ export default function CartSummary() {
       </aside>
     </div>
   );
-            }                    
+}
