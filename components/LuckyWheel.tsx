@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 const prizes = [
-  "خصم 10%",
+  "خصم 5%",
   "هدية مجانية",
   "شحن مجاني",
   "شحن مجاني",
