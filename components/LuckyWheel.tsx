@@ -1,396 +1,318 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useState } from "react";
 
 const prizes = [
-  "خصم 5%",
-  "هدية مع الطلب",
   "خصم 10%",
+  "هدية مجانية",
   "شحن مجاني",
-  "خصم 15%",
-  "حظ أوفر",
-  "هدية مميزة",
-  "خصم 5%",
+  "شحن مجاني",
+  "خصم 50 جنيه",
+  "عضوية كارت الدرويش",
+  "حظ أوفر المرة الجاية",
+  "حظ أوفر المرة الجاية",
 ];
 
-const WHATSAPP = "201553939342";
-const STORAGE_KEY = "eldarwish-lucky-wheel";
-
 export default function LuckyWheel() {
-  const [rotation, setRotation] = useState(0);
   const [spinning, setSpinning] = useState(false);
-  const [result, setResult] = useState<string | null>(null);
-  const [canSpin, setCanSpin] = useState(true);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [result, setResult] = useState("");
+  const [rotation, setRotation] = useState(0);
 
-  const angle = 360 / prizes.length;
-
-  const background = useMemo(
-    () =>
-      `conic-gradient(
-        ${prizes
-          .map(
-            (_, i) =>
-              `${i % 2 ? "#14532d" : "#a87928"} ${
-                i * angle
-              }deg ${(i + 1) * angle}deg`
-          )
-          .join(", ")}
-      )`,
-    [angle]
-  );
-
-  useEffect(() => {
-    try {
-      const last = localStorage.getItem(STORAGE_KEY);
-
-      if (last && Date.now() - Number(last) < 86400000) {
-        setCanSpin(false);
-      }
-    } catch {}
-
-    return () => {
-      if (timer.current) clearTimeout(timer.current);
-    };
-  }, []);
-
-  function spin() {
-    if (spinning || !canSpin) return;
-
-    const index = Math.floor(Math.random() * prizes.length);
-    const current = ((rotation % 360) + 360) % 360;
-
-    const target = 360 - (index + 0.5) * angle;
-    const extra = 360 * 7 + ((target - current + 360) % 360);
+  const spinWheel = () => {
+    if (spinning) return;
 
     setSpinning(true);
-    setResult(null);
-    setRotation(rotation + extra);
+    setResult("");
 
-    timer.current = setTimeout(() => {
-      setResult(prizes[index]);
+    const prizeIndex = Math.floor(Math.random() * prizes.length);
+    const segmentAngle = 360 / prizes.length;
+
+    const extraSpins = 5 + Math.floor(Math.random() * 3);
+
+    const targetAngle =
+      extraSpins * 360 +
+      (360 - prizeIndex * segmentAngle - segmentAngle / 2);
+
+    setRotation((prev) => prev + targetAngle);
+
+    setTimeout(() => {
+      setResult(prizes[prizeIndex]);
       setSpinning(false);
-      setCanSpin(false);
-
-      try {
-        localStorage.setItem(STORAGE_KEY, String(Date.now()));
-      } catch {}
-    }, 5200);
-  }
-
-  function sendWhatsApp() {
-    if (!result) return;
-
-    const message = encodeURIComponent(
-      `السلام عليكم، طلعت لي نتيجة من عجلة حظ الدَرْويش: ${result} 🎁`
-    );
-
-    window.open(
-      `https://wa.me/${WHATSAPP}?text=${message}`,
-      "_blank"
-    );
-  }
+    }, 5000);
+  };
 
   return (
-    <section dir="rtl" className="lucky-section">
-      <div className="lucky-container">
+    <section
+      dir="rtl"
+      style={{
+        width: "100%",
+        padding: "45px 15px",
+        background:
+          "linear-gradient(180deg,#fffaf0 0%,#f4ead8 100%)",
+        textAlign: "center",
+      }}
+    >
+      <h2
+        style={{
+          margin: "0 0 8px",
+          color: "#5b3a1e",
+          fontSize: "30px",
+          fontWeight: 900,
+        }}
+      >
+        🎁 عجلة حظ الدرويش
+      </h2>
 
-        <div className="lucky-heading">
-          <span>🎁 مفاجأة الدَرْويش</span>
-          <h2>جرّب حظك مع عجلة الدَرْويش</h2>
-          <p>
-            لف العجلة وشوف إيه المفاجأة اللي مستنياك النهارده.
-          </p>
-        </div>
+      <p
+        style={{
+          margin: "0 auto 28px",
+          color: "#795548",
+          fontSize: "16px",
+        }}
+      >
+        لف العجلة واكتشف مفاجأتك
+      </p>
 
-        <div className="wheel-stage">
+      {/* العجلة */}
+      <div
+        style={{
+          position: "relative",
+          width: "300px",
+          height: "300px",
+          margin: "0 auto 25px",
+        }}
+      >
+        {/* السهم */}
+        <div
+          style={{
+            position: "absolute",
+            top: "-12px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 10,
+            width: 0,
+            height: 0,
+            borderLeft: "16px solid transparent",
+            borderRight: "16px solid transparent",
+            borderTop: "35px solid #8b1e1e",
+            filter: "drop-shadow(0 2px 2px rgba(0,0,0,.3))",
+          }}
+        />
 
-          <div className="wheel-shadow" />
+        {/* جسم العجلة */}
+        <div
+          style={{
+            width: "300px",
+            height: "300px",
+            borderRadius: "50%",
+            border: "10px solid #b88a44",
+            boxShadow:
+              "0 8px 25px rgba(75,45,20,.25), inset 0 0 0 4px #f5dfad",
+            background:
+              "conic-gradient(#7a1f1f 0deg 45deg,#d5a94f 45deg 90deg,#356044 90deg 135deg,#ead7a5 135deg 180deg,#7a1f1f 180deg 225deg,#d5a94f 225deg 270deg,#356044 270deg 315deg,#ead7a5 315deg 360deg)",
+            transform: `rotate(${rotation}deg)`,
+            transition: spinning
+              ? "transform 5s cubic-bezier(.15,.75,.15,1)"
+              : "none",
+            position: "relative",
+            overflow: "hidden",
+          }}
+        >
+          {/* خطوط تقسيم الخانات */}
+          {Array.from({ length: 8 }).map((_, index) => (
+            <div
+              key={index}
+              style={{
+                position: "absolute",
+                width: "2px",
+                height: "50%",
+                background: "rgba(255,255,255,.65)",
+                left: "50%",
+                top: 0,
+                transformOrigin: "bottom center",
+                transform: `rotate(${index * 45}deg)`,
+              }}
+            />
+          ))}
 
+          {/* منتصف العجلة */}
           <div
-            className="wheel"
             style={{
-              background,
-              transform: `rotate(${rotation}deg)`,
+              position: "absolute",
+              width: "68px",
+              height: "68px",
+              borderRadius: "50%",
+              background:
+                "radial-gradient(circle,#d9b66b,#8b632d)",
+              border: "5px solid #f5dfad",
+              left: "50%",
+              top: "50%",
+              transform: "translate(-50%,-50%)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#fff8e8",
+              fontWeight: 900,
+              fontSize: "18px",
+              boxShadow: "0 3px 10px rgba(0,0,0,.3)",
             }}
           >
-            {prizes.map((prize, i) => {
-              const a = i * angle + angle / 2;
-
-              return (
-                <span
-                  key={`${prize}-${i}`}
-                  className="prize"
-                  style={{
-                    transform: `rotate(${a}deg) translateY(-140px) rotate(-${a}deg)`,
-                  }}
-                >
-                  {prize}
-                </span>
-              );
-            })}
-
-            <div className="wheel-center">
-              <strong>الدَرْويش</strong>
-              <small>لفّها!</small>
-            </div>
+            الدرويش
           </div>
-
-          <div className="pointer">
-            ▼
-          </div>
-
         </div>
-
-        {result ? (
-          <div className="result-box">
-            <span>🎉 مبروك!</span>
-
-            <strong>{result}</strong>
-
-            <p>
-              ابعت النتيجة على واتساب الدَرْويش عند طلبك.
-            </p>
-
-            <button onClick={sendWhatsApp}>
-              استخدم الجائزة على واتساب
-            </button>
-          </div>
-        ) : (
-          <>
-            <button
-              className="spin-button"
-              onClick={spin}
-              disabled={spinning || !canSpin}
-            >
-              {spinning
-                ? "العجلة بتلف..."
-                : canSpin
-                ? "🎡 لف العجلة"
-                : "جرب تاني بكرة"}
-            </button>
-
-            <p className="note">
-              {canSpin
-                ? "محاولة واحدة كل 24 ساعة"
-                : "استنى 24 ساعة وجرب حظك من جديد"}
-            </p>
-          </>
-        )}
       </div>
 
-      <style jsx>{`
-        .lucky-section {
-          width: 100%;
-          overflow: hidden;
-          padding: 65px 16px 75px;
+      {/* زر الدوران */}
+      <button
+        onClick={spinWheel}
+        disabled={spinning}
+        style={{
+          border: "none",
+          borderRadius: "30px",
+          padding: "14px 42px",
+          background: spinning
+            ? "#aaa"
+            : "linear-gradient(135deg,#8b1e1e,#5d1010)",
+          color: "#fff",
+          fontSize: "18px",
+          fontWeight: 900,
+          cursor: spinning ? "not-allowed" : "pointer",
+          boxShadow: "0 5px 15px rgba(80,20,10,.25)",
+        }}
+      >
+        {spinning ? "العجلة بتلف..." : "🎡 لف العجلة"}
+      </button>
+
+      {/* النتيجة تظهر بعد توقف العجلة */}
+      {result && (
+        <div
+          style={{
+            margin: "28px auto 0",
+            maxWidth: "420px",
+            padding: "22px",
+            borderRadius: "18px",
+            background: "#fff",
+            border: "2px solid #c49a52",
+            boxShadow: "0 8px 25px rgba(80,50,20,.15)",
+          }}
+        >
+          <div
+            style={{
+              color: "#98702f",
+              fontSize: "15px",
+              fontWeight: 700,
+              marginBottom: "7px",
+            }}
+          >
+            🎉 مبروك! جائزتك هي
+          </div>
+
+          <div
+            style={{
+              color: "#5b3a1e",
+              fontSize: "28px",
+              fontWeight: 900,
+            }}
+          >
+            {result}
+          </div>
+        </div>
+      )}
+
+      {/* كارت الدرويش */}
+      <div
+        style={{
+          maxWidth: "900px",
+          margin: "55px auto 0",
+          padding: "32px 22px",
+          borderRadius: "24px",
           background:
-            radial-gradient(
-              circle at 50% 40%,
-              rgba(210, 160, 55, 0.12),
-              transparent 35%
-            ),
-            linear-gradient(
-              180deg,
-              #061711,
-              #08261a,
-              #03130d
-            );
-        }
+            "linear-gradient(135deg,#3f2918,#6d4824)",
+          color: "#fff8e8",
+          boxShadow: "0 12px 35px rgba(60,35,15,.25)",
+          border: "1px solid rgba(220,185,115,.5)",
+        }}
+      >
+        <div
+          style={{
+            fontSize: "14px",
+            color: "#e4c27c",
+            fontWeight: 800,
+            marginBottom: "7px",
+          }}
+        >
+          عضوية مميزة
+        </div>
 
-        .lucky-container {
-          max-width: 1100px;
-          margin: auto;
-          text-align: center;
-        }
+        <h3
+          style={{
+            margin: "0 0 12px",
+            fontSize: "30px",
+            fontWeight: 900,
+          }}
+        >
+          🪪 كارت الدرويش
+        </h3>
 
-        .lucky-heading span {
-          color: #f2c66d;
-          font-size: 14px;
-          font-weight: 900;
-        }
+        <p
+          style={{
+            margin: "0 auto 25px",
+            maxWidth: "650px",
+            lineHeight: 1.8,
+            color: "#f1dfbd",
+            fontSize: "16px",
+          }}
+        >
+          خليك من أهل الدرويش واستمتع بمزايا وعروض خاصة
+          وحصرية لأعضاء الكارت.
+        </p>
 
-        .lucky-heading h2 {
-          margin: 8px 0;
-          color: #fffaf0;
-          font-size: clamp(28px, 5vw, 44px);
-          font-weight: 1000;
-        }
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns:
+              "repeat(auto-fit,minmax(190px,1fr))",
+            gap: "12px",
+            marginBottom: "25px",
+          }}
+        >
+          {[
+            "خصومات خاصة للأعضاء",
+            "عروض حصرية قبل الجميع",
+            "هدايا ومفاجآت دورية",
+            "أولوية في عروض الدرويش",
+          ].map((item) => (
+            <div
+              key={item}
+              style={{
+                padding: "15px 10px",
+                borderRadius: "14px",
+                background: "rgba(255,255,255,.08)",
+                border: "1px solid rgba(220,185,115,.25)",
+                color: "#fff4d8",
+                fontWeight: 700,
+              }}
+            >
+              ✓ {item}
+            </div>
+          ))}
+        </div>
 
-        .lucky-heading p {
-          color: rgba(255,255,255,.68);
-          font-size: 15px;
-        }
-
-        .wheel-stage {
-          position: relative;
-          width: min(90vw, 430px);
-          aspect-ratio: 1;
-          margin: 35px auto 25px;
-          display: grid;
-          place-items: center;
-        }
-
-        .wheel-shadow {
-          position: absolute;
-          width: 80%;
-          height: 80%;
-          border-radius: 50%;
-          background: #000;
-          filter: blur(25px);
-          opacity: .65;
-          transform: translateY(20px);
-        }
-
-        .wheel {
-          position: relative;
-          z-index: 2;
-          width: 88%;
-          height: 88%;
-          border-radius: 50%;
-          border: 9px solid #e2b75a;
-          box-shadow:
-            0 0 0 4px #5e451c,
-            0 20px 45px rgba(0,0,0,.5);
-          transition:
-            transform 5.2s cubic-bezier(.12,.75,.12,1);
-        }
-
-        .prize {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 90px;
-          margin-left: -45px;
-          color: #fffaf0;
-          font-size: 13px;
-          font-weight: 1000;
-          text-align: center;
-          line-height: 1.2;
-          text-shadow: 0 2px 5px #000;
-        }
-
-        .wheel-center {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 92px;
-          height: 92px;
-          transform: translate(-50%,-50%);
-          border: 5px solid #f2c66d;
-          border-radius: 50%;
-          background: radial-gradient(
-            circle,
-            #0e5133,
-            #062316
-          );
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          color: white;
-        }
-
-        .wheel-center strong {
-          font-size: 15px;
-        }
-
-        .wheel-center small {
-          color: #f2c66d;
-          margin-top: 3px;
-        }
-
-        .pointer {
-          position: absolute;
-          z-index: 5;
-          top: -5px;
-          left: 50%;
-          transform: translateX(-50%);
-          color: #f2c66d;
-          font-size: 48px;
-          line-height: 1;
-          filter: drop-shadow(0 4px 4px #000);
-        }
-
-        .spin-button,
-        .result-box button {
-          border: 0;
-          border-radius: 999px;
-          padding: 15px 34px;
-          background: linear-gradient(
-            135deg,
-            #f6d77e,
-            #c18b32
-          );
-          color: #132316;
-          font-size: 17px;
-          font-weight: 1000;
-          cursor: pointer;
-          box-shadow: 0 12px 30px rgba(0,0,0,.3);
-        }
-
-        .spin-button:disabled {
-          opacity: .7;
-          cursor: not-allowed;
-        }
-
-        .note {
-          color: rgba(255,255,255,.55);
-          font-size: 13px;
-          margin-top: 10px;
-        }
-
-        .result-box {
-          width: min(100%,460px);
-          margin: auto;
-          padding: 24px 18px;
-          border: 1px solid rgba(242,198,109,.3);
-          border-radius: 24px;
-          background: rgba(3,24,15,.85);
-        }
-
-        .result-box span {
-          color: #f2c66d;
-          font-weight: 900;
-        }
-
-        .result-box strong {
-          display: block;
-          margin: 6px 0;
-          color: #fff8e8;
-          font-size: 29px;
-        }
-
-        .result-box p {
-          color: rgba(255,255,255,.68);
-          font-size: 14px;
-        }
-
-        @media (max-width:640px) {
-          .lucky-section {
-            padding: 48px 14px 58px;
-          }
-
-          .lucky-heading h2 {
-            font-size: 27px;
-          }
-
-          .wheel-stage {
-            width: 94vw;
-          }
-
-          .prize {
-            width: 72px;
-            margin-left: -36px;
-            font-size: 11px;
-          }
-
-          .wheel-center {
-            width: 82px;
-            height: 82px;
-          }
-        }
-      `}</style>
+        <div
+          style={{
+            display: "inline-block",
+            padding: "13px 30px",
+            borderRadius: "30px",
+            background:
+              "linear-gradient(135deg,#d8b36a,#a97a32)",
+            color: "#3e2613",
+            fontSize: "19px",
+            fontWeight: 900,
+          }}
+        >
+          الاشتراك السنوي — 100 جنيه
+        </div>
+      </div>
     </section>
   );
-              }
+}
