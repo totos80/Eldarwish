@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const prizes = [
   "خصم 5%",
@@ -13,31 +13,101 @@ const prizes = [
   "حظ أوفر المرة الجاية",
 ];
 
+const THREE_DAYS = 3 * 24 * 60 * 60 * 1000;
+const STORAGE_KEY = "eldarwish_lucky_wheel_last_spin";
+
 export default function LuckyWheel() {
   const [spinning, setSpinning] = useState(false);
   const [result, setResult] = useState("");
   const [rotation, setRotation] = useState(0);
+  const [canSpin, setCanSpin] = useState(true);
+  const [remainingTime, setRemainingTime] = useState("");
+
+  useEffect(() => {
+    const checkSpinStatus = () => {
+      const lastSpin = localStorage.getItem(STORAGE_KEY);
+
+      if (!lastSpin) {
+        setCanSpin(true);
+        setRemainingTime("");
+        return;
+      }
+
+      const lastSpinTime = Number(lastSpin);
+      const nextSpinTime = lastSpinTime + THREE_DAYS;
+      const now = Date.now();
+
+      if (now >= nextSpinTime) {
+        setCanSpin(true);
+        setRemainingTime("");
+        return;
+      }
+
+      setCanSpin(false);
+
+      const difference = nextSpinTime - now;
+
+      const days = Math.floor(
+        difference / (24 * 60 * 60 * 1000)
+      );
+
+      const hours = Math.floor(
+        (difference % (24 * 60 * 60 * 1000)) /
+          (60 * 60 * 1000)
+      );
+
+      const minutes = Math.floor(
+        (difference % (60 * 60 * 1000)) /
+          (60 * 1000)
+      );
+
+      setRemainingTime(
+        `${days} يوم و ${hours} ساعة و ${minutes} دقيقة`
+      );
+    };
+
+    checkSpinStatus();
+
+    const timer = setInterval(checkSpinStatus, 60000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const spinWheel = () => {
-    if (spinning) return;
+    if (spinning || !canSpin) return;
 
     setSpinning(true);
     setResult("");
 
-    const prizeIndex = Math.floor(Math.random() * prizes.length);
+    const prizeIndex = Math.floor(
+      Math.random() * prizes.length
+    );
+
     const segmentAngle = 360 / prizes.length;
 
     const extraSpins = 5 + Math.floor(Math.random() * 3);
 
     const targetAngle =
       extraSpins * 360 +
-      (360 - prizeIndex * segmentAngle - segmentAngle / 2);
+      (360 -
+        prizeIndex * segmentAngle -
+        segmentAngle / 2);
 
     setRotation((prev) => prev + targetAngle);
 
     setTimeout(() => {
       setResult(prizes[prizeIndex]);
       setSpinning(false);
+
+      // تسجيل وقت اللفة
+      localStorage.setItem(
+        STORAGE_KEY,
+        Date.now().toString()
+      );
+
+      setCanSpin(false);
+
+      setRemainingTime("3 أيام");
     }, 5000);
   };
 
@@ -95,7 +165,8 @@ export default function LuckyWheel() {
             borderLeft: "16px solid transparent",
             borderRight: "16px solid transparent",
             borderTop: "35px solid #8b1e1e",
-            filter: "drop-shadow(0 2px 2px rgba(0,0,0,.3))",
+            filter:
+              "drop-shadow(0 2px 2px rgba(0,0,0,.3))",
           }}
         />
 
@@ -126,10 +197,12 @@ export default function LuckyWheel() {
                 position: "absolute",
                 width: "2px",
                 height: "50%",
-                background: "rgba(255,255,255,.65)",
+                background:
+                  "rgba(255,255,255,.65)",
                 left: "50%",
                 top: 0,
-                transformOrigin: "bottom center",
+                transformOrigin:
+                  "bottom center",
                 transform: `rotate(${index * 45}deg)`,
               }}
             />
@@ -147,14 +220,16 @@ export default function LuckyWheel() {
               border: "5px solid #f5dfad",
               left: "50%",
               top: "50%",
-              transform: "translate(-50%,-50%)",
+              transform:
+                "translate(-50%,-50%)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               color: "#fff8e8",
               fontWeight: 900,
               fontSize: "18px",
-              boxShadow: "0 3px 10px rgba(0,0,0,.3)",
+              boxShadow:
+                "0 3px 10px rgba(0,0,0,.3)",
             }}
           >
             الدرويش
@@ -162,28 +237,7 @@ export default function LuckyWheel() {
         </div>
       </div>
 
-      {/* زر الدوران */}
-      <button
-        onClick={spinWheel}
-        disabled={spinning}
-        style={{
-          border: "none",
-          borderRadius: "30px",
-          padding: "14px 42px",
-          background: spinning
-            ? "#aaa"
-            : "linear-gradient(135deg,#8b1e1e,#5d1010)",
-          color: "#fff",
-          fontSize: "18px",
-          fontWeight: 900,
-          cursor: spinning ? "not-allowed" : "pointer",
-          boxShadow: "0 5px 15px rgba(80,20,10,.25)",
-        }}
-      >
-        {spinning ? "العجلة بتلف..." : "🎡 لف العجلة"}
-      </button>
-
-      {/* النتيجة تظهر بعد توقف العجلة */}
+      {/* النتيجة */}
       {result && (
         <div
           style={{
@@ -193,7 +247,8 @@ export default function LuckyWheel() {
             borderRadius: "18px",
             background: "#fff",
             border: "2px solid #c49a52",
-            boxShadow: "0 8px 25px rgba(80,50,20,.15)",
+            boxShadow:
+              "0 8px 25px rgba(80,50,20,.15)",
           }}
         >
           <div
@@ -219,6 +274,68 @@ export default function LuckyWheel() {
         </div>
       )}
 
+      {/* زر اللف */}
+      <button
+        onClick={spinWheel}
+        disabled={spinning || !canSpin}
+        style={{
+          marginTop: "25px",
+          border: "none",
+          borderRadius: "30px",
+          padding: "14px 42px",
+          background:
+            spinning || !canSpin
+              ? "#aaa"
+              : "linear-gradient(135deg,#8b1e1e,#5d1010)",
+          color: "#fff",
+          fontSize: "18px",
+          fontWeight: 900,
+          cursor:
+            spinning || !canSpin
+              ? "not-allowed"
+              : "pointer",
+          boxShadow:
+            "0 5px 15px rgba(80,20,10,.25)",
+        }}
+      >
+        {spinning
+          ? "العجلة بتلف..."
+          : canSpin
+            ? "🎡 لف العجلة"
+            : "⏳ استنى شوية"}
+      </button>
+
+      {/* وقت اللفة القادمة */}
+      {!canSpin && !spinning && (
+        <div
+          style={{
+            margin: "15px auto 0",
+            maxWidth: "400px",
+            padding: "12px 18px",
+            borderRadius: "12px",
+            background: "#fff",
+            color: "#795548",
+            fontWeight: 700,
+            fontSize: "14px",
+            border:
+              "1px solid rgba(139,98,45,.25)",
+          }}
+        >
+          🎡 تقدر تلف العجلة مرة تانية بعد:
+          <br />
+          <strong
+            style={{
+              display: "block",
+              marginTop: "5px",
+              color: "#8b632d",
+              fontSize: "16px",
+            }}
+          >
+            {remainingTime}
+          </strong>
+        </div>
+      )}
+
       {/* كارت الدرويش */}
       <div
         style={{
@@ -229,8 +346,10 @@ export default function LuckyWheel() {
           background:
             "linear-gradient(135deg,#3f2918,#6d4824)",
           color: "#fff8e8",
-          boxShadow: "0 12px 35px rgba(60,35,15,.25)",
-          border: "1px solid rgba(220,185,115,.5)",
+          boxShadow:
+            "0 12px 35px rgba(60,35,15,.25)",
+          border:
+            "1px solid rgba(220,185,115,.5)",
         }}
       >
         <div
@@ -263,8 +382,8 @@ export default function LuckyWheel() {
             fontSize: "16px",
           }}
         >
-          خليك من أهل الدرويش واستمتع بمزايا وعروض خاصة
-          وحصرية لأعضاء الكارت.
+          خليك من أهل الدرويش واستمتع بمزايا وعروض
+          خاصة وحصرية لأعضاء الكارت.
         </p>
 
         <div
@@ -287,8 +406,10 @@ export default function LuckyWheel() {
               style={{
                 padding: "15px 10px",
                 borderRadius: "14px",
-                background: "rgba(255,255,255,.08)",
-                border: "1px solid rgba(220,185,115,.25)",
+                background:
+                  "rgba(255,255,255,.08)",
+                border:
+                  "1px solid rgba(220,185,115,.25)",
                 color: "#fff4d8",
                 fontWeight: 700,
               }}
@@ -315,4 +436,4 @@ export default function LuckyWheel() {
       </div>
     </section>
   );
-}
+            }
