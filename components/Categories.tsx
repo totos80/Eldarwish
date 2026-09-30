@@ -43,6 +43,16 @@ const categories = [
     href: "/products?category=خليجية",
     image: "/gulf-libya.jpg",
   },
+  {
+    title: "بخور ومعطرات",
+    href: "/products?category=بخور%20ومعطرات",
+    image: "/bakhoor-air-fresheners.png",
+  },
+  {
+    title: "منتجات العناية",
+    href: "/products?category=منتجات%20العناية",
+    image: "/care-products.png",
+  },
 ];
 
 export default function Categories() {
