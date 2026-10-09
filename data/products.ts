@@ -8,14 +8,15 @@ const makeProduct = (
   name: string,
   price: number,
   category: string,
-  unit = "كجم"
+  unit = "كجم",
+  imageId: number = id
 ): Product => ({
   id,
   slug: makeSlug(id),
   name,
   category,
   description: `${name} من منتجات عطارة الدَرْويش.`,
-  image: getProductImage(id),
+  image: getProductImage(imageId),
   price,
   unit,
   inStock: true,
