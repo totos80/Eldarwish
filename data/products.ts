@@ -10,22 +10,27 @@ const makeProduct = (
   category: string,
   unit = "كجم",
   imageId: number = id
-): Product => ({
-  id,
-  slug: makeSlug(id),
-  name,
-  category,
-  description: `${name} من منتجات عطارة الدَرْويش.`,
-  image: getProductImage(imageId),
-  price,
-  unit,
-  inStock: true,
-  featured: id <= 12,
-  tags: [category],
-  seoTitle: `${name} | عطارة الدَرْويش`,
-  seoDescription: `${name} بسعر ${price} ج.م في عطارة الدَرْويش.`,
-});
+): Product => {
+  const finalCategory =
+    name.startsWith("زيت ") || name.includes(" زيت ")
+      ? "الزيوت"
+      : category;
 
+  return {
+    id,
+    slug: makeSlug(id),
+    name,
+    category: finalCategory,
+    description: `${name} من منتجات عطارة الدَرْويش.`,
+    image: getProductImage(imageId),
+    price,
+    unit,
+    inStock: true,
+    featured: id <= 12,
+    tags: [finalCategory],
+    seoTitle: `${name} | عطارة الدَرْويش`,
+    seoDescription: `${name} بسعر ${price} ج.م في عطارة الدَرْويش.`,
+  };
 export const products: Product[] = [
   makeProduct(1, "طعم جبنة متبلة W", 160, "التوابل"),
   makeProduct(2, "طعم كباب W", 160, "التوابل"),
