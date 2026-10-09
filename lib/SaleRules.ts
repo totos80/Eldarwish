@@ -12,20 +12,6 @@ export type SaleRule = {
 };
 
 export function getSaleRule(product: Product): SaleRule {
-  if (
-    product.id === 105 ||
-    product.name.includes("زيت زيتون ادمز")
-  ) {
-    return {
-      mode: "liter",
-      min: 0.25,
-      step: 0.25,
-      baseQuantity: 1,
-      unit: "لتر",
-      priceLabel: "سعر اللتر",
-    };
-  }
-
   if (product.category === "خليجية") {
     return {
       mode: "piece",
@@ -34,6 +20,17 @@ export function getSaleRule(product: Product): SaleRule {
       baseQuantity: 1,
       unit: "قطعة",
       priceLabel: "سعر القطعة",
+    };
+  }
+
+  if (product.category === "الزيوت") {
+    return {
+      mode: "piece",
+      min: 1,
+      step: 1,
+      baseQuantity: 1,
+      unit: "عبوة",
+      priceLabel: "سعر العبوة",
     };
   }
 
