@@ -33,9 +33,14 @@ const categories = [
     href: "/products?category=الأعشاب",
     image: "/herbs.jpg",
   },
-  {
+    {
     title: "تمر خليجي و بلح",
     href: "/products?category=التمور",
+    image: "/dates.jpg",
+  },
+  {
+    title: "التمور الخليجية",
+    href: "/products?category=التمور%20الخليجية",
     image: "/dates.jpg",
   },
   {
