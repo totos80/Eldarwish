@@ -31,6 +31,8 @@ const makeProduct = (
     seoTitle: `${name} | عطارة الدَرْويش`,
     seoDescription: `${name} بسعر ${price} ج.م في عطارة الدَرْويش.`,
   };
+  };
+
 export const products: Product[] = [
   makeProduct(1, "طعم جبنة متبلة W", 160, "التوابل"),
   makeProduct(2, "طعم كباب W", 160, "التوابل"),
