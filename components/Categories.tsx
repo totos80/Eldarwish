@@ -39,11 +39,6 @@ const categories = [
     image: "/dates.jpg",
   },
   {
-    title: "التمور الخليجية",
-    href: "/products?category=التمور%20الخليجية",
-    image: "/dates.jpg",
-  },
-  {
     title: "منتجات ليبية و خليجية",
     href: "/products?category=خليجية",
     image: "/gulf-libya.jpg",
