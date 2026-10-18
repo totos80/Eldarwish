@@ -10,7 +10,7 @@ const directProducts = [
   { id: 1002, name: "زبدة فول سوداني" },
 ];
 
-const PRICE_PER_KG = 160;
+const PRICE_PER_KG = 228;
 const MIN_GRAMS = 50;
 const STEP_GRAMS = 50;
 
@@ -79,13 +79,13 @@ export default function FreshGrindingSection() {
           </span>
 
           <h2>
-            طحينة وزبدة فول سوداني خام… تُطحن قدامك
+            طحينة وزبدة فول سوداني خام… بتتعمل قدامك
           </h2>
 
           <p>
             في عطارة الدرويش بنقدملك الطحينة وزبدة الفول السوداني
             من خامات مختارة، <strong>بدون أي إضافات</strong>،
-            وتتطحن قدامك وقت الطلب عشان تاخدها طازة وبالجودة
+            و تتعمل قدامك وقت الطلب عشان تاخدها طازة وبالجودة
             اللي تستحقها.
           </p>
 
@@ -127,7 +127,7 @@ export default function FreshGrindingSection() {
                       </h3>
 
                       <p className="mt-1 text-sm text-stone-500">
-                        160 ج.م / كجم
+                        228 ج.م / كجم
                       </p>
                     </div>
 
