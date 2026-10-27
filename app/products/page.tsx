@@ -1,3 +1,4 @@
+
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductsClient from "@/components/ProductsClient";
@@ -31,19 +32,21 @@ export default async function ProductsPage({
       }
 
       if (selectedCategory === "القهوة") {
-  return (
-    product.category === "القهوة" ||
-    product.category === "خليجية" &&
-    /قهوة|بن|القصيم|kawa/i.test(product.name)
-  );
-}
+        return (
+          product.category === "القهوة" ||
+          (product.category === "خليجية" &&
+            /قهوة|بن|القصيم|kawa/i.test(product.name))
+        );
+      }
 
-if (selectedCategory === "الزيوت") {
-  return (
-    product.category === "الزيوت" ||
-    /زيت|زيوت/.test(product.name)
-  );
-}
+      if (selectedCategory === "الزيوت") {
+        return (
+          product.category === "الزيوت" ||
+          /زيت|زيوت/.test(product.name)
+        );
+      }
+
+      return allowedCategories.includes(product.category);
     })
     .sort((a, b) => a.name.localeCompare(b.name, "ar"));
 
