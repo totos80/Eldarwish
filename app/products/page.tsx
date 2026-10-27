@@ -37,6 +37,13 @@ export default async function ProductsPage({
   );
 }
 
+if (selectedCategory === "الزيوت") {
+  return (
+    product.category === "الزيوت" ||
+    /زيت|زيوت/.test(product.name)
+  );
+}
+
 return allowedCategories.includes(product.category);
     })
     .sort((a, b) => a.name.localeCompare(b.name, "ar"));
