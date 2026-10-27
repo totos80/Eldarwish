@@ -30,7 +30,14 @@ export default async function ProductsPage({
         return true;
       }
 
-      return allowedCategories.includes(product.category);
+      if (selectedCategory === "القهوة") {
+  return (
+    product.category === "القهوة" ||
+    /بن|قهوة/.test(product.name)
+  );
+}
+
+return allowedCategories.includes(product.category);
     })
     .sort((a, b) => a.name.localeCompare(b.name, "ar"));
 
