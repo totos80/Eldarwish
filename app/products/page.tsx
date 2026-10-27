@@ -25,6 +25,12 @@ export default async function ProductsPage({
   const allowedCategories =
     categoryGroups[selectedCategory] || [selectedCategory];
 
+  const coffeeProductsFromGulf = [
+    "قهوة الخليج Kawa 100 gm",
+    "قهوة عربي خزامة الأصلي 250 جرام",
+    "خلطة القصيم الأصلية للبن 125 جرام",
+  ];
+
   const filteredProducts = products
     .filter((product) => {
       if (!selectedCategory) {
@@ -34,16 +40,12 @@ export default async function ProductsPage({
       if (selectedCategory === "القهوة") {
         return (
           product.category === "القهوة" ||
-          (product.category === "خليجية" &&
-            /قهوة|بن|القصيم|kawa/i.test(product.name))
+          coffeeProductsFromGulf.includes(product.name)
         );
       }
 
       if (selectedCategory === "الزيوت") {
-        return (
-          product.category === "الزيوت" ||
-          /زيت|زيوت/.test(product.name)
-        );
+        return product.category === "الزيوت";
       }
 
       return allowedCategories.includes(product.category);
