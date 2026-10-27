@@ -33,7 +33,8 @@ export default async function ProductsPage({
       if (selectedCategory === "القهوة") {
   return (
     product.category === "القهوة" ||
-    /بن|قهوة/.test(product.name)
+    product.category === "خليجية" &&
+    /قهوة|بن|القصيم|kawa/i.test(product.name)
   );
 }
 
@@ -43,8 +44,6 @@ if (selectedCategory === "الزيوت") {
     /زيت|زيوت/.test(product.name)
   );
 }
-
-return allowedCategories.includes(product.category);
     })
     .sort((a, b) => a.name.localeCompare(b.name, "ar"));
 
