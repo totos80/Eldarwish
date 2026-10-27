@@ -44,7 +44,7 @@ export default function Footer() {
               </a>
 
               <p className="text-[#d8c8b2]">
-                📍 السويس — حي فيصل
+                📍 السويس - شارع ناصر بجوار محطة موبيل
               </p>
             </div>
           </div>
