@@ -1,33 +1,41 @@
+
+"use client";
+
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductPurchase from "@/components/ProductPurchase";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { notFound } from "next/navigation";
 import { getProductBySlug } from "@/data/products";
 
-type Props = {
+export default function ProductDetails({
+  params,
+}: {
   params: Promise<{ slug: string }>;
-};
+}) {
+  const router = useRouter();
+  const [slug, setSlug] = React.useState("");
 
-export default async function ProductDetails({ params }: Props) {
-  const { slug } = await params;
+  React.useEffect(() => {
+    params.then(({ slug }) => setSlug(slug));
+  }, [params]);
+
   const product = getProductBySlug(slug);
 
-  if (!product) {
-    notFound();
-  }
+  if (!slug) return null;
+  if (!product) notFound();
 
   return (
     <>
       <Header />
 
       <main className="container py-10">
-        <Link
-          href="/products"
+        <button
+          onClick={() => router.back()}
           className="inline-flex items-center text-amber-700 transition hover:text-amber-900"
         >
           ← العودة إلى المنتجات
-        </Link>
+        </button>
 
         <div className="mt-8 grid gap-10 lg:grid-cols-2">
           <div className="overflow-hidden rounded-3xl border border-amber-100 bg-stone-50 shadow-sm">
@@ -60,5 +68,3 @@ export default async function ProductDetails({ params }: Props) {
     </>
   );
 }
-
-
